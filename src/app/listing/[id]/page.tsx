@@ -18,6 +18,8 @@ import {
     Calendar,
     ArrowLeft,
     Clock,
+    Map01,
+    Navigation01,
 } from "@untitledui/icons";
 
 const listings: Record<string, {
@@ -185,18 +187,135 @@ const defaultListing = {
 
 const amenityIcons: Record<string, React.ElementType> = {
     "Free WiFi": Wifi,
-    "Parking": Car,
-    "Air Conditioning": Wind,
-    "Room Service": Coffee,
+    "Parking": CheckCircle,
+    "Air Conditioning": Snowflake01,
+    "Room Service": Sun,
     "Kitchen": Home02,
     "Pool": Home02,
     "Gym": Home02,
     "Spa": Home02,
-    "Restaurant": Coffee,
+    "Restaurant": Sun,
     "Beach Access": Home02,
     "Garden": Home02,
     "TV": Tv03,
 };
+
+const reviews = [
+    {
+        id: 1,
+        user: {
+            name: "Sarah Johnson",
+            image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop",
+            location: "New York, USA",
+        },
+        rating: 5,
+        date: "December 2024",
+        comment: "Absolutely stunning property! The views were breathtaking and the amenities exceeded our expectations. The host was incredibly responsive and made sure we had everything we needed. Would definitely book again!",
+    },
+    {
+        id: 2,
+        user: {
+            name: "Michael Chen",
+            image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop",
+            location: "San Francisco, USA",
+        },
+        rating: 5,
+        date: "November 2024",
+        comment: "Perfect getaway spot! The location was ideal - close to restaurants and attractions but still peaceful and private. The room was immaculate and beautifully decorated. Highly recommend!",
+    },
+    {
+        id: 3,
+        user: {
+            name: "Emma Williams",
+            image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=200&auto=format&fit=crop",
+            location: "London, UK",
+        },
+        rating: 4,
+        date: "November 2024",
+        comment: "Great stay overall! The property was exactly as pictured and the check-in process was seamless. Only minor issue was the WiFi was a bit slow at times, but otherwise everything was perfect.",
+    },
+    {
+        id: 4,
+        user: {
+            name: "James Rodriguez",
+            image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=200&auto=format&fit=crop",
+            location: "Miami, USA",
+        },
+        rating: 5,
+        date: "October 2024",
+        comment: "We celebrated our anniversary here and it was magical! The attention to detail was impressive - from the welcome basket to the perfectly stocked kitchen. The sunset views from the balcony were unforgettable.",
+    },
+    {
+        id: 5,
+        user: {
+            name: "Lisa Park",
+            image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop",
+            location: "Seoul, South Korea",
+        },
+        rating: 5,
+        date: "October 2024",
+        comment: "This place is a hidden gem! Super clean, modern amenities, and the host provided excellent local recommendations. The bed was so comfortable I didn't want to leave. Will definitely be back!",
+    },
+    {
+        id: 6,
+        user: {
+            name: "David Thompson",
+            image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop",
+            location: "Sydney, Australia",
+        },
+        rating: 4,
+        date: "September 2024",
+        comment: "Lovely property with great character. The location was perfect for exploring the area. The kitchen was well-equipped which was great for preparing meals. Would recommend for couples or solo travelers.",
+    },
+];
+
+const ratingCategories = [
+    { name: "Cleanliness", rating: 4.9 },
+    { name: "Accuracy", rating: 4.8 },
+    { name: "Communication", rating: 5.0 },
+    { name: "Location", rating: 4.9 },
+    { name: "Check-in", rating: 5.0 },
+    { name: "Value", rating: 4.7 },
+];
+
+const relatedListings = [
+    {
+        id: "3",
+        name: "Four Seasons Resort",
+        location: "Bali, Indonesia",
+        image: "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=800&auto=format&fit=crop",
+        price: 390,
+        rating: 4.9,
+        reviews: 3124,
+    },
+    {
+        id: "4",
+        name: "Burj Al Arab",
+        location: "Dubai, UAE",
+        image: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=800&auto=format&fit=crop",
+        price: 712,
+        rating: 5.0,
+        reviews: 4567,
+    },
+    {
+        id: "5",
+        name: "Marina Bay Sands",
+        location: "Singapore",
+        image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=800&auto=format&fit=crop",
+        price: 336,
+        rating: 4.8,
+        reviews: 3891,
+    },
+    {
+        id: "102",
+        name: "Maldives Paradise",
+        location: "Maldives",
+        image: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?q=80&w=800&auto=format&fit=crop",
+        price: 800,
+        rating: 4.6,
+        reviews: 2100,
+    },
+];
 
 export default function ListingPage() {
     const params = useParams();
@@ -321,7 +440,7 @@ export default function ListingPage() {
                         </div>
 
                         {/* Host Info */}
-                        <div className="py-8">
+                        <div className="border-b border-gray-200 py-8">
                             <h3 className="mb-6 text-xl font-semibold text-gray-900">Hosted by {listing.host.name}</h3>
                             <div className="flex items-start gap-6">
                                 <img
@@ -337,6 +456,71 @@ export default function ListingPage() {
                                     </button>
                                 </div>
                             </div>
+                        </div>
+
+                        {/* Reviews Section */}
+                        <div className="py-8">
+                            {/* Reviews Header */}
+                            <div className="mb-8 flex items-center gap-2">
+                                <Star01 className="size-6 fill-[#ff5a5f] text-[#ff5a5f]" />
+                                <h3 className="text-xl font-semibold text-gray-900">
+                                    {listing.rating} · {listing.reviews.toLocaleString()} reviews
+                                </h3>
+                            </div>
+
+                            {/* Rating Categories */}
+                            <div className="mb-10 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                                {ratingCategories.map((category) => (
+                                    <div key={category.name} className="flex items-center justify-between">
+                                        <span className="text-gray-600">{category.name}</span>
+                                        <div className="flex items-center gap-3">
+                                            <div className="h-1 w-32 overflow-hidden rounded-full bg-gray-200">
+                                                <div
+                                                    className="h-full rounded-full bg-gray-900"
+                                                    style={{ width: `${(category.rating / 5) * 100}%` }}
+                                                />
+                                            </div>
+                                            <span className="w-8 text-sm font-medium text-gray-900">{category.rating}</span>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+
+                            {/* Individual Reviews */}
+                            <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+                                {reviews.map((review) => (
+                                    <div key={review.id} className="space-y-4">
+                                        <div className="flex items-center gap-4">
+                                            <img
+                                                src={review.user.image}
+                                                alt={review.user.name}
+                                                className="size-12 rounded-full object-cover"
+                                            />
+                                            <div>
+                                                <p className="font-semibold text-gray-900">{review.user.name}</p>
+                                                <p className="text-sm text-gray-500">{review.user.location}</p>
+                                            </div>
+                                        </div>
+                                        <div className="flex items-center gap-2">
+                                            <div className="flex">
+                                                {[...Array(5)].map((_, i) => (
+                                                    <Star01
+                                                        key={i}
+                                                        className={`size-4 ${i < review.rating ? "fill-[#ff5a5f] text-[#ff5a5f]" : "text-gray-300"}`}
+                                                    />
+                                                ))}
+                                            </div>
+                                            <span className="text-sm text-gray-500">· {review.date}</span>
+                                        </div>
+                                        <p className="line-clamp-4 text-gray-600">{review.comment}</p>
+                                    </div>
+                                ))}
+                            </div>
+
+                            {/* Show All Reviews Button */}
+                            <button className="mt-8 rounded-lg border border-gray-900 px-6 py-3 font-medium text-gray-900 transition-colors hover:bg-gray-900 hover:text-white">
+                                Show all {listing.reviews.toLocaleString()} reviews
+                            </button>
                         </div>
                     </div>
 
@@ -417,6 +601,119 @@ export default function ListingPage() {
                         </div>
                     </div>
                 </div>
+
+                {/* Map Section */}
+                <section className="mt-16 border-t border-gray-200 pt-12">
+                    <div className="mb-6 flex items-center gap-2">
+                        <Map01 className="size-6 text-[#ff5a5f]" />
+                        <h2 className="text-2xl font-bold text-gray-900">Where you'll be</h2>
+                    </div>
+                    <p className="mb-6 text-gray-600">{listing.location}</p>
+
+                    {/* Map Container */}
+                    <div className="relative h-[400px] overflow-hidden rounded-2xl bg-gray-100">
+                        {/* Static Map Image */}
+                        <iframe
+                            src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=${encodeURIComponent(listing.location)}&zoom=14`}
+                            width="100%"
+                            height="100%"
+                            style={{ border: 0 }}
+                            allowFullScreen
+                            loading="lazy"
+                            referrerPolicy="no-referrer-when-downgrade"
+                            className="absolute inset-0"
+                        />
+
+                        {/* Fallback overlay in case iframe doesn't load */}
+                        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/10" />
+
+                        {/* Location Pin Overlay */}
+                        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-full">
+                            <div className="flex flex-col items-center">
+                                <div className="rounded-full bg-[#ff5a5f] p-3 shadow-lg">
+                                    <MarkerPin01 className="size-6 text-white" />
+                                </div>
+                                <div className="mt-1 h-4 w-0.5 bg-[#ff5a5f]" />
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Location Details */}
+                    <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-3">
+                        <div className="flex items-start gap-4">
+                            <div className="flex size-12 items-center justify-center rounded-xl bg-[#ff5a5f]/10">
+                                <Navigation01 className="size-6 text-[#ff5a5f]" />
+                            </div>
+                            <div>
+                                <h4 className="font-semibold text-gray-900">Getting around</h4>
+                                <p className="mt-1 text-sm text-gray-600">Easy access to public transportation and main attractions</p>
+                            </div>
+                        </div>
+                        <div className="flex items-start gap-4">
+                            <div className="flex size-12 items-center justify-center rounded-xl bg-[#ff5a5f]/10">
+                                <Home02 className="size-6 text-[#ff5a5f]" />
+                            </div>
+                            <div>
+                                <h4 className="font-semibold text-gray-900">Neighborhood</h4>
+                                <p className="mt-1 text-sm text-gray-600">Safe, vibrant area with restaurants and shops nearby</p>
+                            </div>
+                        </div>
+                        <div className="flex items-start gap-4">
+                            <div className="flex size-12 items-center justify-center rounded-xl bg-[#ff5a5f]/10">
+                                <MarkerPin01 className="size-6 text-[#ff5a5f]" />
+                            </div>
+                            <div>
+                                <h4 className="font-semibold text-gray-900">Exact location</h4>
+                                <p className="mt-1 text-sm text-gray-600">Provided after booking is confirmed</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* Related Listings Section */}
+                <section className="mt-16 border-t border-gray-200 pt-12">
+                    <h2 className="mb-8 text-2xl font-bold text-gray-900">You might also like</h2>
+                    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                        {relatedListings.map((item) => (
+                            <Link
+                                key={item.id}
+                                href={`/listing/${item.id}`}
+                                className="group overflow-hidden rounded-2xl bg-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+                            >
+                                {/* Image */}
+                                <div className="relative aspect-[4/3] overflow-hidden">
+                                    <img
+                                        src={item.image}
+                                        alt={item.name}
+                                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+                                </div>
+
+                                {/* Content */}
+                                <div className="p-4">
+                                    <div className="mb-2 flex items-center justify-between">
+                                        <h3 className="font-semibold text-gray-900 transition-colors group-hover:text-[#ff5a5f]">
+                                            {item.name}
+                                        </h3>
+                                        <div className="flex items-center gap-1">
+                                            <Star01 className="size-4 fill-[#ff5a5f] text-[#ff5a5f]" />
+                                            <span className="text-sm font-medium text-gray-900">{item.rating}</span>
+                                        </div>
+                                    </div>
+                                    <div className="flex items-center gap-1 text-sm text-gray-500">
+                                        <MarkerPin01 className="size-4" />
+                                        {item.location}
+                                    </div>
+                                    <div className="mt-3 flex items-baseline gap-1">
+                                        <span className="text-lg font-bold text-gray-900">${item.price}</span>
+                                        <span className="text-sm text-gray-500">/ night</span>
+                                    </div>
+                                </div>
+                            </Link>
+                        ))}
+                    </div>
+                </section>
             </main>
         </div>
     );

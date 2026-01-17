@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import {
     Heart,
@@ -164,6 +165,16 @@ const sortOptions = [
 ];
 
 export default function SearchPage() {
+    const searchParams = useSearchParams();
+
+    // Read search parameters from URL
+    const searchLocation = searchParams.get("location") || "";
+    const searchCheckIn = searchParams.get("checkIn") || "";
+    const searchCheckOut = searchParams.get("checkOut") || "";
+    const searchAdults = searchParams.get("adults") || "2";
+    const searchChildren = searchParams.get("children") || "0";
+    const searchRooms = searchParams.get("rooms") || "1";
+
     const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
     const [sortBy, setSortBy] = useState("recommended");
     const [showSortDropdown, setShowSortDropdown] = useState(false);
@@ -173,6 +184,15 @@ export default function SearchPage() {
     const [selectedStars, setSelectedStars] = useState<number[]>([]);
     const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
     const [wishlist, setWishlist] = useState<number[]>([]);
+
+    // Format dates for display
+    const formatDisplayDate = (dateStr: string) => {
+        if (!dateStr) return "";
+        const date = new Date(dateStr);
+        return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+    };
+
+    const totalGuests = parseInt(searchAdults) + parseInt(searchChildren);
 
     const toggleAmenity = (id: string) => {
         setSelectedAmenities((prev) =>
@@ -212,15 +232,19 @@ export default function SearchPage() {
         priceRange[0] !== 100 ||
         priceRange[1] !== 600;
 
-    // Filter hotels based on selected filters
+    // Filter hotels based on selected filters and search location
     const filteredHotels = hotels.filter((hotel) => {
+        const matchesLocation =
+            !searchLocation ||
+            hotel.location.toLowerCase().includes(searchLocation.toLowerCase()) ||
+            hotel.name.toLowerCase().includes(searchLocation.toLowerCase());
         const matchesPrice = hotel.price >= priceRange[0] && hotel.price <= priceRange[1];
         const matchesAmenities =
             selectedAmenities.length === 0 ||
             selectedAmenities.every((a) => hotel.amenities.includes(a));
         const matchesStars = selectedStars.length === 0 || selectedStars.includes(hotel.stars);
         const matchesType = selectedTypes.length === 0 || selectedTypes.includes(hotel.type);
-        return matchesPrice && matchesAmenities && matchesStars && matchesType;
+        return matchesLocation && matchesPrice && matchesAmenities && matchesStars && matchesType;
     });
 
     // Sort hotels
@@ -376,9 +400,18 @@ export default function SearchPage() {
                             <div>
                                 <h1 className="text-2xl font-bold text-gray-900">
                                     {sortedHotels.length} Hotels Found
+                                    {searchLocation && (
+                                        <span className="font-normal text-gray-600"> in {searchLocation}</span>
+                                    )}
                                 </h1>
                                 <p className="mt-1 text-sm text-gray-500">
-                                    Showing results for your search
+                                    {searchCheckIn && searchCheckOut ? (
+                                        <>
+                                            {formatDisplayDate(searchCheckIn)} - {formatDisplayDate(searchCheckOut)}
+                                            {" · "}
+                                        </>
+                                    ) : null}
+                                    {totalGuests} guest{totalGuests !== 1 ? "s" : ""}, {searchRooms} room{parseInt(searchRooms) !== 1 ? "s" : ""}
                                 </p>
                             </div>
 

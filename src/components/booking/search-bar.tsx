@@ -26,6 +26,7 @@ interface GuestCount {
 const highlightedDates = [today(getLocalTimeZone())];
 
 export const SearchBar = ({ variant = "hero" }: { variant?: "hero" | "inline" }) => {
+    const router = useRouter();
     const [location, setLocation] = useState("");
     const [checkIn, setCheckIn] = useState<DateValue | null>(null);
     const [checkOut, setCheckOut] = useState<DateValue | null>(null);
@@ -54,6 +55,31 @@ export const SearchBar = ({ variant = "hero" }: { variant?: "hero" | "inline" })
     const formatDate = (date: DateValue | null) => {
         if (!date) return null;
         return formatter.format(date.toDate(getLocalTimeZone()));
+    };
+
+    const formatDateForUrl = (date: DateValue | null) => {
+        if (!date) return "";
+        const jsDate = date.toDate(getLocalTimeZone());
+        return jsDate.toISOString().split("T")[0];
+    };
+
+    const handleSearch = () => {
+        const params = new URLSearchParams();
+
+        if (location) {
+            params.set("location", location);
+        }
+        if (checkIn) {
+            params.set("checkIn", formatDateForUrl(checkIn));
+        }
+        if (checkOut) {
+            params.set("checkOut", formatDateForUrl(checkOut));
+        }
+        params.set("adults", guests.adults.toString());
+        params.set("children", guests.children.toString());
+        params.set("rooms", guests.rooms.toString());
+
+        router.push(`/search?${params.toString()}`);
     };
 
     return (
@@ -236,6 +262,7 @@ export const SearchBar = ({ variant = "hero" }: { variant?: "hero" | "inline" })
                 <div className="border-t border-gray-100 p-2 lg:border-t-0 lg:pl-3">
                     <button
                         type="button"
+                        onClick={handleSearch}
                         className="group flex w-full items-center justify-center gap-2 rounded-xl bg-[#ff5a5f] px-6 py-3.5 font-semibold text-white transition-all duration-200 hover:bg-[#e04850] active:scale-[0.98] lg:w-auto"
                     >
                         <SearchLg className="size-5 transition-transform duration-200 group-hover:scale-110" />
