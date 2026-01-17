@@ -643,7 +643,7 @@ export default function ListingPage() {
                                         { id: "4", label: "4 guests" },
                                     ]}
                                 >
-                                    {(item) => <Select.Item key={item.id}>{item.label}</Select.Item>}
+                                    {(item) => <Select.Item id={item.id} key={item.id}>{item.label}</Select.Item>}
                                 </Select>
                             </div>
 
