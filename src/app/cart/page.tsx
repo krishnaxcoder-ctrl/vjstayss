@@ -13,8 +13,8 @@ import {
     ArrowRight,
     Plus,
     Minus,
-    ShieldCheck,
-    Clock,
+    ShieldTick,
+    Clock01,
 } from "@untitledui/icons";
 
 // Sample cart items
@@ -259,11 +259,11 @@ export default function CartPage() {
                                 {/* Trust Badges */}
                                 <div className="mt-6 space-y-3 border-t border-gray-100 pt-6">
                                     <div className="flex items-center gap-3 text-sm text-gray-600">
-                                        <ShieldCheck className="size-5 text-green-500" />
+                                        <ShieldTick className="size-5 text-green-500" />
                                         <span>Secure payment</span>
                                     </div>
                                     <div className="flex items-center gap-3 text-sm text-gray-600">
-                                        <Clock className="size-5 text-[#ff5a5f]" />
+                                        <Clock01 className="size-5 text-[#ff5a5f]" />
                                         <span>Free cancellation available</span>
                                     </div>
                                 </div>
