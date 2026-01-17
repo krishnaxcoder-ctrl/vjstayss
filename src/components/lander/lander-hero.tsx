@@ -13,8 +13,8 @@ export const LanderHero = () => {
                     alt="Aerial view of turquoise ocean"
                     className="h-full w-full object-cover"
                 />
-                {/* Dark teal overlay */}
-                <div className="absolute inset-0 bg-gradient-to-br from-[#0a3d3d]/90 via-[#0a4a4a]/80 to-[#0a5555]/70" />
+                {/* Brand color overlay */}
+                <div className="absolute inset-0 bg-gradient-to-br from-[#ff5a5f]/90 via-[#ff5a5f]/75 to-[#e04850]/80" />
             </div>
 
             {/* Hero Content */}
