@@ -169,11 +169,11 @@ export const HeroSection = () => {
             {/* Hero Content */}
             <div className="relative z-10 flex min-h-[calc(100vh-88px)] flex-col items-center justify-center px-6 py-16 lg:px-12">
                 {/* Headline */}
-                <div className="mb-8 text-center">
-                    <h1 className="text-4xl font-bold leading-tight text-white md:text-5xl lg:text-6xl">
+                <div className="mb-10 text-center">
+                    <h1 className="text-4xl font-bold leading-tight tracking-tight text-white md:text-5xl lg:text-7xl">
                         Find your perfect
                         <span className="relative mx-3 inline-block">
-                            <span className="relative z-10">stay</span>
+                            <span className="relative z-10 bg-gradient-to-r from-amber-300 to-amber-400 bg-clip-text text-transparent">stay</span>
                             {/* Squiggly underline */}
                             <svg
                                 className="absolute -bottom-2 left-0 w-full"
@@ -184,15 +184,21 @@ export const HeroSection = () => {
                             >
                                 <path
                                     d="M0 6 Q 12.5 0, 25 6 T 50 6 T 75 6 T 100 6"
-                                    stroke="#f59e0b"
+                                    stroke="url(#gradient)"
                                     strokeWidth="3"
                                     strokeLinecap="round"
                                     fill="none"
                                 />
+                                <defs>
+                                    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <stop offset="0%" stopColor="#fcd34d" />
+                                        <stop offset="100%" stopColor="#f59e0b" />
+                                    </linearGradient>
+                                </defs>
                             </svg>
                         </span>
                     </h1>
-                    <p className="mx-auto mt-4 max-w-2xl text-lg text-white/80 md:text-xl">
+                    <p className="mx-auto mt-5 max-w-2xl text-lg text-white/70 md:text-xl">
                         Discover amazing hotels, resorts, and unique accommodations at the best prices. Your dream vacation starts here.
                     </p>
                 </div>
@@ -201,7 +207,7 @@ export const HeroSection = () => {
                 <SearchBar variant="hero" />
 
                 {/* Feature Badges */}
-                <div className="mt-12 w-full max-w-4xl">
+                <div className="mt-8">
                     <FeatureBadges variant="dark" />
                 </div>
             </div>
