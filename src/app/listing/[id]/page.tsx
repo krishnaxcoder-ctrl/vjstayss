@@ -23,6 +23,7 @@ import {
     Clock,
     Map01,
     NavigationPointer01,
+    SearchMd,
 } from "@untitledui/icons";
 
 const listings: Record<string, {
@@ -56,6 +57,7 @@ const listings: Record<string, {
             "https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=800&auto=format&fit=crop",
             "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?q=80&w=800&auto=format&fit=crop",
             "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=800&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=800&auto=format&fit=crop",
         ],
         rating: 4.9,
         reviews: 2456,
@@ -84,6 +86,7 @@ const listings: Record<string, {
             "https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=800&auto=format&fit=crop",
             "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?q=80&w=800&auto=format&fit=crop",
             "https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=800&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=800&auto=format&fit=crop",
         ],
         rating: 4.8,
         reviews: 1892,
@@ -112,6 +115,7 @@ const listings: Record<string, {
             "https://images.unsplash.com/photo-1559827260-dc66d52bef19?q=80&w=800&auto=format&fit=crop",
             "https://images.unsplash.com/photo-1506953823976-52e1fdc0149a?q=80&w=800&auto=format&fit=crop",
             "https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=800&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?q=80&w=800&auto=format&fit=crop",
         ],
         rating: 4.7,
         reviews: 1234,
@@ -139,6 +143,7 @@ const listings: Record<string, {
             "https://images.unsplash.com/photo-1573790387438-4da905039392?q=80&w=800&auto=format&fit=crop",
             "https://images.unsplash.com/photo-1570789210967-2cac24ba7e8e?q=80&w=800&auto=format&fit=crop",
             "https://images.unsplash.com/photo-1559628233-100c798642d4?q=80&w=800&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?q=80&w=800&auto=format&fit=crop",
         ],
         rating: 4.7,
         reviews: 2100,
@@ -168,6 +173,7 @@ const defaultListing = {
         "https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=800&auto=format&fit=crop",
         "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?q=80&w=800&auto=format&fit=crop",
         "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=800&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=800&auto=format&fit=crop",
     ],
     rating: 4.8,
     reviews: 500,
@@ -367,22 +373,36 @@ export default function ListingPage() {
 
                 {/* Image Gallery */}
                 <div className="mb-10 grid grid-cols-1 gap-2 overflow-hidden rounded-2xl md:grid-cols-4 md:grid-rows-2">
-                    <div className="md:col-span-2 md:row-span-2">
+                    <div className="md:col-span-2 md:row-span-2 cursor-pointer">
                         <img
                             src={listing.images[0]}
                             alt={listing.name}
-                            className="h-full max-h-[500px] w-full object-cover transition-transform duration-300 hover:scale-105"
+                            className="h-full max-h-[500px] w-full object-cover"
                         />
                     </div>
-                    {listing.images.slice(1, 5).map((image, index) => (
-                        <div key={index} className="hidden md:block">
+                    {listing.images.slice(1, 4).map((image, index) => (
+                        <div key={index} className="hidden cursor-pointer md:block">
                             <img
                                 src={image}
                                 alt={`${listing.name} ${index + 2}`}
-                                className="h-full max-h-[248px] w-full object-cover transition-transform duration-300 hover:scale-105"
+                                className="h-full max-h-[248px] w-full object-cover"
                             />
                         </div>
                     ))}
+                    {/* 5th image with zoom overlay */}
+                    {listing.images[4] && (
+                        <div className="relative hidden cursor-pointer md:block">
+                            <img
+                                src={listing.images[4]}
+                                alt={`${listing.name} 5`}
+                                className="h-full max-h-[248px] w-full object-cover"
+                            />
+                            <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/50">
+                                <SearchMd className="size-8 text-white" />
+                                <span className="mt-2 text-sm font-semibold text-white">View All Photos</span>
+                            </div>
+                        </div>
+                    )}
                 </div>
 
                 {/* Main Content */}
