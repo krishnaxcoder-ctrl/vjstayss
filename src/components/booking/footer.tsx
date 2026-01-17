@@ -45,7 +45,7 @@ export const Footer = () => {
                                 className="h-12 w-auto"
                             />
                         </Link>
-                        <p className="mt-4 text-sm text-gray-600">
+                        <p className="mt-4 text-sm text-gray-600 mr-10 leading-relaxed">
                             Your trusted partner for discovering and booking the perfect stay. Explore thousands of properties across India and beyond. Experience comfort, value, and unforgettable memories with every booking.
                         </p>
 
