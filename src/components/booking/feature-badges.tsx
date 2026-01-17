@@ -35,13 +35,13 @@ export const FeatureBadges = ({ variant = "light" }: { variant?: "light" | "dark
                     <div
                         className={cx(
                             "flex size-5 items-center justify-center rounded-full",
-                            isDark ? "bg-white/20" : "bg-amber-100"
+                            isDark ? "bg-white/20" : "bg-[#ff5a5f]/10"
                         )}
                     >
                         <feature.icon
                             className={cx(
                                 "size-3",
-                                isDark ? "text-amber-300" : "text-amber-600"
+                                isDark ? "text-[#ff5a5f]" : "text-[#ff5a5f]"
                             )}
                         />
                     </div>

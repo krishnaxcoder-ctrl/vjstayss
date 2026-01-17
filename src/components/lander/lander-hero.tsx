@@ -44,10 +44,10 @@ export const LanderHero = () => {
                             <input
                                 type="email"
                                 placeholder="Enter your email address"
-                                className="w-full rounded-full border-2 border-white/30 bg-white/10 py-3.5 pl-12 pr-4 text-white placeholder-white/60 backdrop-blur-sm transition-all focus:border-white focus:bg-white/20 focus:outline-none"
+                                className="w-full rounded-xl border-2 border-white/30 bg-white/10 py-3.5 pl-12 pr-4 text-white placeholder-white/60 backdrop-blur-sm transition-all focus:border-white focus:bg-white/20 focus:outline-none"
                             />
                         </div>
-                        <button className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-3.5 font-semibold text-[#ff5a5f] shadow-lg transition-all hover:bg-gray-100 hover:shadow-xl">
+                        <button className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-8 py-3.5 font-semibold text-[#ff5a5f] shadow-lg transition-all hover:bg-gray-100 hover:shadow-xl">
                             Subscribe
                             <Send01 className="size-4" />
                         </button>

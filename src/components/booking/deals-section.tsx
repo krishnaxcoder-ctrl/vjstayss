@@ -118,8 +118,8 @@ export const DealsSection = () => {
                             Exclusive discounts on handpicked luxury stays. Book now before they're gone!
                         </p>
                     </div>
-                    <div className="flex items-center gap-3">
-                        {/* Carousel Navigation */}
+                    <div className="hidden items-center gap-3 sm:flex">
+                        {/* Carousel Navigation - Desktop */}
                         <div className="flex items-center gap-2">
                             <button
                                 onClick={() => scroll("left")}
@@ -136,7 +136,7 @@ export const DealsSection = () => {
                         </div>
                         <a
                             href="#"
-                            className="hidden items-center gap-2 text-sm font-semibold text-[#ff5a5f] transition-colors hover:text-[#e04850] sm:flex"
+                            className="flex items-center gap-2 text-sm font-semibold text-[#ff5a5f] transition-colors hover:text-[#e04850]"
                         >
                             View all deals
                             <ArrowRight className="size-4" />
@@ -247,14 +247,30 @@ export const DealsSection = () => {
                     ))}
                 </div>
 
-                {/* Mobile View All Link */}
-                <a
-                    href="#"
-                    className="mt-6 flex items-center justify-center gap-2 text-sm font-semibold text-[#ff5a5f] transition-colors hover:text-[#e04850] sm:hidden"
-                >
-                    View all deals
-                    <ArrowRight className="size-4" />
-                </a>
+                {/* Mobile Navigation & View All Link */}
+                <div className="mt-6 flex items-center justify-between sm:hidden">
+                    <div className="flex items-center gap-2">
+                        <button
+                            onClick={() => scroll("left")}
+                            className="flex size-10 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-600 shadow-sm transition-all hover:border-[#ff5a5f] hover:bg-[#ff5a5f]/10 hover:text-[#ff5a5f]"
+                        >
+                            <ArrowLeft className="size-5" />
+                        </button>
+                        <button
+                            onClick={() => scroll("right")}
+                            className="flex size-10 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-600 shadow-sm transition-all hover:border-[#ff5a5f] hover:bg-[#ff5a5f]/10 hover:text-[#ff5a5f]"
+                        >
+                            <ArrowRight className="size-5" />
+                        </button>
+                    </div>
+                    <a
+                        href="#"
+                        className="flex items-center gap-2 text-sm font-semibold text-[#ff5a5f] transition-colors hover:text-[#e04850]"
+                    >
+                        View all deals
+                        <ArrowRight className="size-4" />
+                    </a>
+                </div>
             </div>
         </section>
     );

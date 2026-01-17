@@ -94,7 +94,7 @@ export const TrendingDestinations = () => {
                             Explore Our Popular Destination                            
                         </h2>
                     </div>
-                    <p className="max-w-md text-right text-sm text-gray-500 lg:text-base">
+                    <p className="max-w-md text-left text-sm text-gray-500 lg:text-right lg:text-base">
                         Discover top destinations and plan your next adventure.
                     </p>
                 </div>
