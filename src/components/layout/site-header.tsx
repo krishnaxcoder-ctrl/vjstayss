@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Heart, Menu01, ShoppingCart01, XClose } from "@untitledui/icons";
+import { Heart, Menu01, ShoppingCart01, XClose, User01, Calendar } from "@untitledui/icons";
 import { Button } from "@/components/base/buttons/button";
+import { AuthModal } from "@/components/auth/auth-modal";
 import { cx } from "@/utils/cx";
 
 const navLinks = [
@@ -89,16 +90,30 @@ export const SiteHeader = ({ variant = "dark", className }: SiteHeaderProps) => 
                             <ShoppingCart01 className="size-5" />
                         </Link>
 
-                        {/* CTA Button */}
-                        <Button
-                            size="sm"
+                        {/* Profile Icon */}
+                        <Link
+                            href="/profile"
                             className={cx(
-                                "bg-[#ff5a5f] hover:bg-[#e04850] border-none shadow-none",
-                                mobileMenuOpen && "hidden lg:inline-flex"
+                                "hidden lg:flex cursor-pointer size-10 items-center justify-center rounded-lg transition-colors",
+                                isDark ? "text-white/90 hover:bg-white/10 hover:text-white" : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                             )}
+                            aria-label="Profile"
                         >
-                            Login / Signup
-                        </Button>
+                            <User01 className="size-5" />
+                        </Link>
+
+                        {/* CTA Button */}
+                        <AuthModal>
+                            <Button
+                                size="sm"
+                                className={cx(
+                                    "bg-[#ff5a5f] hover:bg-[#e04850] border-none shadow-none",
+                                    mobileMenuOpen && "hidden lg:inline-flex"
+                                )}
+                            >
+                                Login / Signup
+                            </Button>
+                        </AuthModal>
 
                         {/* Mobile Menu Button */}
                         <button
@@ -182,14 +197,34 @@ export const SiteHeader = ({ variant = "dark", className }: SiteHeaderProps) => 
                         <ShoppingCart01 className="size-5" />
                         Cart
                     </Link>
+                    {/* Bookings Link */}
+                    <Link
+                        href="/bookings"
+                        className="flex items-center gap-3 border-b border-white/10 py-4 text-base font-medium text-white/90 transition-colors hover:text-white"
+                        onClick={() => setMobileMenuOpen(false)}
+                    >
+                        <Calendar className="size-5" />
+                        My Bookings
+                    </Link>
+                    {/* Profile Link */}
+                    <Link
+                        href="/profile"
+                        className="flex items-center gap-3 border-b border-white/10 py-4 text-base font-medium text-white/90 transition-colors hover:text-white"
+                        onClick={() => setMobileMenuOpen(false)}
+                    >
+                        <User01 className="size-5" />
+                        Profile
+                    </Link>
                 </nav>
 
                 {/* Mobile Menu Footer */}
                 <div className="absolute bottom-0 left-0 right-0 border-t border-white/10 px-6 py-6">
                     {/* CTA Button - Mobile */}
-                    <Button size="lg" className="w-full bg-[#ff5a5f] hover:bg-[#e04850] border-none shadow-none">
-                        Login / Signup
-                    </Button>
+                    <AuthModal>
+                        <Button size="lg" className="w-full bg-[#ff5a5f] hover:bg-[#e04850] border-none shadow-none">
+                            Login / Signup
+                        </Button>
+                    </AuthModal>
                 </div>
             </div>
         </>
