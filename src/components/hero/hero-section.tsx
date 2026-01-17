@@ -214,8 +214,8 @@ export const HeroSection = () => {
             <div className="relative z-10 mx-auto flex min-h-[calc(100vh-88px)] max-w-8xl flex-col items-center justify-center px-6 py-16 lg:px-12">
                 {/* Headline */}
                 <div className="mb-10 text-center">
-                    <h1 className="text-5xl font-bold leading-tight tracking-tight text-white md:text-6xl lg:text-8xl">
-                        <span className="block md:inline">Find your</span>
+                    <h1 className="text-5xl font-bold leading-tight tracking-tight text-white md:text-5xl lg:text-6xl">
+                        <span className="block md:inline">Find your </span>
                         <span className="block md:inline">
                             perfect{" "}
                             <span className="relative inline-block">

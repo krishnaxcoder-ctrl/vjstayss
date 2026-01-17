@@ -55,7 +55,7 @@ h1, h2, h3, h4, h5, h6 {
 /* Custom Scrollbar - Brand Color */
 * {
     scrollbar-width: thin;
-    scrollbar-color: #ff5a5f transparent;
+    scrollbar-color: #ff5a5f #ffffff;
 }
 
 /* Webkit browsers (Chrome, Safari, Edge) */
@@ -65,7 +65,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 ::-webkit-scrollbar-track {
-    background: transparent;
+    background: #ffffff;
     border-radius: 3px;
 }
 
