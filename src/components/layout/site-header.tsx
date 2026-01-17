@@ -164,6 +164,24 @@ export const SiteHeader = ({ variant = "dark", className }: SiteHeaderProps) => 
                             {link.label}
                         </Link>
                     ))}
+                    {/* Saved Link */}
+                    <Link
+                        href="/saved"
+                        className="flex items-center gap-3 border-b border-white/10 py-4 text-base font-medium text-white/90 transition-colors hover:text-white"
+                        onClick={() => setMobileMenuOpen(false)}
+                    >
+                        <Heart className="size-5" />
+                        Saved
+                    </Link>
+                    {/* Cart Link */}
+                    <Link
+                        href="/cart"
+                        className="flex items-center gap-3 border-b border-white/10 py-4 text-base font-medium text-white/90 transition-colors hover:text-white"
+                        onClick={() => setMobileMenuOpen(false)}
+                    >
+                        <ShoppingCart01 className="size-5" />
+                        Cart
+                    </Link>
                 </nav>
 
                 {/* Mobile Menu Footer */}
