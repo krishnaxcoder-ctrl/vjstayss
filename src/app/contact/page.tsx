@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Send01, Star01 } from "@untitledui/icons";
+import { Send01, Star01, AlertCircle } from "@untitledui/icons";
 import { Button } from "@/components/base/buttons/button";
 import { Checkbox } from "@/components/base/checkbox/checkbox";
 import { SiteHeader } from "@/components/layout/site-header";
@@ -15,45 +15,53 @@ export default function ContactPage() {
         message: "",
     });
     const [agreed, setAgreed] = useState(false);
-    const [errors, setErrors] = useState<Record<string, string>>({});
+    const [errors, setErrors] = useState<Record<string, boolean>>({});
+    const [errorMessage, setErrorMessage] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitted, setSubmitted] = useState(false);
 
     const validate = () => {
-        const newErrors: Record<string, string> = {};
+        const newErrors: Record<string, boolean> = {};
+        let message = "";
 
         if (!formData.firstName.trim()) {
-            newErrors.firstName = "First name is required";
+            newErrors.firstName = true;
         }
 
         if (!formData.lastName.trim()) {
-            newErrors.lastName = "Last name is required";
+            newErrors.lastName = true;
         }
 
         if (!formData.email.trim()) {
-            newErrors.email = "Email is required";
+            newErrors.email = true;
         } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-            newErrors.email = "Please enter a valid email address";
+            newErrors.email = true;
         }
 
         if (!formData.phone.trim()) {
-            newErrors.phone = "Phone number is required";
+            newErrors.phone = true;
         } else if (!/^[0-9]{10}$/.test(formData.phone.replace(/\s/g, ""))) {
-            newErrors.phone = "Please enter a valid 10-digit phone number";
+            newErrors.phone = true;
         }
 
         if (!formData.message.trim()) {
-            newErrors.message = "Message is required";
+            newErrors.message = true;
         } else if (formData.message.trim().length < 10) {
-            newErrors.message = "Message must be at least 10 characters";
+            newErrors.message = true;
         }
 
         if (!agreed) {
-            newErrors.agreed = "You must agree to the privacy policy";
+            newErrors.agreed = true;
+        }
+
+        const errorCount = Object.keys(newErrors).length;
+        if (errorCount > 0) {
+            message = "Please fill in all required fields correctly to submit the form.";
         }
 
         setErrors(newErrors);
-        return Object.keys(newErrors).length === 0;
+        setErrorMessage(message);
+        return errorCount === 0;
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -110,6 +118,14 @@ export default function ContactPage() {
                         <p className="mt-3 text-gray-700">Our friendly team would love to hear from you.</p>
 
                         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+                            {/* Error Banner */}
+                            {errorMessage && (
+                                <div className="flex items-center gap-3 rounded-lg border border-red-200 bg-red-50 px-4 py-3">
+                                    <AlertCircle className="size-5 shrink-0 text-red-500" />
+                                    <p className="text-[13px] font-medium text-red-700">{errorMessage}</p>
+                                </div>
+                            )}
+
                             {/* First & Last Name */}
                             <div className="grid gap-4 sm:grid-cols-2">
                                 <div>
@@ -122,7 +138,10 @@ export default function ContactPage() {
                                         value={formData.firstName}
                                         onChange={(e) => {
                                             setFormData({ ...formData, firstName: e.target.value });
-                                            if (errors.firstName) setErrors({ ...errors, firstName: "" });
+                                            if (errors.firstName) {
+                                                setErrors({ ...errors, firstName: false });
+                                                setErrorMessage("");
+                                            }
                                         }}
                                         className={`w-full rounded-lg border bg-white px-3.5 py-2.5 text-gray-900 placeholder-gray-500 outline-none transition-all focus:ring-2 focus:ring-[#ff5a5f]/20 ${
                                             errors.firstName
@@ -130,9 +149,6 @@ export default function ContactPage() {
                                                 : "border-gray-300 focus:border-[#ff5a5f]"
                                         }`}
                                     />
-                                    {errors.firstName && (
-                                        <p className="mt-1 text-sm text-red-500">{errors.firstName}</p>
-                                    )}
                                 </div>
                                 <div>
                                     <label className="mb-1.5 block text-sm font-medium text-gray-800">
@@ -144,7 +160,10 @@ export default function ContactPage() {
                                         value={formData.lastName}
                                         onChange={(e) => {
                                             setFormData({ ...formData, lastName: e.target.value });
-                                            if (errors.lastName) setErrors({ ...errors, lastName: "" });
+                                            if (errors.lastName) {
+                                                setErrors({ ...errors, lastName: false });
+                                                setErrorMessage("");
+                                            }
                                         }}
                                         className={`w-full rounded-lg border bg-white px-3.5 py-2.5 text-gray-900 placeholder-gray-500 outline-none transition-all focus:ring-2 focus:ring-[#ff5a5f]/20 ${
                                             errors.lastName
@@ -152,9 +171,6 @@ export default function ContactPage() {
                                                 : "border-gray-300 focus:border-[#ff5a5f]"
                                         }`}
                                     />
-                                    {errors.lastName && (
-                                        <p className="mt-1 text-sm text-red-500">{errors.lastName}</p>
-                                    )}
                                 </div>
                             </div>
 
@@ -169,7 +185,10 @@ export default function ContactPage() {
                                     value={formData.email}
                                     onChange={(e) => {
                                         setFormData({ ...formData, email: e.target.value });
-                                        if (errors.email) setErrors({ ...errors, email: "" });
+                                        if (errors.email) {
+                                            setErrors({ ...errors, email: false });
+                                            setErrorMessage("");
+                                        }
                                     }}
                                     className={`w-full rounded-lg border bg-white px-3.5 py-2.5 text-gray-900 placeholder-gray-500 outline-none transition-all focus:ring-2 focus:ring-[#ff5a5f]/20 ${
                                         errors.email
@@ -177,7 +196,6 @@ export default function ContactPage() {
                                             : "border-gray-300 focus:border-[#ff5a5f]"
                                     }`}
                                 />
-                                {errors.email && <p className="mt-1 text-sm text-red-500">{errors.email}</p>}
                             </div>
 
                             {/* Phone Number */}
@@ -191,7 +209,10 @@ export default function ContactPage() {
                                     value={formData.phone}
                                     onChange={(e) => {
                                         setFormData({ ...formData, phone: e.target.value });
-                                        if (errors.phone) setErrors({ ...errors, phone: "" });
+                                        if (errors.phone) {
+                                            setErrors({ ...errors, phone: false });
+                                            setErrorMessage("");
+                                        }
                                     }}
                                     className={`w-full rounded-lg border bg-white px-3.5 py-2.5 text-gray-900 placeholder-gray-500 outline-none transition-all focus:ring-2 focus:ring-[#ff5a5f]/20 ${
                                         errors.phone
@@ -199,7 +220,6 @@ export default function ContactPage() {
                                             : "border-gray-300 focus:border-[#ff5a5f]"
                                     }`}
                                 />
-                                {errors.phone && <p className="mt-1 text-sm text-red-500">{errors.phone}</p>}
                             </div>
 
                             {/* Message */}
@@ -208,12 +228,15 @@ export default function ContactPage() {
                                     Message <span className="text-[#ff5a5f]">*</span>
                                 </label>
                                 <textarea
-                                    rows={4}
+                                    rows={2}
                                     placeholder="Tell us how we can help you..."
                                     value={formData.message}
                                     onChange={(e) => {
                                         setFormData({ ...formData, message: e.target.value });
-                                        if (errors.message) setErrors({ ...errors, message: "" });
+                                        if (errors.message) {
+                                            setErrors({ ...errors, message: false });
+                                            setErrorMessage("");
+                                        }
                                     }}
                                     className={`w-full resize-none rounded-lg border bg-white px-3.5 py-2.5 text-gray-900 placeholder-gray-500 outline-none transition-all focus:ring-2 focus:ring-[#ff5a5f]/20 ${
                                         errors.message
@@ -221,14 +244,19 @@ export default function ContactPage() {
                                             : "border-gray-300 focus:border-[#ff5a5f]"
                                     }`}
                                 />
-                                {errors.message && <p className="mt-1 text-sm text-red-500">{errors.message}</p>}
                             </div>
 
                             {/* Privacy Policy Checkbox */}
                             <div>
                                 <Checkbox
                                     isSelected={agreed}
-                                    onChange={setAgreed}
+                                    onChange={(checked) => {
+                                        setAgreed(checked);
+                                        if (errors.agreed) {
+                                            setErrors({ ...errors, agreed: false });
+                                            setErrorMessage("");
+                                        }
+                                    }}
                                     isInvalid={!!errors.agreed}
                                     label={
                                         <span className="text-gray-700">
@@ -240,7 +268,6 @@ export default function ContactPage() {
                                         </span>
                                     }
                                 />
-                                {errors.agreed && <p className="mt-1 text-sm text-red-500">{errors.agreed}</p>}
                             </div>
 
                             {/* Submit Button */}
