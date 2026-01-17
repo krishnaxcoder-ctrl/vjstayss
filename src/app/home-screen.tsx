@@ -6,6 +6,7 @@ import { TrendingDestinations } from "@/components/booking/trending-destinations
 import { HeroSection } from "@/components/hero/hero-section";
 import { LanderHero } from "@/components/lander/lander-hero";
 import { SiteHeader } from "@/components/layout/site-header";
+import { TestimonialsSection } from "@/components/testimonials/testimonials-section";
 
 export const HomeScreen = () => {
     return (
@@ -15,6 +16,7 @@ export const HomeScreen = () => {
             <TrendingDestinations />
             <PropertyTypes />
             <DealsSection />
+            <TestimonialsSection />
             <LanderHero />
         </div>
     );
