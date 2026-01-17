@@ -51,7 +51,7 @@ const PresetButton = ({ value, children, ...props }: HTMLAttributes<HTMLButtonEl
             size="md"
             color="secondary"
             onClick={handleClick}
-            className="bg-amber-50 text-amber-700 ring-amber-200 hover:bg-amber-100"
+            className="bg-[#ff5a5f]/10 text-[#ff5a5f] ring-[#ff5a5f]/20 hover:bg-[#ff5a5f]/20"
         >
             {children}
         </Button>

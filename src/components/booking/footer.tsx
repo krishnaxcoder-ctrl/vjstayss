@@ -39,7 +39,7 @@ export const Footer = () => {
     return (
         <footer className="bg-gray-50">
             {/* Main Footer */}
-            <div className="mx-auto max-w-7xl px-6 pt-16 pb-8 lg:px-12">
+            <div className="mx-auto max-w-8xl px-6 pt-16 pb-8 lg:px-12">
                 {/* Top Section - Logo & Newsletter */}
                 <div className="mb-12 grid gap-8 lg:grid-cols-2 lg:gap-16">
                     {/* Brand Section */}

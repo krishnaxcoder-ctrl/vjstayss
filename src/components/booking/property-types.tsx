@@ -79,7 +79,7 @@ export const PropertyTypes = () => {
 
     return (
         <section className="bg-gradient-to-b from-gray-50 to-white py-20">
-            <div className="mx-auto max-w-7xl px-6 lg:px-12">
+            <div className="mx-auto max-w-8xl px-6 lg:px-12">
                 {/* Header */}
                 <div className="mb-12 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
                     <div>

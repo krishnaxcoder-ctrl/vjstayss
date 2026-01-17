@@ -1,204 +1,199 @@
 "use client";
 
-import { ArrowUpRight, Heart, MarkerPin01, Star01 } from "@untitledui/icons";
-import { Button } from "@/components/base/buttons/button";
-import { cx } from "@/utils/cx";
+import { useRef } from "react";
+import { ArrowRight, ArrowLeft, Star01, ArrowUpRight } from "@untitledui/icons";
 
 const destinations = [
     {
-        name: "Paris",
-        country: "France",
-        image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=800&auto=format&fit=crop",
-        properties: "2,456",
-        rating: 4.9,
-        price: "From $120",
-        featured: true,
+        name: "Hawaii Island",
+        duration: "3 Day 2 Night",
+        image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800&auto=format&fit=crop",
+        price: "$500.00",
+        rating: 4.7,
+        description: "Hawaii Island, also known as the Big Island, is a paradise of breathtaking contrasts. H...",
+    },
+    {
+        name: "Bali Island",
+        duration: "2 Day 2 Night",
+        image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?q=80&w=800&auto=format&fit=crop",
+        price: "$350.00",
+        rating: 4.7,
+        description: "Bali, Indonesia's most iconic destination, offers a perfect blend...",
+    },
+    {
+        name: "Maldives",
+        duration: "4 Day 3 Night",
+        image: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?q=80&w=800&auto=format&fit=crop",
+        price: "$800.00",
+        rating: 4.6,
+        description: "Maldives is a dream destination for nature lovers and adventure seeker...",
+    },
+    {
+        name: "Santorini",
+        duration: "3 Day 2 Night",
+        image: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?q=80&w=800&auto=format&fit=crop",
+        price: "$650.00",
+        rating: 4.8,
+        description: "Santorini offers stunning sunsets, white-washed buildings, and crystal clear waters...",
     },
     {
         name: "Tokyo",
-        country: "Japan",
+        duration: "5 Day 4 Night",
         image: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=800&auto=format&fit=crop",
-        properties: "1,892",
-        rating: 4.8,
-        price: "From $95",
-        featured: false,
+        price: "$720.00",
+        rating: 4.9,
+        description: "Tokyo blends ultra-modern architecture with traditional temples and gardens...",
     },
     {
-        name: "New York",
-        country: "USA",
-        image: "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?q=80&w=800&auto=format&fit=crop",
-        properties: "3,124",
-        rating: 4.7,
-        price: "From $150",
-        featured: false,
+        name: "Paris",
+        duration: "4 Day 3 Night",
+        image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=800&auto=format&fit=crop",
+        price: "$580.00",
+        rating: 4.8,
+        description: "Paris, the City of Light, captivates visitors with its iconic landmarks and cuisine...",
     },
     {
         name: "Dubai",
-        country: "UAE",
+        duration: "5 Day 4 Night",
         image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=800&auto=format&fit=crop",
-        properties: "1,567",
+        price: "$750.00",
         rating: 4.9,
-        price: "From $180",
-        featured: true,
+        description: "Dubai offers luxury shopping, ultramodern architecture, and a lively nightlife scene...",
     },
     {
-        name: "Bali",
-        country: "Indonesia",
-        image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?q=80&w=800&auto=format&fit=crop",
-        properties: "987",
+        name: "New York",
+        duration: "4 Day 3 Night",
+        image: "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?q=80&w=800&auto=format&fit=crop",
+        price: "$620.00",
         rating: 4.8,
-        price: "From $65",
-        featured: false,
-    },
-    {
-        name: "London",
-        country: "United Kingdom",
-        image: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?q=80&w=800&auto=format&fit=crop",
-        properties: "2,891",
-        rating: 4.6,
-        price: "From $130",
-        featured: false,
+        description: "New York City, the city that never sleeps, offers world-class dining and entertainment...",
     },
 ];
 
 export const TrendingDestinations = () => {
+    const carouselRef = useRef<HTMLDivElement>(null);
+
+    const scroll = (direction: "left" | "right") => {
+        if (carouselRef.current) {
+            const cardWidth = carouselRef.current.offsetWidth / 4;
+            const scrollAmount = direction === "left" ? -cardWidth : cardWidth;
+            carouselRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+        }
+    };
+
     return (
-        <section className="bg-gray-50 py-24">
-            <div className="mx-auto max-w-7xl px-6 lg:px-12">
+        <section className="bg-white py-20">
+            <div className="mx-auto max-w-8xl px-6 lg:px-12">
                 {/* Header */}
-                <div className="mb-16 text-center">
-                    <span className="inline-block rounded-full bg-amber-100 px-4 py-1.5 text-sm font-medium text-amber-700">
-                        Popular Destinations
-                    </span>
-                    <h2 className="mt-4 text-4xl font-bold tracking-tight text-gray-900 md:text-5xl">
-                        Trending Destinations
-                    </h2>
-                    <p className="mx-auto mt-4 max-w-2xl text-lg text-gray-600">
-                        Explore our most loved destinations, handpicked based on traveler reviews and booking trends
+                <div className="mb-10 flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
+                    <div>
+                        <span className="inline-block rounded-full bg-[#ff5a5f]/10 px-4 py-1.5 text-sm font-medium text-[#ff5a5f]">
+                            Recommendations
+                        </span>
+                        <h2 className="mt-4 text-3xl font-bold tracking-tight text-gray-900 md:text-4xl lg:text-5xl">
+                            Explore Our Popular
+                            <br />
+                            Destination
+                        </h2>
+                    </div>
+                    <p className="max-w-xs text-right text-sm text-gray-500 lg:text-base">
+                        Discover top destinations and plan your next adventure.
                     </p>
                 </div>
 
-                {/* Destinations Grid - Modern Bento */}
-                <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 lg:grid-rows-2">
+                {/* Destinations Carousel */}
+                <div
+                    ref={carouselRef}
+                    className="scrollbar-hide -mx-2 flex snap-x snap-mandatory gap-5 overflow-x-auto px-2 pb-4"
+                    style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+                >
                     {destinations.map((destination, index) => (
-                        <a
+                        <div
                             key={destination.name}
-                            href="#"
-                            className={cx(
-                                "group relative overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-gray-200 transition-all duration-500 hover:shadow-xl hover:ring-amber-300",
-                                // First card - large featured
-                                index === 0 && "lg:col-span-2 lg:row-span-2",
-                                // Fourth card - wide
-                                index === 3 && "md:col-span-2 lg:col-span-2"
-                            )}
+                            className="group relative w-[calc(100%-1rem)] flex-shrink-0 snap-start sm:w-[calc(50%-0.75rem)] lg:w-[calc(25%-0.9375rem)]"
                         >
-                            {/* Image Container */}
-                            <div className={cx(
-                                "relative overflow-hidden",
-                                index === 0 ? "h-full min-h-[400px] lg:min-h-full" : "h-48",
-                                index === 3 && "h-48"
-                            )}>
+                            {/* Card */}
+                            <div className="relative h-[420px] overflow-hidden rounded-3xl">
+                                {/* Background Image */}
                                 <img
                                     src={destination.image}
                                     alt={destination.name}
-                                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                                 />
 
                                 {/* Gradient Overlay */}
-                                <div className={cx(
-                                    "absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent",
-                                    index === 0 && "via-black/40"
-                                )} />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
 
-                                {/* Wishlist Button */}
-                                <button
-                                    className="absolute right-4 top-4 flex size-10 items-center justify-center rounded-full bg-white/90 text-gray-600 shadow-lg backdrop-blur-sm transition-all hover:bg-white hover:text-red-500 hover:scale-110"
-                                    onClick={(e) => e.preventDefault()}
-                                >
-                                    <Heart className="size-5" />
-                                </button>
-
-                                {/* Featured Badge */}
-                                {destination.featured && (
-                                    <div className="absolute left-4 top-4">
-                                        <span className="inline-flex items-center gap-1 rounded-full bg-amber-500 px-3 py-1 text-xs font-semibold text-white shadow-lg">
-                                            <Star01 className="size-3 fill-white" />
-                                            Featured
-                                        </span>
-                                    </div>
-                                )}
-
-                                {/* Content Overlay */}
-                                <div className={cx(
-                                    "absolute inset-x-0 bottom-0 p-5",
-                                    index === 0 && "p-8"
-                                )}>
-                                    {/* Location */}
-                                    <div className="mb-2 flex items-center gap-1.5">
-                                        <MarkerPin01 className="size-4 text-amber-400" />
-                                        <span className="text-sm font-medium text-white/80">{destination.country}</span>
-                                    </div>
-
-                                    {/* Name */}
-                                    <h3 className={cx(
-                                        "font-bold text-white transition-colors group-hover:text-amber-300",
-                                        index === 0 ? "text-3xl lg:text-4xl" : "text-xl"
-                                    )}>
-                                        {destination.name}
-                                    </h3>
-
-                                    {/* Stats Row */}
-                                    <div className={cx(
-                                        "mt-3 flex items-center gap-4",
-                                        index === 0 && "mt-4"
-                                    )}>
-                                        {/* Rating */}
-                                        <div className="flex items-center gap-1">
-                                            <Star01 className="size-4 fill-amber-400 text-amber-400" />
-                                            <span className="text-sm font-semibold text-white">{destination.rating}</span>
-                                        </div>
-
-                                        <div className="h-4 w-px bg-white/30" />
-
-                                        {/* Properties */}
-                                        <span className="text-sm text-white/70">{destination.properties} stays</span>
-
-                                        <div className="h-4 w-px bg-white/30" />
-
-                                        {/* Price */}
-                                        <span className="text-sm font-semibold text-amber-400">{destination.price}</span>
-                                    </div>
-
-                                    {/* Explore Button - Only on featured */}
-                                    {index === 0 && (
-                                        <div className="mt-6">
-                                            <span className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-gray-900 shadow-lg transition-all group-hover:bg-amber-500 group-hover:text-white">
-                                                Explore Now
-                                                <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                                            </span>
-                                        </div>
-                                    )}
+                                {/* Duration Badge */}
+                                <div className="absolute left-4 top-4">
+                                    <span className="inline-flex items-center rounded-full border border-white/70 bg-white/10 px-3 py-1.5 text-xs font-medium text-white backdrop-blur-md">
+                                        {destination.duration}
+                                    </span>
                                 </div>
 
-                                {/* Hover Arrow - For non-featured cards */}
-                                {index !== 0 && (
-                                    <div className="absolute bottom-5 right-5 flex size-10 items-center justify-center rounded-full bg-white/20 text-white opacity-0 backdrop-blur-sm transition-all duration-300 group-hover:opacity-100 group-hover:bg-amber-500">
-                                        <ArrowUpRight className="size-5" />
+                                {/* Rating Badge */}
+                                <div className="absolute right-4 bottom-4 lg:bottom-auto lg:top-4">
+                                    <span className="inline-flex items-center gap-1 rounded-full bg-white/90 px-2.5 py-1 text-sm font-semibold text-gray-900 shadow-sm backdrop-blur-sm">
+                                        <Star01 className="size-4 fill-[#ff5a5f] text-[#ff5a5f]" />
+                                        {destination.rating}
+                                    </span>
+                                </div>
+
+                                {/* Content */}
+                                <div className="absolute inset-x-0 bottom-0 p-5">
+                                    {/* Destination Name */}
+                                    <h3 className="text-xl font-bold text-white">{destination.name}</h3>
+
+                                    {/* Price - Prominent */}
+                                    <p className="mt-1 text-2xl font-bold text-white">{destination.price}</p>
+
+                                    {/* Description */}
+                                    <p className="mt-2 line-clamp-2 text-sm text-white/80">{destination.description}</p>
+
+                                    {/* Booking Button - Shows on hover */}
+                                    <div className="grid grid-rows-[0fr] opacity-0 transition-all duration-300 group-hover:mt-4 group-hover:grid-rows-[1fr] group-hover:opacity-100">
+                                        <div className="overflow-hidden">
+                                            <a
+                                                href="#"
+                                                className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-gray-900 shadow-lg transition-all hover:bg-[#ff5a5f] hover:text-white"
+                                            >
+                                                Booking Now
+                                                <ArrowUpRight className="size-4" />
+                                            </a>
+                                        </div>
                                     </div>
-                                )}
+                                </div>
                             </div>
-                        </a>
+                        </div>
                     ))}
                 </div>
 
-                {/* Bottom CTA */}
-                <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                    <Button size="xl" className="bg-amber-500 hover:bg-amber-600 border-none">
-                        View All Destinations
-                    </Button>
-                    <Button size="xl" color="secondary">
-                        Get Inspired
-                    </Button>
+                {/* Bottom Navigation */}
+                <div className="mt-8 flex items-center justify-between">
+                    {/* Carousel Arrows */}
+                    <div className="flex items-center gap-3">
+                        <button
+                            onClick={() => scroll("left")}
+                            className="flex size-12 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-600 shadow-sm transition-all hover:border-[#ff5a5f] hover:bg-[#ff5a5f] hover:text-white"
+                        >
+                            <ArrowLeft className="size-5" />
+                        </button>
+                        <button
+                            onClick={() => scroll("right")}
+                            className="flex size-12 items-center justify-center rounded-full bg-[#ff5a5f] text-white shadow-sm transition-all hover:bg-[#e04850]"
+                        >
+                            <ArrowRight className="size-5" />
+                        </button>
+                    </div>
+
+                    {/* Explore More Button */}
+                    <a
+                        href="#"
+                        className="inline-flex items-center gap-2 rounded-full bg-[#ff5a5f] px-6 py-3 text-sm font-semibold text-white shadow-lg transition-all hover:bg-[#e04850] hover:shadow-xl"
+                    >
+                        Explore More
+                        <ArrowUpRight className="size-4" />
+                    </a>
                 </div>
             </div>
         </section>

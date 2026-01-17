@@ -6,7 +6,7 @@ import { Button } from "@/components/base/buttons/button";
 export const NewsletterSection = () => {
     return (
         <section className="bg-gradient-to-br from-amber-600 to-orange-600 py-16">
-            <div className="mx-auto max-w-7xl px-6 lg:px-12">
+            <div className="mx-auto max-w-8xl px-6 lg:px-12">
                 <div className="flex flex-col items-center justify-between gap-8 lg:flex-row">
                     {/* Content */}
                     <div className="text-center lg:text-left">

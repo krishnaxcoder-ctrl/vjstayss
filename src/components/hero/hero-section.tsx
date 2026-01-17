@@ -34,7 +34,8 @@ export const HeroSection = () => {
             </div>
 
             {/* Navigation */}
-            <header className="relative z-10 flex items-center justify-between px-6 py-4 lg:px-12 lg:py-6">
+            <header className="relative z-10 mx-auto max-w-8xl px-6 py-4 lg:px-12 lg:py-6">
+                <div className="flex items-center justify-between">
                 {/* Logo */}
                 <a href="/" className="flex items-center">
                     <img
@@ -89,6 +90,7 @@ export const HeroSection = () => {
                     >
                         {mobileMenuOpen ? <XClose className="size-6" /> : <Menu01 className="size-6" />}
                     </button>
+                </div>
                 </div>
             </header>
 
@@ -165,7 +167,7 @@ export const HeroSection = () => {
             </div>
 
             {/* Hero Content */}
-            <div className="relative z-10 flex min-h-[calc(100vh-88px)] flex-col items-center justify-center px-6 py-16 lg:px-12">
+            <div className="relative z-10 mx-auto flex min-h-[calc(100vh-88px)] max-w-8xl flex-col items-center justify-center px-6 py-16 lg:px-12">
                 {/* Headline */}
                 <div className="mb-10 text-center">
                     <h1 className="text-4xl font-bold leading-tight tracking-tight text-white md:text-5xl lg:text-7xl">

@@ -10,6 +10,14 @@
 @custom-variant label (& [data-label]);
 @custom-variant focus-input-within (&:has(input:focus));
 
+@theme {
+    --container-8xl: 1500px;
+}
+
+@utility max-w-8xl {
+    max-width: 1500px;
+}
+
 @utility scrollbar-hide {
     /* For Webkit-based browsers (Chrome, Safari and Opera) */
     &::-webkit-scrollbar {
@@ -42,6 +50,32 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
     font-weight: 600;
+}
+
+/* Custom Scrollbar - Brand Color */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #ff5a5f transparent;
+}
+
+/* Webkit browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #ff5a5f;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #e04850;
 }
 
 /* Hide the default expand arrow on Safari.  */

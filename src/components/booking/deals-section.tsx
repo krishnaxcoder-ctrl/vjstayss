@@ -53,7 +53,7 @@ const deals = [
 export const DealsSection = () => {
     return (
         <section className="py-16">
-            <div className="mx-auto max-w-7xl px-6 lg:px-12">
+            <div className="mx-auto max-w-8xl px-6 lg:px-12">
                 {/* Header */}
                 <div className="mb-8 flex items-end justify-between">
                     <div>
