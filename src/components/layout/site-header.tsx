@@ -156,7 +156,7 @@ export const SiteHeader = ({ variant = "dark", className }: SiteHeaderProps) => 
                 <div className="flex items-center justify-between border-b border-white/10 px-6 py-4">
                     <Link href="/" className="flex items-center gap-2" onClick={() => setMobileMenuOpen(false)}>
                         <img
-                            src="/logolight.webp"
+                            src="/VJ STAYS HOTELS & LODGES-Photoroom.png"
                             alt="VJStays"
                             className="h-8 w-auto"
                         />
