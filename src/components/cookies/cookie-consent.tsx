@@ -130,7 +130,7 @@ export const CookieConsent = () => {
                             color="secondary"
                             size="md"
                             className="flex-1"
-                            onPress={handleRejectAll}
+                            onClick={handleRejectAll}
                         >
                             Reject All
                         </Button>
@@ -138,7 +138,7 @@ export const CookieConsent = () => {
                             color="primary"
                             size="md"
                             className="flex-1 bg-[#ff5a5f] hover:bg-[#e04850]"
-                            onPress={handleAcceptAll}
+                            onClick={handleAcceptAll}
                         >
                             Accept All
                         </Button>
