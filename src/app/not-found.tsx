@@ -1,8 +1,8 @@
 "use client";
 
-import { ArrowLeft, Home01 } from "@untitledui/icons";
+import { ArrowRight } from "@untitledui/icons";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
+import { Button } from "@/components/base/buttons/button";
 import { SiteHeader } from "@/components/layout/site-header";
 
 export default function NotFound() {
@@ -11,44 +11,25 @@ export default function NotFound() {
     return (
         <div className="min-h-screen bg-white">
             <SiteHeader variant="light" />
-            <section className="flex min-h-[calc(100vh-89px)] items-center justify-center px-6 py-16">
-                <div className="text-center">
-                    {/* 404 Badge */}
-                    <span className="inline-block rounded-full bg-[#ff5a5f]/10 px-4 py-1.5 text-sm font-semibold text-[#ff5a5f]">
-                        404 error
-                    </span>
+            <section className="flex min-h-[calc(100vh-80px)] items-start py-16 md:items-center md:py-24">
+                <div className="mx-auto max-w-container grow px-4 md:px-8">
+                    <div className="flex w-full max-w-3xl flex-col gap-8 md:gap-12">
+                        <div className="flex flex-col gap-4 md:gap-6">
+                            <div className="flex flex-col gap-3">
+                                <span className="text-md font-semibold text-[#ff5a5f]">404 error</span>
+                                <h1 className="text-display-md font-semibold text-gray-900 md:text-display-lg lg:text-display-xl">We can't find that page</h1>
+                            </div>
+                            <p className="text-lg text-gray-600 md:text-xl">Sorry, the page you are looking for doesn&apos;t exist or has been moved.</p>
+                        </div>
 
-                    {/* Heading */}
-                    <h1 className="mt-6 text-4xl font-bold text-gray-900 md:text-5xl lg:text-6xl">
-                        Page not found
-                    </h1>
-
-                    {/* Description */}
-                    <p className="mx-auto mt-4 max-w-md text-lg text-gray-600">
-                        Sorry, the page you are looking for doesn't exist or has been moved.
-                    </p>
-
-                    {/* Illustration */}
-                    <div className="mx-auto mt-10 flex size-40 items-center justify-center rounded-full bg-[#ff5a5f]/10">
-                        <span className="text-7xl font-bold text-[#ff5a5f]">404</span>
-                    </div>
-
-                    {/* Buttons */}
-                    <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                        <button
-                            onClick={() => router.back()}
-                            className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-6 py-3 text-base font-semibold text-gray-700 transition-all hover:bg-gray-50"
-                        >
-                            <ArrowLeft className="size-5" />
-                            Go back
-                        </button>
-                        <Link
-                            href="/"
-                            className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg bg-[#ff5a5f] px-6 py-3 text-base font-semibold text-white shadow-lg transition-all hover:bg-[#e04850]"
-                        >
-                            <Home01 className="size-5" />
-                            Take me home
-                        </Link>
+                        <div className="flex flex-col-reverse gap-3 sm:flex-row">
+                            <Button color="tertiary" size="xl" iconTrailing={ArrowRight} className="border border-gray-300 hover:bg-gray-50 hover:text-black" onClick={() => router.back()}>
+                                Go back
+                            </Button>
+                            <Button size="xl" onClick={() => router.push("/")}>
+                                Take me home
+                            </Button>
+                        </div>
                     </div>
                 </div>
             </section>
