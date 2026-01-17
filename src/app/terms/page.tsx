@@ -7,7 +7,7 @@ export default function TermsPage() {
             <SiteHeader variant="light" />
 
             {/* Hero Section */}
-            <section className="relative overflow-hidden bg-gradient-to-br from-gray-50 via-white to-[#ff5a5f]/5 py-16 lg:py-24">
+            <section className="relative overflow-hidden bg-gradient-to-br from-gray-50 via-white to-[#ff5a5f]/5 py-16 lg:py-6">
                 {/* Background decorations */}
                 <div className="absolute top-0 right-0 size-[600px] rounded-full bg-[#ff5a5f]/5 blur-3xl" />
                 <div className="absolute bottom-0 left-0 size-[400px] rounded-full bg-[#ff5a5f]/5 blur-3xl" />
@@ -15,17 +15,17 @@ export default function TermsPage() {
                 {/* Dot pattern */}
                 <div className="absolute inset-0 opacity-[0.15]" style={{ backgroundImage: 'radial-gradient(circle, #ff5a5f 1.5px, transparent 1.5px)', backgroundSize: '32px 32px' }} />
 
-                <div className="relative mx-auto max-w-4xl px-6 text-center lg:px-12">
+                <div className="relative mx-auto max-w-8xl px-6 text-center lg:px-12">
                     <div className="inline-flex items-center gap-2 rounded-full bg-[#ff5a5f]/10 px-4 py-2">
                         <File01 className="size-4 text-[#ff5a5f]" />
                         <span className="text-sm font-semibold text-[#ff5a5f]">Legal</span>
                     </div>
 
-                    <h1 className="mt-6 text-4xl font-bold tracking-tight text-gray-900 md:text-5xl lg:text-6xl">
+                    <h1 className="mt-6 text-4xl font-bold tracking-tight text-gray-900 md:text-5xl lg:text-5xl">
                         Terms of <span className="text-[#ff5a5f]">Service</span>
                     </h1>
 
-                    <p className="mt-6 text-lg leading-relaxed text-gray-600">
+                    <p className="mt-6 max-w-2xl mx-auto text-lg leading-relaxed text-gray-600">
                         Please read these terms carefully before using our services. By accessing or using VJStays, you agree to be bound by these terms.
                     </p>
 
@@ -38,35 +38,7 @@ export default function TermsPage() {
 
             {/* Content Section */}
             <section className="py-16 lg:py-24">
-                <div className="mx-auto max-w-4xl px-6 lg:px-12">
-                    {/* Quick Navigation */}
-                    <div className="mb-12 rounded-2xl bg-gray-50 p-6">
-                        <h2 className="mb-4 text-lg font-semibold text-gray-900">Quick Navigation</h2>
-                        <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-                            {[
-                                "Acceptance of Terms",
-                                "User Accounts",
-                                "Booking & Payments",
-                                "Cancellation Policy",
-                                "User Conduct",
-                                "Intellectual Property",
-                                "Limitation of Liability",
-                                "Governing Law",
-                            ].map((item, index) => (
-                                <a
-                                    key={index}
-                                    href={`#section-${index + 1}`}
-                                    className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-gray-600 transition-colors hover:bg-white hover:text-[#ff5a5f]"
-                                >
-                                    <span className="flex size-6 items-center justify-center rounded-full bg-[#ff5a5f]/10 text-xs font-semibold text-[#ff5a5f]">
-                                        {index + 1}
-                                    </span>
-                                    {item}
-                                </a>
-                            ))}
-                        </div>
-                    </div>
-
+                <div className="mx-auto max-w-8xl px-6 lg:px-12">
                     {/* Terms Content */}
                     <div className="space-y-12">
                         {/* Section 1 */}
@@ -159,14 +131,22 @@ export default function TermsPage() {
                                 <p>
                                     Cancellation policies vary by property and rate type. Please review the specific cancellation policy before completing your booking. General guidelines include:
                                 </p>
-                                <div className="grid gap-4 sm:grid-cols-2">
-                                    <div className="rounded-xl border border-green-200 bg-green-50 p-4">
+                                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                                    <div className="rounded-xl bg-green-50 p-4">
                                         <h4 className="font-semibold text-green-800">Free Cancellation</h4>
-                                        <p className="mt-1 text-sm text-green-700">Available on select properties when cancelled within the specified timeframe</p>
+                                        <p className="mt-1 text-sm text-green-700">Cancel up to 48 hours before check-in for a full refund</p>
                                     </div>
-                                    <div className="rounded-xl border border-amber-200 bg-amber-50 p-4">
+                                    <div className="rounded-xl bg-amber-50 p-4">
                                         <h4 className="font-semibold text-amber-800">Partial Refund</h4>
-                                        <p className="mt-1 text-sm text-amber-700">May apply for cancellations made outside the free cancellation window</p>
+                                        <p className="mt-1 text-sm text-amber-700">50% refund if cancelled within 24-48 hours of check-in</p>
+                                    </div>
+                                    <div className="rounded-xl bg-red-50 p-4">
+                                        <h4 className="font-semibold text-red-800">No Refund</h4>
+                                        <p className="mt-1 text-sm text-red-700">No refund for cancellations within 24 hours of check-in</p>
+                                    </div>
+                                    <div className="rounded-xl bg-blue-50 p-4">
+                                        <h4 className="font-semibold text-blue-800">Flexible Rate</h4>
+                                        <p className="mt-1 text-sm text-blue-700">Special rates with extended cancellation windows available</p>
                                     </div>
                                 </div>
                                 <p>
@@ -232,7 +212,7 @@ export default function TermsPage() {
                                     <li>Any disputes between you and property owners</li>
                                     <li>Any indirect, incidental, or consequential damages</li>
                                 </ul>
-                                <div className="rounded-xl border border-[#ff5a5f]/20 bg-[#ff5a5f]/5 p-4">
+                                <div className="rounded-xl bg-[#ff5a5f]/5 p-4">
                                     <p className="text-sm text-gray-700">
                                         <strong>Note:</strong> Our maximum liability is limited to the amount paid for the booking in question.
                                     </p>
@@ -256,18 +236,34 @@ export default function TermsPage() {
                         </div>
 
                         {/* Contact Section */}
-                        <div className="rounded-2xl bg-gradient-to-br from-[#ff5a5f]/10 to-[#ff5a5f]/5 p-8">
-                            <h2 className="text-2xl font-bold text-gray-900">Questions About Our Terms?</h2>
-                            <p className="mt-2 text-gray-600">
-                                If you have any questions about these Terms of Service, please contact us:
-                            </p>
-                            <div className="mt-4 space-y-2">
-                                <p className="text-gray-700">
-                                    <strong>Email:</strong> legal@vjstays.com
+                        <div className="grid gap-6 sm:grid-cols-2">
+                            <div className="rounded-2xl bg-gradient-to-br from-[#ff5a5f]/10 to-[#ff5a5f]/5 p-8">
+                                <h2 className="text-2xl font-bold text-gray-900">Questions About Our Terms?</h2>
+                                <p className="mt-2 text-gray-600">
+                                    If you have any questions about these Terms of Service, please contact us:
                                 </p>
-                                <p className="text-gray-700">
-                                    <strong>Address:</strong> VJStays Pvt. Ltd., Bangalore, Karnataka, India
+                                <div className="mt-4 space-y-2">
+                                    <p className="text-gray-700">
+                                        <strong>Email:</strong> legal@vjstays.com
+                                    </p>
+                                    <p className="text-gray-700">
+                                        <strong>Address:</strong> VJStays Pvt. Ltd., Bangalore, Karnataka, India
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="rounded-2xl bg-gradient-to-br from-gray-100 to-gray-50 p-8">
+                                <h2 className="text-2xl font-bold text-gray-900">Need Immediate Help?</h2>
+                                <p className="mt-2 text-gray-600">
+                                    Our customer support team is available 24/7 to assist you with any concerns.
                                 </p>
+                                <div className="mt-4 space-y-2">
+                                    <p className="text-gray-700">
+                                        <strong>Phone:</strong> +91 80 1234 5678
+                                    </p>
+                                    <p className="text-gray-700">
+                                        <strong>Live Chat:</strong> Available on our website
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>

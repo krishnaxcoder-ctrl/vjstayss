@@ -7,7 +7,7 @@ export default function PrivacyPage() {
             <SiteHeader variant="light" />
 
             {/* Hero Section */}
-            <section className="relative overflow-hidden bg-gradient-to-br from-gray-50 via-white to-[#ff5a5f]/5 py-16 lg:py-24">
+            <section className="relative overflow-hidden bg-gradient-to-br from-gray-50 via-white to-[#ff5a5f]/5 py-16 lg:py-6">
                 {/* Background decorations */}
                 <div className="absolute top-0 right-0 size-[600px] rounded-full bg-[#ff5a5f]/5 blur-3xl" />
                 <div className="absolute bottom-0 left-0 size-[400px] rounded-full bg-[#ff5a5f]/5 blur-3xl" />
@@ -15,17 +15,17 @@ export default function PrivacyPage() {
                 {/* Dot pattern */}
                 <div className="absolute inset-0 opacity-[0.15]" style={{ backgroundImage: 'radial-gradient(circle, #ff5a5f 1.5px, transparent 1.5px)', backgroundSize: '32px 32px' }} />
 
-                <div className="relative mx-auto max-w-4xl px-6 text-center lg:px-12">
+                <div className="relative mx-auto max-w-8xl px-6 text-center lg:px-12">
                     <div className="inline-flex items-center gap-2 rounded-full bg-[#ff5a5f]/10 px-4 py-2">
                         <Lock01 className="size-4 text-[#ff5a5f]" />
                         <span className="text-sm font-semibold text-[#ff5a5f]">Privacy</span>
                     </div>
 
-                    <h1 className="mt-6 text-4xl font-bold tracking-tight text-gray-900 md:text-5xl lg:text-6xl">
+                    <h1 className="mt-6 text-4xl font-bold tracking-tight text-gray-900 md:text-5xl lg:text-5xl">
                         Privacy <span className="text-[#ff5a5f]">Policy</span>
                     </h1>
 
-                    <p className="mt-6 text-lg leading-relaxed text-gray-600">
+                    <p className="mt-6 text-lg max-w-2xl mx-auto  leading-relaxed text-gray-600">
                         Your privacy is important to us. This policy explains how we collect, use, and protect your personal information when you use VJStays.
                     </p>
 
@@ -36,72 +36,9 @@ export default function PrivacyPage() {
                 </div>
             </section>
 
-            {/* Privacy Highlights */}
-            <section className="border-b border-gray-100 bg-white py-12">
-                <div className="mx-auto max-w-4xl px-6 lg:px-12">
-                    <div className="grid gap-6 sm:grid-cols-3">
-                        {[
-                            {
-                                icon: Shield01,
-                                title: "Secure Data",
-                                description: "Your data is encrypted and stored securely",
-                            },
-                            {
-                                icon: Eye,
-                                title: "Transparent",
-                                description: "We're clear about what data we collect",
-                            },
-                            {
-                                icon: UserCircle,
-                                title: "Your Control",
-                                description: "You can access and delete your data anytime",
-                            },
-                        ].map((item, index) => (
-                            <div key={index} className="flex items-center gap-4 rounded-xl bg-gray-50 p-4">
-                                <div className="flex size-12 items-center justify-center rounded-xl bg-[#ff5a5f]/10">
-                                    <item.icon className="size-6 text-[#ff5a5f]" />
-                                </div>
-                                <div>
-                                    <h3 className="font-semibold text-gray-900">{item.title}</h3>
-                                    <p className="text-sm text-gray-600">{item.description}</p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
             {/* Content Section */}
             <section className="py-16 lg:py-24">
-                <div className="mx-auto max-w-4xl px-6 lg:px-12">
-                    {/* Quick Navigation */}
-                    <div className="mb-12 rounded-2xl bg-gray-50 p-6">
-                        <h2 className="mb-4 text-lg font-semibold text-gray-900">Quick Navigation</h2>
-                        <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-                            {[
-                                "Information We Collect",
-                                "How We Use Your Data",
-                                "Data Sharing",
-                                "Cookies & Tracking",
-                                "Data Security",
-                                "Your Rights",
-                                "Data Retention",
-                                "Contact Us",
-                            ].map((item, index) => (
-                                <a
-                                    key={index}
-                                    href={`#section-${index + 1}`}
-                                    className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-gray-600 transition-colors hover:bg-white hover:text-[#ff5a5f]"
-                                >
-                                    <span className="flex size-6 items-center justify-center rounded-full bg-[#ff5a5f]/10 text-xs font-semibold text-[#ff5a5f]">
-                                        {index + 1}
-                                    </span>
-                                    {item}
-                                </a>
-                            ))}
-                        </div>
-                    </div>
-
+                <div className="mx-auto max-w-8xl px-6 lg:px-12">
                     {/* Privacy Content */}
                     <div className="space-y-12">
                         {/* Section 1 */}
@@ -116,8 +53,8 @@ export default function PrivacyPage() {
                                 <p>
                                     We collect information to provide better services to our users. The types of information we collect include:
                                 </p>
-                                <div className="space-y-4">
-                                    <div className="rounded-xl border border-gray-200 p-4">
+                                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                                    <div className="rounded-xl bg-gray-50 p-4">
                                         <h3 className="font-semibold text-gray-900">Personal Information</h3>
                                         <ul className="mt-2 ml-6 list-disc space-y-1 text-sm">
                                             <li>Name, email address, and phone number</li>
@@ -126,7 +63,7 @@ export default function PrivacyPage() {
                                             <li>Profile photo and preferences</li>
                                         </ul>
                                     </div>
-                                    <div className="rounded-xl border border-gray-200 p-4">
+                                    <div className="rounded-xl bg-gray-50 p-4">
                                         <h3 className="font-semibold text-gray-900">Booking Information</h3>
                                         <ul className="mt-2 ml-6 list-disc space-y-1 text-sm">
                                             <li>Travel dates and destinations</li>
@@ -135,13 +72,40 @@ export default function PrivacyPage() {
                                             <li>Past booking history</li>
                                         </ul>
                                     </div>
-                                    <div className="rounded-xl border border-gray-200 p-4">
+                                    <div className="rounded-xl bg-gray-50 p-4">
                                         <h3 className="font-semibold text-gray-900">Technical Information</h3>
                                         <ul className="mt-2 ml-6 list-disc space-y-1 text-sm">
                                             <li>IP address and device information</li>
                                             <li>Browser type and settings</li>
                                             <li>Usage data and interaction patterns</li>
                                             <li>Location data (with your consent)</li>
+                                        </ul>
+                                    </div>
+                                    <div className="rounded-xl bg-gray-50 p-4">
+                                        <h3 className="font-semibold text-gray-900">Communication Data</h3>
+                                        <ul className="mt-2 ml-6 list-disc space-y-1 text-sm">
+                                            <li>Messages and support conversations</li>
+                                            <li>Feedback and reviews</li>
+                                            <li>Survey responses</li>
+                                            <li>Email communication preferences</li>
+                                        </ul>
+                                    </div>
+                                    <div className="rounded-xl bg-gray-50 p-4">
+                                        <h3 className="font-semibold text-gray-900">Payment Information</h3>
+                                        <ul className="mt-2 ml-6 list-disc space-y-1 text-sm">
+                                            <li>Credit/debit card details (tokenized)</li>
+                                            <li>UPI and wallet information</li>
+                                            <li>Transaction history</li>
+                                            <li>Billing address</li>
+                                        </ul>
+                                    </div>
+                                    <div className="rounded-xl bg-gray-50 p-4">
+                                        <h3 className="font-semibold text-gray-900">Social Information</h3>
+                                        <ul className="mt-2 ml-6 list-disc space-y-1 text-sm">
+                                            <li>Social media profile (if linked)</li>
+                                            <li>Referral information</li>
+                                            <li>Loyalty program data</li>
+                                            <li>Guest preferences shared by others</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -158,7 +122,7 @@ export default function PrivacyPage() {
                             </div>
                             <div className="space-y-4 text-gray-600">
                                 <p>We use the information we collect to:</p>
-                                <div className="grid gap-4 sm:grid-cols-2">
+                                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                                     {[
                                         { title: "Process Bookings", desc: "Complete your reservations and send confirmations" },
                                         { title: "Customer Support", desc: "Respond to your inquiries and resolve issues" },
@@ -197,7 +161,7 @@ export default function PrivacyPage() {
                                     <li><strong>Service Providers:</strong> Third parties who help us operate our services</li>
                                     <li><strong>Legal Requirements:</strong> When required by law or to protect our rights</li>
                                 </ul>
-                                <div className="rounded-xl border border-green-200 bg-green-50 p-4">
+                                <div className="max-w-3xl rounded-xl bg-green-50 p-4">
                                     <p className="text-sm text-green-800">
                                         <strong>Our Commitment:</strong> All third parties are required to maintain the confidentiality and security of your information.
                                     </p>
@@ -217,7 +181,7 @@ export default function PrivacyPage() {
                                 <p>
                                     We use cookies and similar technologies to enhance your experience:
                                 </p>
-                                <div className="overflow-hidden rounded-xl border border-gray-200">
+                                <div className="max-w-2xl overflow-hidden rounded-xl bg-gray-50">
                                     <table className="w-full">
                                         <thead className="bg-gray-50">
                                             <tr>
@@ -263,14 +227,14 @@ export default function PrivacyPage() {
                                 <p>
                                     We implement robust security measures to protect your information:
                                 </p>
-                                <div className="grid gap-4 sm:grid-cols-2">
+                                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                                     {[
                                         { title: "Encryption", desc: "All data is encrypted in transit and at rest using industry-standard protocols" },
                                         { title: "Access Controls", desc: "Strict access controls limit who can view your information" },
                                         { title: "Regular Audits", desc: "We conduct regular security assessments and penetration testing" },
                                         { title: "Secure Payments", desc: "PCI-DSS compliant payment processing" },
                                     ].map((item, index) => (
-                                        <div key={index} className="rounded-xl border border-gray-200 p-4">
+                                        <div key={index} className="rounded-xl bg-gray-50 p-4">
                                             <div className="flex items-center gap-2">
                                                 <Shield01 className="size-5 text-[#ff5a5f]" />
                                                 <h4 className="font-semibold text-gray-900">{item.title}</h4>
@@ -292,18 +256,17 @@ export default function PrivacyPage() {
                             </div>
                             <div className="space-y-4 text-gray-600">
                                 <p>You have the following rights regarding your personal data:</p>
-                                <div className="space-y-3">
+                                <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
                                     {[
                                         { right: "Access", desc: "Request a copy of your personal data" },
                                         { right: "Correction", desc: "Update or correct inaccurate information" },
                                         { right: "Deletion", desc: "Request deletion of your account and data" },
                                         { right: "Portability", desc: "Receive your data in a portable format" },
                                         { right: "Opt-out", desc: "Unsubscribe from marketing communications" },
-                                        { right: "Restrict Processing", desc: "Limit how we use your data" },
                                     ].map((item, index) => (
-                                        <div key={index} className="flex items-center gap-4 rounded-lg bg-gray-50 px-4 py-3">
-                                            <span className="rounded-lg bg-[#ff5a5f] px-3 py-1 text-sm font-semibold text-white">{item.right}</span>
-                                            <span className="text-sm">{item.desc}</span>
+                                        <div key={index} className="group rounded-2xl bg-gradient-to-br from-gray-50 to-white p-5 shadow-sm ring-1 ring-gray-100 transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:ring-[#ff5a5f]/20">
+                                            <span className="inline-block rounded-lg bg-[#ff5a5f] px-3 py-1 text-sm font-semibold text-white">{item.right}</span>
+                                            <p className="mt-3 text-sm text-gray-600">{item.desc}</p>
                                         </div>
                                     ))}
                                 </div>
@@ -336,30 +299,51 @@ export default function PrivacyPage() {
 
                         {/* Section 8 - Contact */}
                         <div id="section-8" className="scroll-mt-32">
-                            <div className="rounded-2xl bg-gradient-to-br from-[#ff5a5f]/10 to-[#ff5a5f]/5 p-8">
-                                <div className="flex items-center gap-3">
-                                    <div className="flex size-10 items-center justify-center rounded-xl bg-[#ff5a5f]">
-                                        <Mail01 className="size-5 text-white" />
+                            <div className="grid gap-6 sm:grid-cols-2">
+                                <div className="rounded-2xl bg-gradient-to-br from-[#ff5a5f]/10 to-[#ff5a5f]/5 p-8">
+                                    <div className="flex items-center gap-3">
+                                        <div className="flex size-10 items-center justify-center rounded-xl bg-[#ff5a5f]">
+                                            <Mail01 className="size-5 text-white" />
+                                        </div>
+                                        <h2 className="text-2xl font-bold text-gray-900">8. Contact Us</h2>
                                     </div>
-                                    <h2 className="text-2xl font-bold text-gray-900">8. Contact Us</h2>
+                                    <p className="mt-4 text-gray-600">
+                                        If you have any questions about this Privacy Policy or our data practices, please contact our Data Protection Officer:
+                                    </p>
+                                    <div className="mt-6 space-y-3">
+                                        <p className="text-gray-700">
+                                            <strong>Email:</strong> privacy@vjstays.com
+                                        </p>
+                                        <p className="text-gray-700">
+                                            <strong>Address:</strong> VJStays Pvt. Ltd., Bangalore, Karnataka, India
+                                        </p>
+                                        <p className="text-gray-700">
+                                            <strong>Phone:</strong> +91 80 1234 5678
+                                        </p>
+                                    </div>
                                 </div>
-                                <p className="mt-4 text-gray-600">
-                                    If you have any questions about this Privacy Policy or our data practices, please contact our Data Protection Officer:
-                                </p>
-                                <div className="mt-6 space-y-3">
-                                    <p className="text-gray-700">
-                                        <strong>Email:</strong> privacy@vjstays.com
+                                <div className="rounded-2xl bg-gradient-to-br from-gray-100 to-gray-50 p-8">
+                                    <div className="flex items-center gap-3">
+                                        <div className="flex size-10 items-center justify-center rounded-xl bg-gray-900">
+                                            <Clock className="size-5 text-white" />
+                                        </div>
+                                        <h2 className="text-2xl font-bold text-gray-900">Response Time</h2>
+                                    </div>
+                                    <p className="mt-4 text-gray-600">
+                                        We take your privacy seriously and aim to respond to all inquiries promptly.
                                     </p>
-                                    <p className="text-gray-700">
-                                        <strong>Address:</strong> VJStays Pvt. Ltd., Data Protection Officer, Bangalore, Karnataka, India
-                                    </p>
-                                    <p className="text-gray-700">
-                                        <strong>Phone:</strong> +91 80 1234 5678
-                                    </p>
+                                    <div className="mt-6 space-y-3">
+                                        <p className="text-gray-700">
+                                            <strong>General Inquiries:</strong> Within 48 hours
+                                        </p>
+                                        <p className="text-gray-700">
+                                            <strong>Data Requests:</strong> Within 30 days
+                                        </p>
+                                        <p className="text-gray-700">
+                                            <strong>Urgent Matters:</strong> Within 24 hours
+                                        </p>
+                                    </div>
                                 </div>
-                                <p className="mt-6 text-sm text-gray-500">
-                                    We will respond to your request within 30 days.
-                                </p>
                             </div>
                         </div>
                     </div>
