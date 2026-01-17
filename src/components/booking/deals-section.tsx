@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Link from "next/link";
 import { ArrowRight, ArrowLeft, Heart, MarkerPin01, Star01, Clock, Calendar, Users01 } from "@untitledui/icons";
 
 const deals = [
@@ -150,10 +151,10 @@ export const DealsSection = () => {
                     className="scrollbar-hide -mx-4 flex snap-x snap-mandatory gap-5 overflow-x-auto px-1 pb-4"
                     style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
                 >
-                    {deals.map((deal) => (
-                        <a
+                    {deals.map((deal, index) => (
+                        <Link
                             key={deal.name}
-                            href="#"
+                            href={`/listing/${index + 1}`}
                             className="group w-full flex-shrink-0 snap-start overflow-hidden rounded-2xl bg-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl sm:w-[calc(50%-10px)] lg:w-[calc(25%-15px)]"
                         >
                             {/* Image */}
@@ -243,7 +244,7 @@ export const DealsSection = () => {
                                     </button>
                                 </div>
                             </div>
-                        </a>
+                        </Link>
                     ))}
                 </div>
 

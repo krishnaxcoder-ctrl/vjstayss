@@ -36,7 +36,7 @@ const footerLinks = {
 
 export const Footer = () => {
     return (
-        <footer className="bg-gray-50">
+        <footer className="border-t-[3px] border-[#ff5a5f] bg-gray-50">
             {/* Main Footer */}
             <div className="mx-auto max-w-8xl px-6 pt-16 pb-4 lg:px-12">
                 {/* Links Section - 5 Columns */}

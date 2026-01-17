@@ -38,7 +38,7 @@ export const SiteHeader = ({ variant = "dark", className }: SiteHeaderProps) => 
             <header
                 className={cx(
                     "z-50 w-full px-6 py-4 lg:px-12 lg:py-6",
-                    isDark ? "absolute top-0 left-0 right-0" : "bg-white border-b border-gray-100",
+                    isDark ? "absolute top-0 left-0 right-0" : "bg-white border-b-[3px] border-[#ff5a5f]",
                     className
                 )}
             >

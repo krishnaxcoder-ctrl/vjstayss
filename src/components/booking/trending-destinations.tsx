@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Link from "next/link";
 import { ArrowRight, ArrowLeft, Star01, ArrowUpRight } from "@untitledui/icons";
 
 const destinations = [
@@ -106,8 +107,9 @@ export const TrendingDestinations = () => {
                     style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
                 >
                     {destinations.map((destination, index) => (
-                        <div
+                        <Link
                             key={destination.name}
+                            href={`/listing/${index + 100}`}
                             className="group relative w-[calc(100%-1rem)] flex-shrink-0 snap-start sm:w-[calc(50%-0.75rem)] lg:w-[calc(25%-0.9375rem)]"
                         >
                             {/* Card */}
@@ -151,18 +153,15 @@ export const TrendingDestinations = () => {
                                     {/* Booking Button - Shows on hover */}
                                     <div className="grid grid-rows-[0fr] opacity-0 transition-all duration-300 group-hover:mt-4 group-hover:grid-rows-[1fr] group-hover:opacity-100">
                                         <div className="overflow-hidden">
-                                            <a
-                                                href="#"
-                                                className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-gray-900 shadow-lg transition-all hover:bg-[#ff5a5f] hover:text-white"
-                                            >
+                                            <span className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-gray-900 shadow-lg transition-all hover:bg-[#ff5a5f] hover:text-white">
                                                 Booking Now
                                                 <ArrowUpRight className="size-4" />
-                                            </a>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </Link>
                     ))}
                 </div>
 
