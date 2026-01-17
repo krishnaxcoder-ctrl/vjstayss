@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { SiteHeader } from "@/components/layout/site-header";
@@ -24,6 +25,9 @@ import {
     Map01,
     NavigationPointer01,
     SearchMd,
+    XClose,
+    ChevronLeft,
+    ChevronRight,
 } from "@untitledui/icons";
 
 const listings: Record<string, {
@@ -331,6 +335,42 @@ export default function ListingPage() {
     const id = params.id as string;
     const listing = listings[id] || defaultListing;
 
+    const [lightboxOpen, setLightboxOpen] = useState(false);
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+    // Hide scrollbar when lightbox is open
+    useEffect(() => {
+        if (lightboxOpen) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "";
+        }
+        return () => {
+            document.body.style.overflow = "";
+        };
+    }, [lightboxOpen]);
+
+    const openLightbox = (index: number) => {
+        setCurrentImageIndex(index);
+        setLightboxOpen(true);
+    };
+
+    const closeLightbox = () => {
+        setLightboxOpen(false);
+    };
+
+    const goToPrevious = () => {
+        setCurrentImageIndex((prev) =>
+            prev === 0 ? listing.images.length - 1 : prev - 1
+        );
+    };
+
+    const goToNext = () => {
+        setCurrentImageIndex((prev) =>
+            prev === listing.images.length - 1 ? 0 : prev + 1
+        );
+    };
+
     return (
         <div className="min-h-screen bg-white">
             <SiteHeader variant="light" />
@@ -373,7 +413,10 @@ export default function ListingPage() {
 
                 {/* Image Gallery */}
                 <div className="mb-10 grid grid-cols-1 gap-2 overflow-hidden rounded-2xl md:grid-cols-4 md:grid-rows-2">
-                    <div className="md:col-span-2 md:row-span-2 cursor-pointer">
+                    <div
+                        className="md:col-span-2 md:row-span-2 cursor-pointer"
+                        onClick={() => openLightbox(0)}
+                    >
                         <img
                             src={listing.images[0]}
                             alt={listing.name}
@@ -381,7 +424,11 @@ export default function ListingPage() {
                         />
                     </div>
                     {listing.images.slice(1, 4).map((image, index) => (
-                        <div key={index} className="hidden cursor-pointer md:block">
+                        <div
+                            key={index}
+                            className="hidden cursor-pointer md:block"
+                            onClick={() => openLightbox(index + 1)}
+                        >
                             <img
                                 src={image}
                                 alt={`${listing.name} ${index + 2}`}
@@ -391,15 +438,18 @@ export default function ListingPage() {
                     ))}
                     {/* 5th image with zoom overlay */}
                     {listing.images[4] && (
-                        <div className="relative hidden cursor-pointer md:block">
+                        <div
+                            className="group relative hidden cursor-pointer md:block"
+                            onClick={() => openLightbox(4)}
+                        >
                             <img
                                 src={listing.images[4]}
                                 alt={`${listing.name} 5`}
                                 className="h-full max-h-[248px] w-full object-cover"
                             />
-                            <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/50">
-                                <SearchMd className="size-8 text-white" />
-                                <span className="mt-2 text-sm font-semibold text-white">View All Photos</span>
+                            <div className="absolute bottom-3 right-3 flex items-center gap-2 rounded-lg bg-white px-3 py-2 shadow-lg">
+                                <SearchMd className="size-4 text-[#ff5a5f]" />
+                                <span className="text-sm font-medium text-gray-900">View All Photos</span>
                             </div>
                         </div>
                     )}
@@ -649,6 +699,76 @@ export default function ListingPage() {
                     </div>
                 </section>
             </main>
+
+            {/* Lightbox Modal */}
+            {lightboxOpen && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/95">
+                    {/* Close Button */}
+                    <button
+                        onClick={closeLightbox}
+                        className="absolute right-4 top-4 z-10 flex size-12 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-sm transition-all hover:bg-white/20"
+                    >
+                        <XClose className="size-6" />
+                    </button>
+
+                    {/* Image Counter */}
+                    <div className="absolute left-4 top-4 z-10 rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-white backdrop-blur-sm">
+                        {currentImageIndex + 1} / {listing.images.length}
+                    </div>
+
+                    {/* Previous Button */}
+                    <button
+                        onClick={goToPrevious}
+                        className="absolute left-4 top-1/2 z-10 flex size-12 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-sm transition-all hover:bg-white/20"
+                    >
+                        <ChevronLeft className="size-6" />
+                    </button>
+
+                    {/* Next Button */}
+                    <button
+                        onClick={goToNext}
+                        className="absolute right-4 top-1/2 z-10 flex size-12 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-sm transition-all hover:bg-white/20"
+                    >
+                        <ChevronRight className="size-6" />
+                    </button>
+
+                    {/* Main Image */}
+                    <div className="relative h-full w-full p-16">
+                        <img
+                            src={listing.images[currentImageIndex]}
+                            alt={`${listing.name} ${currentImageIndex + 1}`}
+                            className="h-full w-full object-contain"
+                        />
+                    </div>
+
+                    {/* Thumbnail Strip */}
+                    <div className="absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 gap-2 rounded-xl bg-white/10 p-2 backdrop-blur-sm">
+                        {listing.images.map((image, index) => (
+                            <button
+                                key={index}
+                                onClick={() => setCurrentImageIndex(index)}
+                                className={`h-16 w-20 overflow-hidden rounded-lg transition-all ${
+                                    currentImageIndex === index
+                                        ? "ring-2 ring-white"
+                                        : "opacity-50 hover:opacity-100"
+                                }`}
+                            >
+                                <img
+                                    src={image}
+                                    alt={`Thumbnail ${index + 1}`}
+                                    className="h-full w-full object-cover"
+                                />
+                            </button>
+                        ))}
+                    </div>
+
+                    {/* Click outside to close */}
+                    <div
+                        className="absolute inset-0 -z-10"
+                        onClick={closeLightbox}
+                    />
+                </div>
+            )}
         </div>
     );
 }
