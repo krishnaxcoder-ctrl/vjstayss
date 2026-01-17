@@ -426,311 +426,273 @@ export default function HotelsPage() {
 
             {/* Main Content */}
             <div className="mx-auto max-w-8xl px-6 py-8 lg:px-12">
-                {/* Horizontal Filters */}
-                <div className="mb-8 rounded-2xl bg-white p-4 shadow-sm ring-1 ring-gray-100">
-                    <div className="flex flex-wrap items-center gap-3">
-                        {/* Search */}
-                        <div className="relative min-w-[200px] flex-1">
-                            <SearchMd className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-gray-400" />
-                            <input
-                                type="text"
-                                placeholder="Search hotels..."
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                                className="w-full rounded-lg border border-gray-200 py-2.5 pl-9 pr-4 text-sm text-gray-900 placeholder:text-gray-400 focus:border-[#ff5a5f] focus:outline-none focus:ring-2 focus:ring-[#ff5a5f]/20"
-                            />
-                        </div>
-
-                        {/* Price Range Dropdown */}
-                        <div className="relative">
-                            <button
-                                type="button"
-                                onClick={() => {
-                                    setShowPriceDropdown(!showPriceDropdown);
-                                    setShowStarsDropdown(false);
-                                    setShowAmenitiesDropdown(false);
-                                    setShowTypeDropdown(false);
-                                }}
-                                className={cx(
-                                    "flex items-center gap-2 rounded-lg border px-4 py-2.5 text-sm font-medium transition-colors",
-                                    priceRange[0] !== 100 || priceRange[1] !== 700
-                                        ? "border-[#ff5a5f] bg-[#ff5a5f]/5 text-[#ff5a5f]"
-                                        : "border-gray-200 bg-white text-gray-700 hover:bg-gray-50"
-                                )}
-                            >
-                                ${priceRange[0]} - ${priceRange[1]}
-                                <ChevronDown className="size-4" />
-                            </button>
-                            {showPriceDropdown && (
-                                <>
-                                    <div className="fixed inset-0 z-40" onClick={() => setShowPriceDropdown(false)} />
-                                    <div className="absolute left-0 top-full z-50 mt-2 w-72 rounded-xl bg-white p-4 shadow-lg ring-1 ring-gray-200">
-                                        <p className="mb-3 text-sm font-semibold text-gray-900">Price per night</p>
-                                        <div className="px-1">
-                                            <Slider
-                                                minValue={50}
-                                                maxValue={1000}
-                                                defaultValue={priceRange}
-                                                onChange={(value) => setPriceRange(value as number[])}
-                                                formatOptions={{ style: "currency", currency: "USD", maximumFractionDigits: 0 }}
-                                                labelPosition="top-floating"
-                                                labelFormatter={(value) => `$${value}`}
-                                            />
-                                        </div>
-                                        <div className="mt-3 flex items-center justify-between text-sm text-gray-600">
-                                            <span>${priceRange[0]}</span>
-                                            <span>${priceRange[1]}</span>
-                                        </div>
-                                    </div>
-                                </>
-                            )}
-                        </div>
-
-                        {/* Star Rating Dropdown */}
-                        <div className="relative">
-                            <button
-                                type="button"
-                                onClick={() => {
-                                    setShowStarsDropdown(!showStarsDropdown);
-                                    setShowPriceDropdown(false);
-                                    setShowAmenitiesDropdown(false);
-                                    setShowTypeDropdown(false);
-                                }}
-                                className={cx(
-                                    "flex items-center gap-2 rounded-lg border px-4 py-2.5 text-sm font-medium transition-colors",
-                                    selectedStars.length > 0
-                                        ? "border-[#ff5a5f] bg-[#ff5a5f]/5 text-[#ff5a5f]"
-                                        : "border-gray-200 bg-white text-gray-700 hover:bg-gray-50"
-                                )}
-                            >
-                                <Star01 className="size-4" />
-                                {selectedStars.length > 0 ? `${selectedStars.length} selected` : "Star Rating"}
-                                <ChevronDown className="size-4" />
-                            </button>
-                            {showStarsDropdown && (
-                                <>
-                                    <div className="fixed inset-0 z-40" onClick={() => setShowStarsDropdown(false)} />
-                                    <div className="absolute left-0 top-full z-50 mt-2 w-56 rounded-xl bg-white p-4 shadow-lg ring-1 ring-gray-200">
-                                        <p className="mb-3 text-sm font-semibold text-gray-900">Star Rating</p>
-                                        <div className="flex flex-wrap gap-2">
-                                            {[5, 4, 3, 2, 1].map((star) => (
-                                                <button
-                                                    key={star}
-                                                    type="button"
-                                                    onClick={() => toggleStar(star)}
-                                                    className={cx(
-                                                        "flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium transition-all",
-                                                        selectedStars.includes(star)
-                                                            ? "bg-[#ff5a5f] text-white"
-                                                            : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                                                    )}
-                                                >
-                                                    <Star01 className="size-4" />
-                                                    {star}
-                                                </button>
-                                            ))}
-                                        </div>
-                                    </div>
-                                </>
-                            )}
-                        </div>
-
-                        {/* Amenities Dropdown */}
-                        <div className="relative">
-                            <button
-                                type="button"
-                                onClick={() => {
-                                    setShowAmenitiesDropdown(!showAmenitiesDropdown);
-                                    setShowPriceDropdown(false);
-                                    setShowStarsDropdown(false);
-                                    setShowTypeDropdown(false);
-                                }}
-                                className={cx(
-                                    "flex items-center gap-2 rounded-lg border px-4 py-2.5 text-sm font-medium transition-colors",
-                                    selectedAmenities.length > 0
-                                        ? "border-[#ff5a5f] bg-[#ff5a5f]/5 text-[#ff5a5f]"
-                                        : "border-gray-200 bg-white text-gray-700 hover:bg-gray-50"
-                                )}
-                            >
-                                <Wifi className="size-4" />
-                                {selectedAmenities.length > 0 ? `${selectedAmenities.length} selected` : "Amenities"}
-                                <ChevronDown className="size-4" />
-                            </button>
-                            {showAmenitiesDropdown && (
-                                <>
-                                    <div className="fixed inset-0 z-40" onClick={() => setShowAmenitiesDropdown(false)} />
-                                    <div className="absolute left-0 top-full z-50 mt-2 w-56 rounded-xl bg-white p-4 shadow-lg ring-1 ring-gray-200">
-                                        <p className="mb-3 text-sm font-semibold text-gray-900">Amenities</p>
-                                        <div className="space-y-2">
-                                            {amenitiesOptions.map((amenity) => (
-                                                <Checkbox
-                                                    key={amenity.id}
-                                                    isSelected={selectedAmenities.includes(amenity.id)}
-                                                    onChange={() => toggleAmenity(amenity.id)}
-                                                    className="cursor-pointer"
-                                                >
-                                                    <div className="flex items-center gap-2">
-                                                        <amenity.icon className="size-4 text-gray-500" />
-                                                        <span className="text-sm text-gray-700">{amenity.label}</span>
-                                                    </div>
-                                                </Checkbox>
-                                            ))}
-                                        </div>
-                                    </div>
-                                </>
-                            )}
-                        </div>
-
-                        {/* Property Type Dropdown */}
-                        <div className="relative">
-                            <button
-                                type="button"
-                                onClick={() => {
-                                    setShowTypeDropdown(!showTypeDropdown);
-                                    setShowPriceDropdown(false);
-                                    setShowStarsDropdown(false);
-                                    setShowAmenitiesDropdown(false);
-                                }}
-                                className={cx(
-                                    "flex items-center gap-2 rounded-lg border px-4 py-2.5 text-sm font-medium transition-colors",
-                                    selectedTypes.length > 0
-                                        ? "border-[#ff5a5f] bg-[#ff5a5f]/5 text-[#ff5a5f]"
-                                        : "border-gray-200 bg-white text-gray-700 hover:bg-gray-50"
-                                )}
-                            >
-                                <Building07 className="size-4" />
-                                {selectedTypes.length > 0 ? `${selectedTypes.length} selected` : "Property Type"}
-                                <ChevronDown className="size-4" />
-                            </button>
-                            {showTypeDropdown && (
-                                <>
-                                    <div className="fixed inset-0 z-40" onClick={() => setShowTypeDropdown(false)} />
-                                    <div className="absolute left-0 top-full z-50 mt-2 w-48 rounded-xl bg-white p-4 shadow-lg ring-1 ring-gray-200">
-                                        <p className="mb-3 text-sm font-semibold text-gray-900">Property Type</p>
-                                        <div className="space-y-2">
-                                            {propertyTypes.map((type) => (
-                                                <Checkbox
-                                                    key={type}
-                                                    isSelected={selectedTypes.includes(type)}
-                                                    onChange={() => toggleType(type)}
-                                                    label={type}
-                                                    className="cursor-pointer"
-                                                />
-                                            ))}
-                                        </div>
-                                    </div>
-                                </>
-                            )}
-                        </div>
-
-                        {/* Sort Dropdown */}
-                        <div className="relative ml-auto">
-                            <button
-                                type="button"
-                                onClick={() => setShowSortDropdown(!showSortDropdown)}
-                                className="flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50"
-                            >
-                                <span className="hidden sm:inline">Sort:</span>
-                                <span className="text-gray-900">
-                                    {sortOptions.find((o) => o.id === sortBy)?.label}
-                                </span>
-                                <ChevronDown className="size-4" />
-                            </button>
-                            {showSortDropdown && (
-                                <>
-                                    <div className="fixed inset-0 z-40" onClick={() => setShowSortDropdown(false)} />
-                                    <div className="absolute right-0 top-full z-50 mt-2 w-48 rounded-xl bg-white py-1 shadow-lg ring-1 ring-gray-200">
-                                        {sortOptions.map((option) => (
-                                            <button
-                                                key={option.id}
-                                                type="button"
-                                                onClick={() => {
-                                                    setSortBy(option.id);
-                                                    setShowSortDropdown(false);
-                                                }}
-                                                className={cx(
-                                                    "w-full px-4 py-2.5 text-left text-sm transition-colors",
-                                                    sortBy === option.id
-                                                        ? "bg-[#ff5a5f]/10 font-medium text-[#ff5a5f]"
-                                                        : "text-gray-700 hover:bg-gray-50"
-                                                )}
-                                            >
-                                                {option.label}
-                                            </button>
-                                        ))}
-                                    </div>
-                                </>
-                            )}
-                        </div>
-
-                        {/* View Mode Toggle */}
-                        <div className="hidden items-center rounded-lg border border-gray-200 bg-white p-1 sm:flex">
-                            <button
-                                type="button"
-                                onClick={() => setViewMode("grid")}
-                                className={cx(
-                                    "flex size-8 items-center justify-center rounded-md transition-colors",
-                                    viewMode === "grid"
-                                        ? "bg-gray-100 text-gray-900"
-                                        : "text-gray-500 hover:text-gray-700"
-                                )}
-                            >
-                                <Grid01 className="size-4" />
-                            </button>
-                            <button
-                                type="button"
-                                onClick={() => setViewMode("list")}
-                                className={cx(
-                                    "flex size-8 items-center justify-center rounded-md transition-colors",
-                                    viewMode === "list"
-                                        ? "bg-gray-100 text-gray-900"
-                                        : "text-gray-500 hover:text-gray-700"
-                                )}
-                            >
-                                <List className="size-4" />
-                            </button>
-                        </div>
-
-                        {/* Clear Filters */}
-                        {hasActiveFilters && (
-                            <button
-                                type="button"
-                                onClick={clearAllFilters}
-                                className="flex items-center gap-1 rounded-lg px-3 py-2.5 text-sm font-medium text-[#ff5a5f] transition-colors hover:bg-[#ff5a5f]/5"
-                            >
-                                <XClose className="size-4" />
-                                Clear
-                            </button>
-                        )}
-
-                        {/* Mobile Filter Button */}
-                        <button
-                            type="button"
-                            onClick={() => setShowMobileFilters(true)}
-                            className="flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50 lg:hidden"
-                        >
-                            <Sliders01 className="size-4" />
-                            All Filters
-                        </button>
-                    </div>
-                </div>
-
                 {/* Split Layout: Listings + Map */}
                 <div className="flex gap-6">
                     {/* Left Side - Listings */}
                     <div className="w-full lg:w-1/2 xl:w-3/5">
-                        {/* Results Header */}
-                        <div className="mb-6 flex items-center justify-between">
-                            <div>
-                                <h2 className="text-2xl font-bold text-gray-900">
-                                    {sortedHotels.length} Hotels Available
-                                </h2>
-                                <p className="mt-1 text-sm text-gray-500">
-                                    Showing all available properties
-                                </p>
+                        {/* Filters */}
+                        <div className="mb-6 rounded-2xl bg-white p-4 shadow-sm ring-1 ring-gray-100">
+                            {/* Row 1 - 3 columns: Search | Price | Clear */}
+                            <div className="grid grid-cols-3 gap-3">
+                                {/* Search */}
+                                <div className="relative">
+                                    <SearchMd className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-gray-400" />
+                                    <input
+                                        type="text"
+                                        placeholder="Search hotels..."
+                                        value={searchQuery}
+                                        onChange={(e) => setSearchQuery(e.target.value)}
+                                        className="w-full rounded-lg border border-gray-200 py-2.5 pl-9 pr-4 text-sm text-gray-900 placeholder:text-gray-400 focus:border-[#ff5a5f] focus:outline-none focus:ring-2 focus:ring-[#ff5a5f]/20"
+                                    />
+                                </div>
+
+                                {/* Price Dropdown */}
+                                <div className="relative">
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            setShowPriceDropdown(!showPriceDropdown);
+                                            setShowAmenitiesDropdown(false);
+                                            setShowTypeDropdown(false);
+                                            setShowStarsDropdown(false);
+                                        }}
+                                        className={cx(
+                                            "flex w-full items-center justify-between gap-2 rounded-lg border px-3 py-2.5 text-sm font-medium transition-colors",
+                                            priceRange[0] !== 100 || priceRange[1] !== 700
+                                                ? "border-[#ff5a5f] bg-[#ff5a5f]/5 text-[#ff5a5f]"
+                                                : "border-gray-200 bg-white text-gray-700 hover:bg-gray-50"
+                                        )}
+                                    >
+                                        <span>${priceRange[0]} - ${priceRange[1]}</span>
+                                        <ChevronDown className="size-4" />
+                                    </button>
+                                    {showPriceDropdown && (
+                                        <>
+                                            <div className="fixed inset-0 z-40" onClick={() => setShowPriceDropdown(false)} />
+                                            <div className="absolute left-0 top-full z-50 mt-2 w-72 rounded-xl bg-white p-4 shadow-lg ring-1 ring-gray-200">
+                                                <p className="mb-3 text-sm font-semibold text-gray-900">Price per night</p>
+                                                <div className="px-1">
+                                                    <Slider
+                                                        minValue={50}
+                                                        maxValue={1000}
+                                                        defaultValue={priceRange}
+                                                        onChange={(value) => setPriceRange(value as number[])}
+                                                        formatOptions={{ style: "currency", currency: "USD", maximumFractionDigits: 0 }}
+                                                        labelPosition="top-floating"
+                                                        labelFormatter={(value) => `$${value}`}
+                                                    />
+                                                </div>
+                                                <div className="mt-3 flex items-center justify-between text-sm text-gray-600">
+                                                    <span>${priceRange[0]}</span>
+                                                    <span>${priceRange[1]}</span>
+                                                </div>
+                                            </div>
+                                        </>
+                                    )}
+                                </div>
+
+                                {/* Clear Filters */}
+                                <button
+                                    type="button"
+                                    onClick={clearAllFilters}
+                                    disabled={!hasActiveFilters}
+                                    className={cx(
+                                        "flex items-center justify-center gap-2 rounded-lg border px-3 py-2.5 text-sm font-medium transition-colors",
+                                        hasActiveFilters
+                                            ? "border-[#ff5a5f] bg-[#ff5a5f]/5 text-[#ff5a5f] hover:bg-[#ff5a5f]/10"
+                                            : "border-gray-200 bg-gray-50 text-gray-400 cursor-not-allowed"
+                                    )}
+                                >
+                                    <XClose className="size-4" />
+                                    Clear Filters
+                                </button>
+                            </div>
+
+                            {/* Row 2 - 4 columns: Amenities | Property Type | Star Rating | Sort */}
+                            <div className="mt-3 grid grid-cols-4 gap-3">
+                                {/* Amenities Dropdown */}
+                                <div className="relative">
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            setShowAmenitiesDropdown(!showAmenitiesDropdown);
+                                            setShowPriceDropdown(false);
+                                            setShowTypeDropdown(false);
+                                            setShowStarsDropdown(false);
+                                        }}
+                                        className={cx(
+                                            "flex w-full items-center justify-between gap-2 rounded-lg border px-3 py-2.5 text-sm font-medium transition-colors",
+                                            selectedAmenities.length > 0
+                                                ? "border-[#ff5a5f] bg-[#ff5a5f]/5 text-[#ff5a5f]"
+                                                : "border-gray-200 bg-white text-gray-700 hover:bg-gray-50"
+                                        )}
+                                    >
+                                        <span className="flex items-center gap-2 truncate">
+                                            <Wifi className="size-4 shrink-0" />
+                                            <span className="truncate">{selectedAmenities.length > 0 ? `${selectedAmenities.length} selected` : "Amenities"}</span>
+                                        </span>
+                                        <ChevronDown className="size-4 shrink-0" />
+                                    </button>
+                                    {showAmenitiesDropdown && (
+                                        <>
+                                            <div className="fixed inset-0 z-40" onClick={() => setShowAmenitiesDropdown(false)} />
+                                            <div className="absolute left-0 top-full z-50 mt-2 w-56 rounded-xl bg-white p-4 shadow-lg ring-1 ring-gray-200">
+                                                <p className="mb-3 text-sm font-semibold text-gray-900">Amenities</p>
+                                                <div className="space-y-2">
+                                                    {amenitiesOptions.map((amenity) => (
+                                                        <Checkbox
+                                                            key={amenity.id}
+                                                            isSelected={selectedAmenities.includes(amenity.id)}
+                                                            onChange={() => toggleAmenity(amenity.id)}
+                                                            className="cursor-pointer"
+                                                        >
+                                                            <div className="flex items-center gap-2">
+                                                                <amenity.icon className="size-4 text-gray-500" />
+                                                                <span className="text-sm text-gray-700">{amenity.label}</span>
+                                                            </div>
+                                                        </Checkbox>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        </>
+                                    )}
+                                </div>
+
+                                {/* Property Type Dropdown */}
+                                <div className="relative">
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            setShowTypeDropdown(!showTypeDropdown);
+                                            setShowPriceDropdown(false);
+                                            setShowAmenitiesDropdown(false);
+                                            setShowStarsDropdown(false);
+                                        }}
+                                        className={cx(
+                                            "flex w-full items-center justify-between gap-2 rounded-lg border px-3 py-2.5 text-sm font-medium transition-colors",
+                                            selectedTypes.length > 0
+                                                ? "border-[#ff5a5f] bg-[#ff5a5f]/5 text-[#ff5a5f]"
+                                                : "border-gray-200 bg-white text-gray-700 hover:bg-gray-50"
+                                        )}
+                                    >
+                                        <span className="flex items-center gap-2 truncate">
+                                            <Building07 className="size-4 shrink-0" />
+                                            <span className="truncate">{selectedTypes.length > 0 ? `${selectedTypes.length} selected` : "Property"}</span>
+                                        </span>
+                                        <ChevronDown className="size-4 shrink-0" />
+                                    </button>
+                                    {showTypeDropdown && (
+                                        <>
+                                            <div className="fixed inset-0 z-40" onClick={() => setShowTypeDropdown(false)} />
+                                            <div className="absolute left-0 top-full z-50 mt-2 w-48 rounded-xl bg-white p-4 shadow-lg ring-1 ring-gray-200">
+                                                <p className="mb-3 text-sm font-semibold text-gray-900">Property Type</p>
+                                                <div className="space-y-2">
+                                                    {propertyTypes.map((type) => (
+                                                        <Checkbox
+                                                            key={type}
+                                                            isSelected={selectedTypes.includes(type)}
+                                                            onChange={() => toggleType(type)}
+                                                            label={type}
+                                                            className="cursor-pointer"
+                                                        />
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        </>
+                                    )}
+                                </div>
+
+                                {/* Star Rating Dropdown */}
+                                <div className="relative">
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            setShowStarsDropdown(!showStarsDropdown);
+                                            setShowPriceDropdown(false);
+                                            setShowAmenitiesDropdown(false);
+                                            setShowTypeDropdown(false);
+                                        }}
+                                        className={cx(
+                                            "flex w-full items-center justify-between gap-2 rounded-lg border px-3 py-2.5 text-sm font-medium transition-colors",
+                                            selectedStars.length > 0
+                                                ? "border-[#ff5a5f] bg-[#ff5a5f]/5 text-[#ff5a5f]"
+                                                : "border-gray-200 bg-white text-gray-700 hover:bg-gray-50"
+                                        )}
+                                    >
+                                        <span className="flex items-center gap-2 truncate">
+                                            <Star01 className="size-4 shrink-0" />
+                                            <span className="truncate">{selectedStars.length > 0 ? `${selectedStars.length} selected` : "Stars"}</span>
+                                        </span>
+                                        <ChevronDown className="size-4 shrink-0" />
+                                    </button>
+                                    {showStarsDropdown && (
+                                        <>
+                                            <div className="fixed inset-0 z-40" onClick={() => setShowStarsDropdown(false)} />
+                                            <div className="absolute left-0 top-full z-50 mt-2 w-56 rounded-xl bg-white p-4 shadow-lg ring-1 ring-gray-200">
+                                                <p className="mb-3 text-sm font-semibold text-gray-900">Star Rating</p>
+                                                <div className="flex flex-wrap gap-2">
+                                                    {[5, 4, 3, 2, 1].map((star) => (
+                                                        <button
+                                                            key={star}
+                                                            type="button"
+                                                            onClick={() => toggleStar(star)}
+                                                            className={cx(
+                                                                "flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium transition-all",
+                                                                selectedStars.includes(star)
+                                                                    ? "bg-[#ff5a5f] text-white"
+                                                                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                                                            )}
+                                                        >
+                                                            <Star01 className="size-4" />
+                                                            {star}
+                                                        </button>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        </>
+                                    )}
+                                </div>
+
+                                {/* Sort Dropdown */}
+                                <div className="relative">
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowSortDropdown(!showSortDropdown)}
+                                        className="flex w-full items-center justify-between gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50"
+                                    >
+                                        <span className="truncate text-gray-900">
+                                            {sortOptions.find((o) => o.id === sortBy)?.label}
+                                        </span>
+                                        <ChevronDown className="size-4 shrink-0" />
+                                    </button>
+                                    {showSortDropdown && (
+                                        <>
+                                            <div className="fixed inset-0 z-40" onClick={() => setShowSortDropdown(false)} />
+                                            <div className="absolute right-0 top-full z-50 mt-2 w-48 rounded-xl bg-white py-1 shadow-lg ring-1 ring-gray-200">
+                                                {sortOptions.map((option) => (
+                                                    <button
+                                                        key={option.id}
+                                                        type="button"
+                                                        onClick={() => {
+                                                            setSortBy(option.id);
+                                                            setShowSortDropdown(false);
+                                                        }}
+                                                        className={cx(
+                                                            "w-full px-4 py-2.5 text-left text-sm transition-colors",
+                                                            sortBy === option.id
+                                                                ? "bg-[#ff5a5f]/10 font-medium text-[#ff5a5f]"
+                                                                : "text-gray-700 hover:bg-gray-50"
+                                                        )}
+                                                    >
+                                                        {option.label}
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        </>
+                                    )}
+                                </div>
                             </div>
                         </div>
-
                         {/* Hotel Grid/List */}
                         {sortedHotels.length > 0 ? (
                             <div
@@ -955,33 +917,39 @@ export default function HotelsPage() {
                                         <div
                                             key={hotel.id}
                                             className={cx(
-                                                "absolute transform -translate-x-1/2 -translate-y-full cursor-pointer transition-all duration-200",
+                                                "absolute transform -translate-x-1/2 -translate-y-full transition-all duration-200",
                                                 hoveredHotel === hotel.id ? "z-20 scale-125" : "z-10"
                                             )}
                                             style={{ left: `${posX}%`, top: `${posY}%` }}
                                             onMouseEnter={() => setHoveredHotel(hotel.id)}
                                             onMouseLeave={() => setHoveredHotel(null)}
                                         >
-                                            {/* Marker */}
-                                            <div className={cx(
-                                                "relative flex items-center gap-1 rounded-full px-2 py-1 shadow-lg transition-all",
-                                                hoveredHotel === hotel.id
-                                                    ? "bg-[#ff5a5f] text-white"
-                                                    : "bg-white text-gray-900"
-                                            )}>
+                                            {/* Marker - Clickable Link */}
+                                            <Link
+                                                href={`/listing/${hotel.id}`}
+                                                className={cx(
+                                                    "relative flex items-center gap-1 rounded-full px-2 py-1 shadow-lg transition-all hover:scale-110",
+                                                    hoveredHotel === hotel.id
+                                                        ? "bg-[#ff5a5f] text-white"
+                                                        : "bg-white text-gray-900 hover:bg-[#ff5a5f] hover:text-white"
+                                                )}
+                                            >
                                                 <span className="text-xs font-bold">${hotel.price}</span>
                                                 {/* Marker tail */}
                                                 <div className={cx(
-                                                    "absolute -bottom-1.5 left-1/2 -translate-x-1/2 border-4 border-transparent",
+                                                    "absolute -bottom-1.5 left-1/2 -translate-x-1/2 border-4 border-transparent transition-colors",
                                                     hoveredHotel === hotel.id
                                                         ? "border-t-[#ff5a5f]"
                                                         : "border-t-white"
                                                 )} />
-                                            </div>
+                                            </Link>
 
-                                            {/* Hover Card */}
+                                            {/* Hover Card - Also Clickable */}
                                             {hoveredHotel === hotel.id && (
-                                                <div className="absolute left-1/2 top-full mt-2 w-48 -translate-x-1/2 rounded-xl bg-white p-2 shadow-xl ring-1 ring-gray-100">
+                                                <Link
+                                                    href={`/listing/${hotel.id}`}
+                                                    className="absolute left-1/2 top-full mt-2 w-48 -translate-x-1/2 rounded-xl bg-white p-2 shadow-xl ring-1 ring-gray-100 transition-all hover:shadow-2xl hover:ring-[#ff5a5f]/50"
+                                                >
                                                     <img
                                                         src={hotel.image}
                                                         alt={hotel.name}
@@ -994,9 +962,15 @@ export default function HotelsPage() {
                                                             <span className="text-xs font-medium text-gray-700">{hotel.rating}</span>
                                                             <span className="text-xs text-gray-500">({hotel.reviews})</span>
                                                         </div>
-                                                        <p className="mt-1 text-sm font-bold text-[#ff5a5f]">${hotel.price}<span className="text-xs font-normal text-gray-500">/night</span></p>
+                                                        <div className="mt-2 flex items-center justify-between">
+                                                            <p className="text-sm font-bold text-[#ff5a5f]">${hotel.price}<span className="text-xs font-normal text-gray-500">/night</span></p>
+                                                            <span className="flex items-center gap-1 rounded-full bg-[#ff5a5f] px-2 py-1 text-xs font-medium text-white">
+                                                                View
+                                                                <ArrowRight className="size-3" />
+                                                            </span>
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                </Link>
                                             )}
                                         </div>
                                     );
