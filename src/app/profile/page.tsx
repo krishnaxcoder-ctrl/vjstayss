@@ -47,6 +47,7 @@ const menuItems = [
 
 export default function ProfilePage() {
     const [isEditing, setIsEditing] = useState(false);
+    const [activeSection, setActiveSection] = useState<string | null>(null);
     const [formData, setFormData] = useState({
         name: userData.name,
         email: userData.email,
@@ -254,50 +255,210 @@ export default function ProfilePage() {
                             </div>
                             <div className="divide-y divide-gray-100">
                                 {menuItems.map((item) => (
-                                    <Link
+                                    <button
                                         key={item.label}
-                                        href={item.href}
-                                        className="flex items-center justify-between px-6 py-4 transition-colors hover:bg-gray-50"
+                                        onClick={() => setActiveSection(activeSection === item.href ? null : item.href)}
+                                        className="flex w-full items-center justify-between px-6 py-4 transition-colors hover:bg-gray-50"
                                     >
                                         <div className="flex items-center gap-4">
-                                            <div className="flex size-10 items-center justify-center rounded-xl bg-gray-100">
-                                                <item.icon className="size-5 text-gray-600" />
+                                            <div className={`flex size-10 items-center justify-center rounded-xl ${activeSection === item.href ? 'bg-[#ff5a5f]/10' : 'bg-gray-100'}`}>
+                                                <item.icon className={`size-5 ${activeSection === item.href ? 'text-[#ff5a5f]' : 'text-gray-600'}`} />
                                             </div>
-                                            <div>
-                                                <p className="font-medium text-gray-900">{item.label}</p>
+                                            <div className="text-left">
+                                                <p className={`font-medium ${activeSection === item.href ? 'text-[#ff5a5f]' : 'text-gray-900'}`}>{item.label}</p>
                                                 <p className="text-sm text-gray-500">{item.description}</p>
                                             </div>
                                         </div>
-                                        <ChevronRight className="size-5 text-gray-400" />
-                                    </Link>
+                                        <ChevronRight className={`size-5 transition-transform ${activeSection === item.href ? 'rotate-90 text-[#ff5a5f]' : 'text-gray-400'}`} />
+                                    </button>
                                 ))}
                             </div>
                         </div>
 
-                        {/* Reward Points Card */}
-                        <div className="overflow-hidden rounded-2xl bg-gradient-to-r from-[#ff5a5f] to-[#e04850] p-6 text-white shadow-lg">
-                            <div className="flex items-start justify-between">
-                                <div>
-                                    <p className="text-sm font-medium text-white/80">VJStays Rewards</p>
-                                    <p className="mt-1 text-3xl font-bold">{userData.rewardPoints} Points</p>
-                                    <p className="mt-2 text-sm text-white/80">
-                                        Earn points with every booking and redeem for discounts
-                                    </p>
+                        {/* Section Content */}
+                        {activeSection === "#personal" && (
+                            <div className="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-gray-100">
+                                <div className="border-b border-gray-100 px-6 py-4">
+                                    <h3 className="text-lg font-semibold text-gray-900">Personal Information</h3>
                                 </div>
-                                <div className="flex size-12 items-center justify-center rounded-xl bg-white/20">
-                                    <CreditCard01 className="size-6" />
+                                <div className="p-6">
+                                    <div className="grid gap-4 sm:grid-cols-2">
+                                        <div>
+                                            <label className="mb-1.5 block text-sm font-medium text-gray-700">Full Name</label>
+                                            <input type="text" defaultValue={userData.name} className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm focus:border-[#ff5a5f] focus:outline-none focus:ring-2 focus:ring-[#ff5a5f]/20" />
+                                        </div>
+                                        <div>
+                                            <label className="mb-1.5 block text-sm font-medium text-gray-700">Email</label>
+                                            <input type="email" defaultValue={userData.email} className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm focus:border-[#ff5a5f] focus:outline-none focus:ring-2 focus:ring-[#ff5a5f]/20" />
+                                        </div>
+                                        <div>
+                                            <label className="mb-1.5 block text-sm font-medium text-gray-700">Phone</label>
+                                            <input type="tel" defaultValue={userData.phone} className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm focus:border-[#ff5a5f] focus:outline-none focus:ring-2 focus:ring-[#ff5a5f]/20" />
+                                        </div>
+                                        <div>
+                                            <label className="mb-1.5 block text-sm font-medium text-gray-700">Location</label>
+                                            <input type="text" defaultValue={userData.location} className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm focus:border-[#ff5a5f] focus:outline-none focus:ring-2 focus:ring-[#ff5a5f]/20" />
+                                        </div>
+                                    </div>
+                                    <button className="mt-6 rounded-lg bg-[#ff5a5f] px-6 py-2.5 text-sm font-semibold text-white hover:bg-[#e04850]">Save Changes</button>
                                 </div>
                             </div>
-                            <div className="mt-6">
-                                <div className="mb-2 flex justify-between text-sm">
-                                    <span className="text-white/80">Progress to Gold Status</span>
-                                    <span className="font-medium">2,450 / 5,000</span>
+                        )}
+
+                        {activeSection === "#payment" && (
+                            <div className="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-gray-100">
+                                <div className="border-b border-gray-100 px-6 py-4">
+                                    <h3 className="text-lg font-semibold text-gray-900">Payment Methods</h3>
                                 </div>
-                                <div className="h-2 overflow-hidden rounded-full bg-white/20">
-                                    <div className="h-full w-[49%] rounded-full bg-white" />
+                                <div className="p-6">
+                                    <div className="space-y-4">
+                                        <div className="flex items-center justify-between rounded-lg border border-gray-200 p-4">
+                                            <div className="flex items-center gap-3">
+                                                <div className="flex size-10 items-center justify-center rounded-lg bg-blue-100">
+                                                    <CreditCard01 className="size-5 text-blue-600" />
+                                                </div>
+                                                <div>
+                                                    <p className="font-medium text-gray-900">•••• •••• •••• 4242</p>
+                                                    <p className="text-sm text-gray-500">Expires 12/25</p>
+                                                </div>
+                                            </div>
+                                            <span className="rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-700">Default</span>
+                                        </div>
+                                    </div>
+                                    <button className="mt-4 rounded-lg border border-[#ff5a5f] px-6 py-2.5 text-sm font-semibold text-[#ff5a5f] hover:bg-[#ff5a5f]/5">+ Add New Card</button>
                                 </div>
                             </div>
-                        </div>
+                        )}
+
+                        {activeSection === "#notifications" && (
+                            <div className="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-gray-100">
+                                <div className="border-b border-gray-100 px-6 py-4">
+                                    <h3 className="text-lg font-semibold text-gray-900">Notification Preferences</h3>
+                                </div>
+                                <div className="p-6 space-y-4">
+                                    {[
+                                        { label: "Email Notifications", desc: "Receive booking confirmations and updates" },
+                                        { label: "SMS Alerts", desc: "Get text messages for important updates" },
+                                        { label: "Marketing Emails", desc: "Receive deals and promotional offers" },
+                                        { label: "Push Notifications", desc: "Browser notifications for bookings" },
+                                    ].map((item, i) => (
+                                        <div key={i} className="flex items-center justify-between">
+                                            <div>
+                                                <p className="font-medium text-gray-900">{item.label}</p>
+                                                <p className="text-sm text-gray-500">{item.desc}</p>
+                                            </div>
+                                            <input type="checkbox" defaultChecked={i < 2} className="size-5 rounded border-gray-300 text-[#ff5a5f] focus:ring-[#ff5a5f]" />
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
+                        {activeSection === "#security" && (
+                            <div className="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-gray-100">
+                                <div className="border-b border-gray-100 px-6 py-4">
+                                    <h3 className="text-lg font-semibold text-gray-900">Security Settings</h3>
+                                </div>
+                                <div className="p-6 space-y-6">
+                                    <div>
+                                        <h4 className="font-medium text-gray-900 mb-3">Change Password</h4>
+                                        <div className="space-y-3">
+                                            <input type="password" placeholder="Current Password" className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm focus:border-[#ff5a5f] focus:outline-none focus:ring-2 focus:ring-[#ff5a5f]/20" />
+                                            <input type="password" placeholder="New Password" className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm focus:border-[#ff5a5f] focus:outline-none focus:ring-2 focus:ring-[#ff5a5f]/20" />
+                                            <input type="password" placeholder="Confirm New Password" className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm focus:border-[#ff5a5f] focus:outline-none focus:ring-2 focus:ring-[#ff5a5f]/20" />
+                                        </div>
+                                        <button className="mt-4 rounded-lg bg-[#ff5a5f] px-6 py-2.5 text-sm font-semibold text-white hover:bg-[#e04850]">Update Password</button>
+                                    </div>
+                                    <div className="border-t border-gray-100 pt-6">
+                                        <div className="flex items-center justify-between">
+                                            <div>
+                                                <p className="font-medium text-gray-900">Two-Factor Authentication</p>
+                                                <p className="text-sm text-gray-500">Add an extra layer of security</p>
+                                            </div>
+                                            <button className="rounded-lg border border-[#ff5a5f] px-4 py-2 text-sm font-semibold text-[#ff5a5f] hover:bg-[#ff5a5f]/5">Enable</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {activeSection === "#company" && (
+                            <div className="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-gray-100">
+                                <div className="border-b border-gray-100 px-6 py-4">
+                                    <h3 className="text-lg font-semibold text-gray-900">Company Details</h3>
+                                </div>
+                                <div className="p-6">
+                                    <div className="grid gap-4 sm:grid-cols-2">
+                                        <div>
+                                            <label className="mb-1.5 block text-sm font-medium text-gray-700">Company Name</label>
+                                            <input type="text" placeholder="Enter company name" className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm focus:border-[#ff5a5f] focus:outline-none focus:ring-2 focus:ring-[#ff5a5f]/20" />
+                                        </div>
+                                        <div>
+                                            <label className="mb-1.5 block text-sm font-medium text-gray-700">Business Email</label>
+                                            <input type="email" placeholder="company@example.com" className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm focus:border-[#ff5a5f] focus:outline-none focus:ring-2 focus:ring-[#ff5a5f]/20" />
+                                        </div>
+                                        <div>
+                                            <label className="mb-1.5 block text-sm font-medium text-gray-700">Tax ID / GST Number</label>
+                                            <input type="text" placeholder="Enter tax ID" className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm focus:border-[#ff5a5f] focus:outline-none focus:ring-2 focus:ring-[#ff5a5f]/20" />
+                                        </div>
+                                        <div>
+                                            <label className="mb-1.5 block text-sm font-medium text-gray-700">Billing Address</label>
+                                            <input type="text" placeholder="Enter billing address" className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm focus:border-[#ff5a5f] focus:outline-none focus:ring-2 focus:ring-[#ff5a5f]/20" />
+                                        </div>
+                                    </div>
+                                    <button className="mt-6 rounded-lg bg-[#ff5a5f] px-6 py-2.5 text-sm font-semibold text-white hover:bg-[#e04850]">Save Company Details</button>
+                                </div>
+                            </div>
+                        )}
+
+                        {activeSection === "#preferences" && (
+                            <div className="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-gray-100">
+                                <div className="border-b border-gray-100 px-6 py-4">
+                                    <h3 className="text-lg font-semibold text-gray-900">Preferences</h3>
+                                </div>
+                                <div className="p-6">
+                                    <div className="grid gap-4 sm:grid-cols-2">
+                                        <div>
+                                            <label className="mb-1.5 block text-sm font-medium text-gray-700">Language</label>
+                                            <select className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm focus:border-[#ff5a5f] focus:outline-none focus:ring-2 focus:ring-[#ff5a5f]/20">
+                                                <option>English</option>
+                                                <option>Hindi</option>
+                                                <option>Spanish</option>
+                                                <option>French</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label className="mb-1.5 block text-sm font-medium text-gray-700">Currency</label>
+                                            <select className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm focus:border-[#ff5a5f] focus:outline-none focus:ring-2 focus:ring-[#ff5a5f]/20">
+                                                <option>USD ($)</option>
+                                                <option>INR (₹)</option>
+                                                <option>EUR (€)</option>
+                                                <option>GBP (£)</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label className="mb-1.5 block text-sm font-medium text-gray-700">Timezone</label>
+                                            <select className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm focus:border-[#ff5a5f] focus:outline-none focus:ring-2 focus:ring-[#ff5a5f]/20">
+                                                <option>UTC-05:00 (Eastern Time)</option>
+                                                <option>UTC+05:30 (India Standard Time)</option>
+                                                <option>UTC+00:00 (GMT)</option>
+                                                <option>UTC+08:00 (Singapore Time)</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label className="mb-1.5 block text-sm font-medium text-gray-700">Date Format</label>
+                                            <select className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm focus:border-[#ff5a5f] focus:outline-none focus:ring-2 focus:ring-[#ff5a5f]/20">
+                                                <option>MM/DD/YYYY</option>
+                                                <option>DD/MM/YYYY</option>
+                                                <option>YYYY-MM-DD</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <button className="mt-6 rounded-lg bg-[#ff5a5f] px-6 py-2.5 text-sm font-semibold text-white hover:bg-[#e04850]">Save Preferences</button>
+                                </div>
+                            </div>
+                        )}
+
                     </div>
                 </div>
             </main>
