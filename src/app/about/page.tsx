@@ -237,7 +237,7 @@ export default function AboutPage() {
             </section>
 
             {/* Why Choose Us - Modern feature grid */}
-            <section className="py-24 lg:py-32">
+            <section className="bg-gradient-to-br from-gray-50 to-[#ff5a5f]/5 py-24 lg:py-32">
                 <div className="mx-auto max-w-8xl px-6 lg:px-12">
                     <div className="grid items-start gap-16 lg:grid-cols-2">
                         <div className="lg:sticky lg:top-32">
