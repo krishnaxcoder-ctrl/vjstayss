@@ -14,7 +14,7 @@ import {
     Plus,
     Minus,
     ShieldTick,
-    Clock01,
+    Clock,
 } from "@untitledui/icons";
 
 // Sample cart items
@@ -89,7 +89,7 @@ export default function CartPage() {
         <div className="min-h-screen bg-gray-50">
             <SiteHeader variant="light" />
 
-            <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+            <main className="mx-auto max-w-8xl px-6 py-8 lg:px-12">
                 {/* Header */}
                 <div className="mb-8">
                     <h1 className="text-3xl font-bold text-gray-900">Your Cart</h1>
@@ -263,7 +263,7 @@ export default function CartPage() {
                                         <span>Secure payment</span>
                                     </div>
                                     <div className="flex items-center gap-3 text-sm text-gray-600">
-                                        <Clock01 className="size-5 text-[#ff5a5f]" />
+                                        <Clock className="size-5 text-[#ff5a5f]" />
                                         <span>Free cancellation available</span>
                                     </div>
                                 </div>
