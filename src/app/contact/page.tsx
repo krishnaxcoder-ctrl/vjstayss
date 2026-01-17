@@ -125,6 +125,8 @@ export default function ContactPage() {
                                         if (errors.firstName) setErrors({ ...errors, firstName: "" });
                                     }}
                                     hint={errors.firstName}
+                                    wrapperClassName="!bg-slate-50"
+                                    inputClassName="!bg-slate-50 !text-gray-900"
                                 />
                                 <Input
                                     label="Last name"
@@ -137,6 +139,8 @@ export default function ContactPage() {
                                         if (errors.lastName) setErrors({ ...errors, lastName: "" });
                                     }}
                                     hint={errors.lastName}
+                                    wrapperClassName="!bg-slate-50"
+                                    inputClassName="!bg-slate-50 !text-gray-900"
                                 />
                             </div>
 
@@ -153,6 +157,8 @@ export default function ContactPage() {
                                     if (errors.email) setErrors({ ...errors, email: "" });
                                 }}
                                 hint={errors.email}
+                                wrapperClassName="!bg-slate-50"
+                                inputClassName="!bg-slate-50 !text-gray-900"
                             />
 
                             {/* Phone Number */}
@@ -168,6 +174,8 @@ export default function ContactPage() {
                                     if (errors.phone) setErrors({ ...errors, phone: "" });
                                 }}
                                 hint={errors.phone}
+                                wrapperClassName="!bg-slate-50"
+                                inputClassName="!bg-slate-50 !text-gray-900"
                             />
 
                             {/* Message */}
@@ -183,6 +191,7 @@ export default function ContactPage() {
                                     if (errors.message) setErrors({ ...errors, message: "" });
                                 }}
                                 hint={errors.message}
+                                textAreaClassName="!bg-slate-50 !text-gray-900"
                             />
 
                             {/* Privacy Policy Checkbox */}

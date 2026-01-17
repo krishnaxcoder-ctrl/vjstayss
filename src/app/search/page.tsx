@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import {
@@ -164,7 +164,7 @@ const sortOptions = [
     { id: "reviews", label: "Most Reviewed" },
 ];
 
-export default function SearchPage() {
+function SearchPageContent() {
     const searchParams = useSearchParams();
 
     // Read search parameters from URL
@@ -517,7 +517,7 @@ export default function SearchPage() {
                                 {sortedHotels.map((hotel) => (
                                     <Link
                                         key={hotel.id}
-                                        href={`/hotel/${hotel.id}`}
+                                        href={`/listing/${hotel.id}`}
                                         className={cx(
                                             "group overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-gray-100 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg",
                                             viewMode === "list" && "flex"
@@ -735,5 +735,20 @@ export default function SearchPage() {
                 </>
             )}
         </div>
+    );
+}
+
+export default function SearchPage() {
+    return (
+        <Suspense fallback={
+            <div className="flex min-h-screen items-center justify-center bg-gray-50">
+                <div className="text-center">
+                    <div className="mx-auto size-12 animate-spin rounded-full border-4 border-gray-200 border-t-[#ff5a5f]" />
+                    <p className="mt-4 text-gray-600">Loading search results...</p>
+                </div>
+            </div>
+        }>
+            <SearchPageContent />
+        </Suspense>
     );
 }

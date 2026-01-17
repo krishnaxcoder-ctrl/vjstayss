@@ -19,7 +19,7 @@ import {
     ArrowLeft,
     Clock,
     Map01,
-    Navigation01,
+    NavigationPointer01,
 } from "@untitledui/icons";
 
 const listings: Record<string, {
@@ -611,38 +611,52 @@ export default function ListingPage() {
                     <p className="mb-6 text-gray-600">{listing.location}</p>
 
                     {/* Map Container */}
-                    <div className="relative h-[400px] overflow-hidden rounded-2xl bg-gray-100">
-                        {/* Static Map Image */}
+                    <div className="relative h-[400px] overflow-hidden rounded-2xl bg-gray-200">
+                        {/* OpenStreetMap Embed */}
                         <iframe
-                            src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=${encodeURIComponent(listing.location)}&zoom=14`}
+                            src={`https://www.openstreetmap.org/export/embed.html?bbox=${encodeURIComponent("-0.1,-0.1,0.1,0.1")}&layer=mapnik`}
                             width="100%"
                             height="100%"
                             style={{ border: 0 }}
-                            allowFullScreen
-                            loading="lazy"
-                            referrerPolicy="no-referrer-when-downgrade"
-                            className="absolute inset-0"
+                            className="absolute inset-0 grayscale-[20%]"
                         />
 
-                        {/* Fallback overlay in case iframe doesn't load */}
-                        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/10" />
+                        {/* Map Overlay with Location */}
+                        <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-b from-black/5 via-transparent to-black/20">
+                            {/* Decorative Map Pattern */}
+                            <div className="absolute inset-0 opacity-30" style={{
+                                backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+                            }} />
 
-                        {/* Location Pin Overlay */}
-                        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-full">
-                            <div className="flex flex-col items-center">
-                                <div className="rounded-full bg-[#ff5a5f] p-3 shadow-lg">
-                                    <MarkerPin01 className="size-6 text-white" />
+                            {/* Location Pin */}
+                            <div className="relative z-10 flex flex-col items-center">
+                                <div className="rounded-full bg-[#ff5a5f] p-4 shadow-2xl ring-4 ring-white/50">
+                                    <MarkerPin01 className="size-8 text-white" />
                                 </div>
-                                <div className="mt-1 h-4 w-0.5 bg-[#ff5a5f]" />
+                                <div className="mt-2 h-6 w-1 rounded-full bg-[#ff5a5f]/60" />
+                                <div className="mt-3 rounded-full bg-white px-4 py-2 shadow-lg">
+                                    <p className="text-sm font-semibold text-gray-900">{listing.location}</p>
+                                </div>
                             </div>
                         </div>
+
+                        {/* View on Map Button */}
+                        <a
+                            href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(listing.location)}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="absolute bottom-4 right-4 z-20 flex items-center gap-2 rounded-lg bg-white px-4 py-2 font-medium text-gray-900 shadow-lg transition-all hover:bg-[#ff5a5f] hover:text-white"
+                        >
+                            <Map01 className="size-4" />
+                            View on Google Maps
+                        </a>
                     </div>
 
                     {/* Location Details */}
                     <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-3">
                         <div className="flex items-start gap-4">
                             <div className="flex size-12 items-center justify-center rounded-xl bg-[#ff5a5f]/10">
-                                <Navigation01 className="size-6 text-[#ff5a5f]" />
+                                <NavigationPointer01 className="size-6 text-[#ff5a5f]" />
                             </div>
                             <div>
                                 <h4 className="font-semibold text-gray-900">Getting around</h4>

@@ -47,7 +47,7 @@ export const SiteHeader = ({ variant = "dark", className }: SiteHeaderProps) => 
                     {/* Logo */}
                     <Link href="/" className="flex cursor-pointer items-center">
                         <img
-                            src="/logo (2).webp"
+                            src="/logolight.webp"
                             alt="VJStays"
                             className="h-10 w-auto"
                         />
@@ -156,7 +156,7 @@ export const SiteHeader = ({ variant = "dark", className }: SiteHeaderProps) => 
                 <div className="flex items-center justify-between border-b border-white/10 px-6 py-4">
                     <Link href="/" className="flex items-center gap-2" onClick={() => setMobileMenuOpen(false)}>
                         <img
-                            src="/logo (2).webp"
+                            src="/logolight.webp"
                             alt="VJStays"
                             className="h-8 w-auto"
                         />
