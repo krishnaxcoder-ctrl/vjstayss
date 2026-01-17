@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { ChevronDown, Globe01, Menu01, XClose } from "@untitledui/icons";
 import { Button as AriaButton } from "react-aria-components";
 import { Button } from "@/components/base/buttons/button";
@@ -15,12 +16,12 @@ const languages = [
 ];
 
 const navLinks = [
-    { label: "Destinations", hasDropdown: true },
-    { label: "Hotels", hasDropdown: true },
-    { label: "Deals", href: "#" },
-    { label: "Experiences", hasDropdown: true },
-    { label: "About Us", href: "#" },
-    { label: "Contact", href: "#" },
+    { label: "Destinations", href: "/destinations" },
+    { label: "Hotels", href: "/hotels" },
+    { label: "Deals", href: "/deals" },
+    { label: "Experiences", href: "/experiences" },
+    { label: "About Us", href: "/about" },
+    { label: "Contact", href: "/contact" },
 ];
 
 export const HeroSection = () => {
@@ -56,16 +57,15 @@ export const HeroSection = () => {
                 {/* Desktop Navigation */}
                 <nav className="hidden items-center gap-1 lg:flex">
                     {navLinks.map((link) => (
-                        <a
+                        <Link
                             key={link.label}
-                            href={link.href || "#"}
+                            href={link.href}
                             className={cx(
                                 "flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-white/90 transition-colors hover:bg-white/10 hover:text-white"
                             )}
                         >
                             {link.label}
-                            {link.hasDropdown && <ChevronDown className="size-4 opacity-70" />}
-                        </a>
+                        </Link>
                     ))}
                 </nav>
 
@@ -158,15 +158,14 @@ export const HeroSection = () => {
                 {/* Mobile Menu Links */}
                 <nav className="flex flex-col px-6 py-4">
                     {navLinks.map((link) => (
-                        <a
+                        <Link
                             key={link.label}
-                            href={link.href || "#"}
+                            href={link.href}
                             className="flex items-center justify-between border-b border-white/10 py-4 text-base font-medium text-white/90 transition-colors hover:text-white"
                             onClick={() => setMobileMenuOpen(false)}
                         >
                             {link.label}
-                            {link.hasDropdown && <ChevronDown className="size-5 opacity-70" />}
-                        </a>
+                        </Link>
                     ))}
                 </nav>
 

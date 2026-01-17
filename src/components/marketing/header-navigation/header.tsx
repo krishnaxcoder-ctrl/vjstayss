@@ -2,6 +2,7 @@
 
 import type { ReactNode } from "react";
 import { useRef, useState } from "react";
+import Link from "next/link";
 import { ChevronDown } from "@untitledui/icons";
 import { Button as AriaButton, Dialog as AriaDialog, DialogTrigger as AriaDialogTrigger, Popover as AriaPopover } from "react-aria-components";
 import { Button } from "@/components/base/buttons/button";
@@ -17,11 +18,12 @@ type HeaderNavItem = {
 };
 
 const headerNavItems: HeaderNavItem[] = [
-    { label: "Products", href: "/products", menu: <DropdownMenuSimple /> },
-    { label: "Services", href: "/Services", menu: <DropdownMenuSimple /> },
-    { label: "Pricing", href: "/pricing" },
-    { label: "Resources", href: "/resources", menu: <DropdownMenuSimple /> },
-    { label: "About", href: "/about" },
+    { label: "Destinations", href: "/destinations" },
+    { label: "Hotels", href: "/hotels" },
+    { label: "Deals", href: "/deals" },
+    { label: "Experiences", href: "/experiences" },
+    { label: "About Us", href: "/about" },
+    { label: "Contact", href: "/contact" },
 ];
 
 const footerNavItems = [
@@ -41,9 +43,9 @@ const MobileNavItem = (props: { className?: string; label: string; href?: string
     if (props.href) {
         return (
             <li>
-                <a href={props.href} className="flex items-center justify-between px-4 py-3 text-md font-semibold text-primary hover:bg-primary_hover">
+                <Link href={props.href} className="flex items-center justify-between px-4 py-3 text-md font-semibold text-primary hover:bg-primary_hover">
                     {props.label}
-                </a>
+                </Link>
             </li>
         );
     }
@@ -163,12 +165,12 @@ export const Header = ({ items = headerNavItems, isFullWidth, isFloating, classN
                                                 </AriaPopover>
                                             </AriaDialogTrigger>
                                         ) : (
-                                            <a
-                                                href={navItem.href}
+                                            <Link
+                                                href={navItem.href || "#"}
                                                 className="flex cursor-pointer items-center gap-0.5 rounded-lg px-1.5 py-1 text-md font-semibold text-secondary outline-focus-ring transition duration-100 ease-linear hover:text-secondary_hover focus:outline-offset-2 focus-visible:outline-2"
                                             >
                                                 <span className="px-0.5">{navItem.label}</span>
-                                            </a>
+                                            </Link>
                                         )}
                                     </li>
                                 ))}
