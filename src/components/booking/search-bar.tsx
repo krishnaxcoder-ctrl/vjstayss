@@ -9,6 +9,7 @@ import {
     DatePicker as AriaDatePicker,
     Dialog as AriaDialog,
     Group as AriaGroup,
+    Button as AriaButton,
     Popover as AriaPopover,
 } from "react-aria-components";
 import { Button } from "@/components/base/buttons/button";
@@ -87,17 +88,19 @@ export const SearchBar = ({ variant = "hero" }: { variant?: "hero" | "inline" })
                         onChange={setCheckIn}
                         minValue={today(getLocalTimeZone())}
                     >
-                        <AriaGroup className="flex items-center gap-3 px-4 py-3">
-                            <Calendar className="size-5 shrink-0 text-gray-400" />
-                            <div className="flex-1 cursor-pointer">
-                                <label className="block text-xs font-medium text-gray-500">Check in</label>
-                                <span className={cx(
-                                    "mt-0.5 block text-sm",
-                                    checkIn ? "text-gray-900" : "text-gray-400"
-                                )}>
-                                    {formatDate(checkIn) || "Add date"}
-                                </span>
-                            </div>
+                        <AriaGroup>
+                            <AriaButton className="flex w-full items-center gap-3 px-4 py-3 text-left outline-none">
+                                <Calendar className="size-5 shrink-0 text-gray-400" />
+                                <div className="flex-1">
+                                    <span className="block text-xs font-medium text-gray-500">Check in</span>
+                                    <span className={cx(
+                                        "mt-0.5 block text-sm",
+                                        checkIn ? "text-gray-900" : "text-gray-400"
+                                    )}>
+                                        {formatDate(checkIn) || "Add date"}
+                                    </span>
+                                </div>
+                            </AriaButton>
                         </AriaGroup>
                         <AriaPopover
                             offset={8}
@@ -125,17 +128,19 @@ export const SearchBar = ({ variant = "hero" }: { variant?: "hero" | "inline" })
                         onChange={setCheckOut}
                         minValue={checkIn || today(getLocalTimeZone())}
                     >
-                        <AriaGroup className="flex items-center gap-3 px-4 py-3">
-                            <Calendar className="size-5 shrink-0 text-gray-400" />
-                            <div className="flex-1 cursor-pointer">
-                                <label className="block text-xs font-medium text-gray-500">Check out</label>
-                                <span className={cx(
-                                    "mt-0.5 block text-sm",
-                                    checkOut ? "text-gray-900" : "text-gray-400"
-                                )}>
-                                    {formatDate(checkOut) || "Add date"}
-                                </span>
-                            </div>
+                        <AriaGroup>
+                            <AriaButton className="flex w-full items-center gap-3 px-4 py-3 text-left outline-none">
+                                <Calendar className="size-5 shrink-0 text-gray-400" />
+                                <div className="flex-1">
+                                    <span className="block text-xs font-medium text-gray-500">Check out</span>
+                                    <span className={cx(
+                                        "mt-0.5 block text-sm",
+                                        checkOut ? "text-gray-900" : "text-gray-400"
+                                    )}>
+                                        {formatDate(checkOut) || "Add date"}
+                                    </span>
+                                </div>
+                            </AriaButton>
                         </AriaGroup>
                         <AriaPopover
                             offset={8}
@@ -164,7 +169,7 @@ export const SearchBar = ({ variant = "hero" }: { variant?: "hero" | "inline" })
                     >
                         <Users01 className="size-5 shrink-0 text-gray-400" />
                         <div className="flex-1">
-                            <label className="block text-xs font-medium text-gray-500">Guests</label>
+                            <span className="block text-xs font-medium text-gray-500">Guests</span>
                             <span className="mt-0.5 block truncate text-sm text-gray-900">{guestSummary}</span>
                         </div>
                     </button>
