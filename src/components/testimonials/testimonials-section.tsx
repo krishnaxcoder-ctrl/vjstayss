@@ -67,7 +67,7 @@ const testimonials = [
 
 export const TestimonialsSection = () => {
     return (
-        <section className="border-y-2 border-[#ff5a5f] py-16 lg:py-24">
+        <section className="border-y-2 border-[#ff5a5f] py-16 lg:py-16">
             <div className="mx-auto max-w-8xl px-6 lg:px-12">
                 {/* Header */}
                 <div className="text-center">
@@ -87,7 +87,7 @@ export const TestimonialsSection = () => {
                     {testimonials.map((testimonial, index) => (
                         <div
                             key={index}
-                            className="flex flex-col rounded-2xl border border-gray-200 bg-white p-6 transition-shadow hover:shadow-lg"
+                            className="flex flex-col rounded-2xl border border-gray-200 bg-white p-6 transition-all hover:border-[#ff5a5f] hover:shadow-lg"
                         >
                             {/* Stars and Badge */}
                             <div className="flex items-center justify-between">
@@ -102,10 +102,10 @@ export const TestimonialsSection = () => {
                             </div>
 
                             {/* Quote */}
-                            <p className="mt-4 flex-1 text-gray-600">"{testimonial.quote}"</p>
+                            <p className="mt-4 flex-1 text-gray-600 text-sm leading-6">"{testimonial.quote}"</p>
 
                             {/* Divider */}
-                            <div className="my-5 h-px bg-gray-100" />
+                            <div className="my-3 h-px bg-gray-100" />
 
                             {/* User Info */}
                             <div className="flex items-center gap-3">
