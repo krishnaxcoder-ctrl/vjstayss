@@ -1,36 +1,31 @@
 "use client";
 
+import Link from "next/link";
 import { Mail01, MarkerPin01, Phone01 } from "@untitledui/icons";
 import { Facebook, Instagram, LinkedIn, Twitter } from "@/components/foundations/social-icons";
 
 const footerLinks = {
-    company: [
-        { label: "About Us", href: "#" },
-        { label: "Careers", href: "#" },
-        { label: "Press", href: "#" },
-        { label: "Blog", href: "#" },
-        { label: "Investors", href: "#" },
-        { label: "Sustainability", href: "#" },
-        { label: "Trust & Safety", href: "#" },
+    pages: [
+        { label: "Home", href: "/" },
+        { label: "Destinations", href: "/destinations" },
+        { label: "Hotels", href: "/hotels" },
+        { label: "Deals", href: "/deals" },
+        { label: "Experiences", href: "/experiences" },
+        { label: "About Us", href: "/about" },
+        { label: "Contact", href: "/contact" },
     ],
     support: [
-        { label: "Help Center", href: "#" },
-        { label: "Safety Information", href: "#" },
-        { label: "Cancellation Options", href: "#" },
-        { label: "Contact Us", href: "#" },
-        { label: "FAQs", href: "#" },
-        { label: "Accessibility", href: "#" },
-        { label: "Report a Concern", href: "#" },
+        { label: "Help Center", href: "/help" },
+        { label: "Safety Information", href: "/safety" },
+        { label: "Cancellation Options", href: "/cancellation" },
+        { label: "FAQs", href: "/faqs" },
+        { label: "Accessibility", href: "/accessibility" },
     ],
-    destinations: [
-        { label: "Paris", href: "#" },
-        { label: "Tokyo", href: "#" },
-        { label: "New York", href: "#" },
-        { label: "Dubai", href: "#" },
-        { label: "London", href: "#" },
-        { label: "Bali", href: "#" },
-        { label: "Barcelona", href: "#" },
-        { label: "Sydney", href: "#" },
+    legal: [
+        { label: "Terms of Service", href: "/terms" },
+        { label: "Privacy Policy", href: "/privacy" },
+        { label: "Cookie Policy", href: "/cookies" },
+        { label: "Refund Policy", href: "/refund" },
     ],
 };
 
@@ -39,48 +34,47 @@ export const Footer = () => {
         <footer className="border-t-[3px] border-[#ff5a5f] bg-gray-50">
             {/* Main Footer */}
             <div className="mx-auto max-w-8xl px-6 pt-16 pb-4 lg:px-12">
-                {/* Links Section - 5 Columns */}
-                <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+                {/* Links Section - 6 Columns */}
+                <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
                     {/* Brand Section */}
-                    <div className="col-span-1 sm:col-span-2 md:col-span-3 lg:col-span-1">
-                        <div className="flex items-center gap-3">
-                            <div className="flex size-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#ff5a5f] to-[#ff5a5f] shadow-lg shadow-[#ff5a5f]/25">
-                                <svg viewBox="0 0 24 24" className="size-6 text-white" fill="currentColor">
-                                    <path d="M12 2L2 7v10c0 5.55 3.84 10.74 10 12 6.16-1.26 10-6.45 10-12V7l-10-5zm0 4a3 3 0 110 6 3 3 0 010-6zm0 14c-2.67 0-8-1.34-8-4v-.8c0-1.33 5.33-2.4 8-2.4s8 1.07 8 2.4v.8c0 2.66-5.33 4-8 4z"/>
-                                </svg>
-                            </div>
-                            <span className="text-2xl font-bold text-gray-900">Stayza</span>
-                        </div>
+                    <div className="col-span-1 sm:col-span-2 md:col-span-3 lg:col-span-2">
+                        <Link href="/" className="flex items-center">
+                            <img
+                                src="/logolight.webp"
+                                alt="VJStays"
+                                className="h-12 w-auto"
+                            />
+                        </Link>
                         <p className="mt-4 text-sm text-gray-600">
-                            Your trusted partner for discovering and booking the perfect stay. Explore thousands of properties worldwide.
+                            Your trusted partner for discovering and booking the perfect stay. Explore thousands of properties across India and beyond. Experience comfort, value, and unforgettable memories with every booking.
                         </p>
 
                         {/* Contact Info */}
                         <div className="mt-4 flex flex-col gap-2">
-                            <a href="mailto:hello@stayza.com" className="flex items-center gap-2 text-sm text-gray-600 transition-colors hover:text-[#ff5a5f]">
+                            <a href="mailto:hello@vjstays.com" className="flex items-center gap-2 text-sm text-gray-600 transition-colors hover:text-[#ff5a5f]">
                                 <Mail01 className="size-4" />
-                                hello@stayza.com
+                                hello@vjstays.com
                             </a>
-                            <a href="tel:+1234567890" className="flex items-center gap-2 text-sm text-gray-600 transition-colors hover:text-[#ff5a5f]">
+                            <a href="tel:+919876543210" className="flex items-center gap-2 text-sm text-gray-600 transition-colors hover:text-[#ff5a5f]">
                                 <Phone01 className="size-4" />
-                                +1 (234) 567-890
+                                +91 98765 43210
                             </a>
                             <div className="flex items-center gap-2 text-sm text-gray-600">
                                 <MarkerPin01 className="size-4" />
-                                San Francisco, CA
+                                Mumbai, India
                             </div>
                         </div>
                     </div>
 
-                    {/* Company */}
+                    {/* Pages */}
                     <div>
-                        <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-[#ff5a5f]">Company</h4>
+                        <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-[#ff5a5f]">Pages</h4>
                         <ul className="space-y-3">
-                            {footerLinks.company.map((link) => (
+                            {footerLinks.pages.map((link) => (
                                 <li key={link.label}>
-                                    <a href={link.href} className="text-sm text-gray-600 transition-colors hover:text-gray-900 hover:underline">
+                                    <Link href={link.href} className="text-sm text-gray-600 transition-colors hover:text-gray-900 hover:underline">
                                         {link.label}
-                                    </a>
+                                    </Link>
                                 </li>
                             ))}
                         </ul>
@@ -92,23 +86,23 @@ export const Footer = () => {
                         <ul className="space-y-3">
                             {footerLinks.support.map((link) => (
                                 <li key={link.label}>
-                                    <a href={link.href} className="text-sm text-gray-600 transition-colors hover:text-gray-900 hover:underline">
+                                    <Link href={link.href} className="text-sm text-gray-600 transition-colors hover:text-gray-900 hover:underline">
                                         {link.label}
-                                    </a>
+                                    </Link>
                                 </li>
                             ))}
                         </ul>
                     </div>
 
-                    {/* Destinations */}
+                    {/* Legal */}
                     <div>
-                        <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-[#ff5a5f]">Top Destinations</h4>
+                        <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-[#ff5a5f]">Legal</h4>
                         <ul className="space-y-3">
-                            {footerLinks.destinations.map((link) => (
+                            {footerLinks.legal.map((link) => (
                                 <li key={link.label}>
-                                    <a href={link.href} className="text-sm text-gray-600 transition-colors hover:text-gray-900 hover:underline">
+                                    <Link href={link.href} className="text-sm text-gray-600 transition-colors hover:text-gray-900 hover:underline">
                                         {link.label}
-                                    </a>
+                                    </Link>
                                 </li>
                             ))}
                         </ul>
@@ -170,22 +164,22 @@ export const Footer = () => {
                     {/* Copyright */}
                     <div className="flex flex-col items-center gap-2 md:flex-row md:gap-4">
                         <p className="text-sm text-gray-500">
-                            © {new Date().getFullYear()} Stayza. All rights reserved.
+                            © {new Date().getFullYear()} VJStays. All rights reserved.
                         </p>
                         <div className="hidden h-4 w-px bg-gray-300 md:block" />
                         <div className="flex gap-4">
-                            <a href="#" className="text-sm text-gray-500 transition-colors hover:text-[#ff5a5f]">
+                            <Link href="/terms" className="text-sm text-gray-500 transition-colors hover:text-[#ff5a5f]">
                                 Terms
-                            </a>
-                            <a href="#" className="text-sm text-gray-500 transition-colors hover:text-[#ff5a5f]">
+                            </Link>
+                            <Link href="/privacy" className="text-sm text-gray-500 transition-colors hover:text-[#ff5a5f]">
                                 Privacy
-                            </a>
-                            <a href="#" className="text-sm text-gray-500 transition-colors hover:text-[#ff5a5f]">
+                            </Link>
+                            <Link href="/cookies" className="text-sm text-gray-500 transition-colors hover:text-[#ff5a5f]">
                                 Cookies
-                            </a>
-                            <a href="#" className="text-sm text-gray-500 transition-colors hover:text-[#ff5a5f]">
+                            </Link>
+                            <Link href="/sitemap" className="text-sm text-gray-500 transition-colors hover:text-[#ff5a5f]">
                                 Sitemap
-                            </a>
+                            </Link>
                         </div>
                     </div>
 

@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import { Footer } from "@/components/booking/footer";
+import { CookieConsent } from "@/components/cookies/cookie-consent";
 import { RouteProvider } from "@/providers/router-provider";
 import { Theme } from "@/providers/theme";
 import "@/styles/globals.css";
@@ -35,6 +36,7 @@ export default function RootLayout({
                     <Theme>
                         {children}
                         <Footer />
+                        <CookieConsent />
                     </Theme>
                 </RouteProvider>
             </body>

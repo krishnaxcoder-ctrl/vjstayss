@@ -2,16 +2,9 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ChevronDown, Globe01, Menu01, XClose } from "@untitledui/icons";
-import { Button as AriaButton } from "react-aria-components";
+import { Heart, Menu01, ShoppingCart01, XClose } from "@untitledui/icons";
 import { Button } from "@/components/base/buttons/button";
-import { Dropdown } from "@/components/base/dropdown/dropdown";
 import { cx } from "@/utils/cx";
-
-const languages = [
-    { id: "en", label: "English", short: "EN" },
-    { id: "hi", label: "हिंदी", short: "HI" },
-];
 
 const navLinks = [
     { label: "Destinations", href: "/destinations" },
@@ -29,7 +22,6 @@ interface SiteHeaderProps {
 
 export const SiteHeader = ({ variant = "dark", className }: SiteHeaderProps) => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const [selectedLanguage, setSelectedLanguage] = useState(languages[0]);
 
     const isDark = variant === "dark";
 
@@ -73,40 +65,29 @@ export const SiteHeader = ({ variant = "dark", className }: SiteHeaderProps) => 
 
                     {/* Right side actions */}
                     <div className="flex items-center gap-3">
-                        {/* Language Switcher - Desktop */}
-                        <div className="hidden lg:block">
-                            <Dropdown.Root>
-                                <AriaButton
-                                    className={cx(
-                                        "flex cursor-pointer items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium outline-none transition-colors",
-                                        isDark
-                                            ? "text-white/90 hover:bg-white/10 hover:text-white"
-                                            : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                                    )}
-                                >
-                                    <Globe01 className="size-4" />
-                                    <span>{selectedLanguage.short}</span>
-                                    <ChevronDown className="size-4 opacity-70" />
-                                </AriaButton>
-                                <Dropdown.Popover className="w-40 bg-white">
-                                    <Dropdown.Menu
-                                        className="bg-white"
-                                        selectedKeys={[selectedLanguage.id]}
-                                        onSelectionChange={(keys) => {
-                                            const key = Array.from(keys)[0] as string;
-                                            const lang = languages.find((l) => l.id === key);
-                                            if (lang) setSelectedLanguage(lang);
-                                        }}
-                                    >
-                                        {languages.map((lang) => (
-                                            <Dropdown.Item key={lang.id} id={lang.id} className="text-gray-900 hover:bg-gray-100">
-                                                {lang.label}
-                                            </Dropdown.Item>
-                                        ))}
-                                    </Dropdown.Menu>
-                                </Dropdown.Popover>
-                            </Dropdown.Root>
-                        </div>
+                        {/* Saved Icon */}
+                        <Link
+                            href="/saved"
+                            className={cx(
+                                "hidden lg:flex cursor-pointer size-10 items-center justify-center rounded-lg transition-colors",
+                                isDark ? "text-white/90 hover:bg-white/10 hover:text-white" : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                            )}
+                            aria-label="Saved items"
+                        >
+                            <Heart className="size-5" />
+                        </Link>
+
+                        {/* Cart Icon */}
+                        <Link
+                            href="/cart"
+                            className={cx(
+                                "hidden lg:flex cursor-pointer size-10 items-center justify-center rounded-lg transition-colors",
+                                isDark ? "text-white/90 hover:bg-white/10 hover:text-white" : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                            )}
+                            aria-label="Cart"
+                        >
+                            <ShoppingCart01 className="size-5" />
+                        </Link>
 
                         {/* CTA Button */}
                         <Button
@@ -187,34 +168,6 @@ export const SiteHeader = ({ variant = "dark", className }: SiteHeaderProps) => 
 
                 {/* Mobile Menu Footer */}
                 <div className="absolute bottom-0 left-0 right-0 border-t border-white/10 px-6 py-6">
-                    {/* Language Switcher - Mobile */}
-                    <div className="mb-4">
-                        <Dropdown.Root>
-                            <AriaButton className="flex cursor-pointer items-center gap-2 rounded-lg px-3 py-2 text-base font-medium text-white/90 outline-none transition-colors hover:bg-white/10 hover:text-white">
-                                <Globe01 className="size-5" />
-                                <span>{selectedLanguage.label}</span>
-                                <ChevronDown className="size-5 opacity-70" />
-                            </AriaButton>
-                            <Dropdown.Popover className="w-44 bg-white">
-                                <Dropdown.Menu
-                                    className="bg-white"
-                                    selectedKeys={[selectedLanguage.id]}
-                                    onSelectionChange={(keys) => {
-                                        const key = Array.from(keys)[0] as string;
-                                        const lang = languages.find((l) => l.id === key);
-                                        if (lang) setSelectedLanguage(lang);
-                                    }}
-                                >
-                                    {languages.map((lang) => (
-                                        <Dropdown.Item key={lang.id} id={lang.id} className="text-gray-900 hover:bg-gray-100">
-                                            {lang.label}
-                                        </Dropdown.Item>
-                                    ))}
-                                </Dropdown.Menu>
-                            </Dropdown.Popover>
-                        </Dropdown.Root>
-                    </div>
-
                     {/* CTA Button - Mobile */}
                     <Button size="lg" className="w-full bg-[#ff5a5f] hover:bg-[#e04850] border-none shadow-none">
                         Sign In

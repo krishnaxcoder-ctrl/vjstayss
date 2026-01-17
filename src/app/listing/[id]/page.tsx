@@ -490,9 +490,9 @@ export default function ListingPage() {
                             </div>
 
                             {/* Individual Reviews */}
-                            <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+                            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                                 {reviews.map((review) => (
-                                    <div key={review.id} className="space-y-4">
+                                    <div key={review.id} className="space-y-4 rounded-xl border border-gray-200 p-5">
                                         <div className="flex items-center gap-4">
                                             <img
                                                 src={review.user.image}
