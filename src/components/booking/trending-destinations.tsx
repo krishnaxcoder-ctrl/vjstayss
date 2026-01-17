@@ -90,13 +90,11 @@ export const TrendingDestinations = () => {
                         <span className="inline-block rounded-full bg-[#ff5a5f]/10 px-4 py-1.5 text-sm font-medium text-[#ff5a5f]">
                             Recommendations
                         </span>
-                        <h2 className="mt-4 text-3xl font-bold tracking-tight text-gray-900 md:text-4xl lg:text-5xl">
-                            Explore Our Popular
-                            <br />
-                            Destination
+                        <h2 className="mt-4 text-3xl font-bold tracking-tight text-gray-900 md:text-4xl lg:text-4xl">
+                            Explore Our Popular Destination                            
                         </h2>
                     </div>
-                    <p className="max-w-xs text-right text-sm text-gray-500 lg:text-base">
+                    <p className="max-w-md text-right text-sm text-gray-500 lg:text-base">
                         Discover top destinations and plan your next adventure.
                     </p>
                 </div>

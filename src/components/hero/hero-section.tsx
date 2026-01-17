@@ -2,10 +2,17 @@
 
 import { useState } from "react";
 import { ChevronDown, Globe01, Menu01, XClose } from "@untitledui/icons";
+import { Button as AriaButton } from "react-aria-components";
 import { Button } from "@/components/base/buttons/button";
+import { Dropdown } from "@/components/base/dropdown/dropdown";
 import { FeatureBadges } from "@/components/booking/feature-badges";
 import { SearchBar } from "@/components/booking/search-bar";
 import { cx } from "@/utils/cx";
+
+const languages = [
+    { id: "en", label: "English", short: "EN" },
+    { id: "hi", label: "हिंदी", short: "HI" },
+];
 
 const navLinks = [
     { label: "Destinations", hasDropdown: true },
@@ -18,6 +25,7 @@ const navLinks = [
 
 export const HeroSection = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [selectedLanguage, setSelectedLanguage] = useState(languages[0]);
 
     return (
         <section className="relative min-h-screen w-full overflow-hidden">
@@ -64,13 +72,31 @@ export const HeroSection = () => {
                 {/* Right side actions */}
                 <div className="flex items-center gap-3">
                     {/* Language Switcher - Desktop */}
-                    <div className="hidden items-center gap-2 lg:flex">
-                        <Globe01 className="size-4 text-white/80" />
-                        <select className="cursor-pointer appearance-none bg-transparent text-sm font-medium text-white/90 outline-none">
-                            <option value="en" className="text-gray-900">EN</option>
-                            <option value="es" className="text-gray-900">ES</option>
-                            <option value="fr" className="text-gray-900">FR</option>
-                        </select>
+                    <div className="hidden lg:block">
+                        <Dropdown.Root>
+                            <AriaButton className="flex cursor-pointer items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-white/90 outline-none transition-colors hover:bg-white/10 hover:text-white">
+                                <Globe01 className="size-4" />
+                                <span>{selectedLanguage.short}</span>
+                                <ChevronDown className="size-4 opacity-70" />
+                            </AriaButton>
+                            <Dropdown.Popover className="w-40 bg-white">
+                                <Dropdown.Menu
+                                    className="bg-white"
+                                    selectedKeys={[selectedLanguage.id]}
+                                    onSelectionChange={(keys) => {
+                                        const key = Array.from(keys)[0] as string;
+                                        const lang = languages.find((l) => l.id === key);
+                                        if (lang) setSelectedLanguage(lang);
+                                    }}
+                                >
+                                    {languages.map((lang) => (
+                                        <Dropdown.Item key={lang.id} id={lang.id} className="text-gray-900 hover:bg-gray-100">
+                                            {lang.label}
+                                        </Dropdown.Item>
+                                    ))}
+                                </Dropdown.Menu>
+                            </Dropdown.Popover>
+                        </Dropdown.Root>
                     </div>
 
                     {/* CTA Button - Hidden on mobile when menu is open */}
@@ -147,13 +173,31 @@ export const HeroSection = () => {
                 {/* Mobile Menu Footer */}
                 <div className="absolute bottom-0 left-0 right-0 border-t border-white/10 px-6 py-6">
                     {/* Language Switcher - Mobile */}
-                    <div className="mb-4 flex items-center gap-2">
-                        <Globe01 className="size-5 text-white/80" />
-                        <select className="cursor-pointer appearance-none bg-transparent text-base font-medium text-white/90 outline-none">
-                            <option value="en" className="text-gray-900">English</option>
-                            <option value="es" className="text-gray-900">Español</option>
-                            <option value="fr" className="text-gray-900">Français</option>
-                        </select>
+                    <div className="mb-4">
+                        <Dropdown.Root>
+                            <AriaButton className="flex cursor-pointer items-center gap-2 rounded-lg px-3 py-2 text-base font-medium text-white/90 outline-none transition-colors hover:bg-white/10 hover:text-white">
+                                <Globe01 className="size-5" />
+                                <span>{selectedLanguage.label}</span>
+                                <ChevronDown className="size-5 opacity-70" />
+                            </AriaButton>
+                            <Dropdown.Popover className="w-44 bg-white">
+                                <Dropdown.Menu
+                                    className="bg-white"
+                                    selectedKeys={[selectedLanguage.id]}
+                                    onSelectionChange={(keys) => {
+                                        const key = Array.from(keys)[0] as string;
+                                        const lang = languages.find((l) => l.id === key);
+                                        if (lang) setSelectedLanguage(lang);
+                                    }}
+                                >
+                                    {languages.map((lang) => (
+                                        <Dropdown.Item key={lang.id} id={lang.id} className="text-gray-900 hover:bg-gray-100">
+                                            {lang.label}
+                                        </Dropdown.Item>
+                                    ))}
+                                </Dropdown.Menu>
+                            </Dropdown.Popover>
+                        </Dropdown.Root>
                     </div>
 
                     {/* CTA Button - Mobile */}
