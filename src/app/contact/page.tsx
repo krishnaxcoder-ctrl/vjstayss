@@ -4,8 +4,6 @@ import { useState } from "react";
 import { Send01, Star01 } from "@untitledui/icons";
 import { Button } from "@/components/base/buttons/button";
 import { Checkbox } from "@/components/base/checkbox/checkbox";
-import { Input } from "@/components/base/input/input";
-import { TextArea } from "@/components/base/textarea/textarea";
 import { SiteHeader } from "@/components/layout/site-header";
 
 export default function ContactPage() {
@@ -75,7 +73,7 @@ export default function ContactPage() {
 
     if (submitted) {
         return (
-            <div>
+            <div className="min-h-screen bg-white">
                 <SiteHeader variant="light" />
                 <div className="flex h-[calc(100vh-73px)] items-center justify-center px-6 lg:h-[calc(100vh-89px)]">
                     <div className="text-center">
@@ -83,7 +81,7 @@ export default function ContactPage() {
                             <Send01 className="size-10 text-[#ff5a5f]" />
                         </div>
                         <h2 className="mt-6 text-2xl font-bold text-gray-900">Message Sent!</h2>
-                        <p className="mt-2 text-gray-600">Thank you for reaching out. We'll get back to you soon.</p>
+                        <p className="mt-2 text-gray-700">Thank you for reaching out. We'll get back to you soon.</p>
                         <Button
                             size="lg"
                             className="mt-8 bg-[#ff5a5f] hover:bg-[#e04850]"
@@ -102,97 +100,129 @@ export default function ContactPage() {
     }
 
     return (
-        <div>
+        <div className="min-h-screen bg-white">
             <SiteHeader variant="light" />
             <div className="flex h-[calc(100vh-73px)] flex-col overflow-hidden lg:h-[calc(100vh-89px)] lg:flex-row">
                 {/* Left Side - Form (40%) */}
-                <div className="flex w-full flex-col justify-center overflow-y-auto px-6 py-8 lg:w-[40%] lg:px-12 xl:px-16">
+                <div className="flex w-full flex-col justify-center overflow-y-auto bg-white px-6 py-8 lg:w-[40%] lg:px-12 xl:px-16">
                     <div className="w-full max-w-md">
                         <h1 className="text-3xl font-bold text-gray-900 md:text-4xl">Get in touch</h1>
-                        <p className="mt-3 text-gray-600">Our friendly team would love to hear from you.</p>
+                        <p className="mt-3 text-gray-700">Our friendly team would love to hear from you.</p>
 
                         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
                             {/* First & Last Name */}
                             <div className="grid gap-4 sm:grid-cols-2">
-                                <Input
-                                    label="First name"
-                                    placeholder="First name"
-                                    isRequired
-                                    isInvalid={!!errors.firstName}
-                                    value={formData.firstName}
-                                    onChange={(value) => {
-                                        setFormData({ ...formData, firstName: value });
-                                        if (errors.firstName) setErrors({ ...errors, firstName: "" });
-                                    }}
-                                    hint={errors.firstName}
-                                    wrapperClassName="!bg-slate-50"
-                                    inputClassName="!bg-slate-50 !text-gray-900"
-                                />
-                                <Input
-                                    label="Last name"
-                                    placeholder="Last name"
-                                    isRequired
-                                    isInvalid={!!errors.lastName}
-                                    value={formData.lastName}
-                                    onChange={(value) => {
-                                        setFormData({ ...formData, lastName: value });
-                                        if (errors.lastName) setErrors({ ...errors, lastName: "" });
-                                    }}
-                                    hint={errors.lastName}
-                                    wrapperClassName="!bg-slate-50"
-                                    inputClassName="!bg-slate-50 !text-gray-900"
-                                />
+                                <div>
+                                    <label className="mb-1.5 block text-sm font-medium text-gray-800">
+                                        First name <span className="text-[#ff5a5f]">*</span>
+                                    </label>
+                                    <input
+                                        type="text"
+                                        placeholder="First name"
+                                        value={formData.firstName}
+                                        onChange={(e) => {
+                                            setFormData({ ...formData, firstName: e.target.value });
+                                            if (errors.firstName) setErrors({ ...errors, firstName: "" });
+                                        }}
+                                        className={`w-full rounded-lg border bg-white px-3.5 py-2.5 text-gray-900 placeholder-gray-500 outline-none transition-all focus:ring-2 focus:ring-[#ff5a5f]/20 ${
+                                            errors.firstName
+                                                ? "border-red-500 focus:border-red-500"
+                                                : "border-gray-300 focus:border-[#ff5a5f]"
+                                        }`}
+                                    />
+                                    {errors.firstName && (
+                                        <p className="mt-1 text-sm text-red-500">{errors.firstName}</p>
+                                    )}
+                                </div>
+                                <div>
+                                    <label className="mb-1.5 block text-sm font-medium text-gray-800">
+                                        Last name <span className="text-[#ff5a5f]">*</span>
+                                    </label>
+                                    <input
+                                        type="text"
+                                        placeholder="Last name"
+                                        value={formData.lastName}
+                                        onChange={(e) => {
+                                            setFormData({ ...formData, lastName: e.target.value });
+                                            if (errors.lastName) setErrors({ ...errors, lastName: "" });
+                                        }}
+                                        className={`w-full rounded-lg border bg-white px-3.5 py-2.5 text-gray-900 placeholder-gray-500 outline-none transition-all focus:ring-2 focus:ring-[#ff5a5f]/20 ${
+                                            errors.lastName
+                                                ? "border-red-500 focus:border-red-500"
+                                                : "border-gray-300 focus:border-[#ff5a5f]"
+                                        }`}
+                                    />
+                                    {errors.lastName && (
+                                        <p className="mt-1 text-sm text-red-500">{errors.lastName}</p>
+                                    )}
+                                </div>
                             </div>
 
                             {/* Email */}
-                            <Input
-                                label="Email"
-                                type="email"
-                                placeholder="you@company.com"
-                                isRequired
-                                isInvalid={!!errors.email}
-                                value={formData.email}
-                                onChange={(value) => {
-                                    setFormData({ ...formData, email: value });
-                                    if (errors.email) setErrors({ ...errors, email: "" });
-                                }}
-                                hint={errors.email}
-                                wrapperClassName="!bg-slate-50"
-                                inputClassName="!bg-slate-50 !text-gray-900"
-                            />
+                            <div>
+                                <label className="mb-1.5 block text-sm font-medium text-gray-800">
+                                    Email <span className="text-[#ff5a5f]">*</span>
+                                </label>
+                                <input
+                                    type="email"
+                                    placeholder="you@company.com"
+                                    value={formData.email}
+                                    onChange={(e) => {
+                                        setFormData({ ...formData, email: e.target.value });
+                                        if (errors.email) setErrors({ ...errors, email: "" });
+                                    }}
+                                    className={`w-full rounded-lg border bg-white px-3.5 py-2.5 text-gray-900 placeholder-gray-500 outline-none transition-all focus:ring-2 focus:ring-[#ff5a5f]/20 ${
+                                        errors.email
+                                            ? "border-red-500 focus:border-red-500"
+                                            : "border-gray-300 focus:border-[#ff5a5f]"
+                                    }`}
+                                />
+                                {errors.email && <p className="mt-1 text-sm text-red-500">{errors.email}</p>}
+                            </div>
 
                             {/* Phone Number */}
-                            <Input
-                                label="Phone number"
-                                type="tel"
-                                placeholder="+91 98765 43210"
-                                isRequired
-                                isInvalid={!!errors.phone}
-                                value={formData.phone}
-                                onChange={(value) => {
-                                    setFormData({ ...formData, phone: value });
-                                    if (errors.phone) setErrors({ ...errors, phone: "" });
-                                }}
-                                hint={errors.phone}
-                                wrapperClassName="!bg-slate-50"
-                                inputClassName="!bg-slate-50 !text-gray-900"
-                            />
+                            <div>
+                                <label className="mb-1.5 block text-sm font-medium text-gray-800">
+                                    Phone number <span className="text-[#ff5a5f]">*</span>
+                                </label>
+                                <input
+                                    type="tel"
+                                    placeholder="+91 98765 43210"
+                                    value={formData.phone}
+                                    onChange={(e) => {
+                                        setFormData({ ...formData, phone: e.target.value });
+                                        if (errors.phone) setErrors({ ...errors, phone: "" });
+                                    }}
+                                    className={`w-full rounded-lg border bg-white px-3.5 py-2.5 text-gray-900 placeholder-gray-500 outline-none transition-all focus:ring-2 focus:ring-[#ff5a5f]/20 ${
+                                        errors.phone
+                                            ? "border-red-500 focus:border-red-500"
+                                            : "border-gray-300 focus:border-[#ff5a5f]"
+                                    }`}
+                                />
+                                {errors.phone && <p className="mt-1 text-sm text-red-500">{errors.phone}</p>}
+                            </div>
 
                             {/* Message */}
-                            <TextArea
-                                label="Message"
-                                placeholder="Tell us how we can help you..."
-                                rows={3}
-                                isRequired
-                                isInvalid={!!errors.message}
-                                value={formData.message}
-                                onChange={(value) => {
-                                    setFormData({ ...formData, message: value });
-                                    if (errors.message) setErrors({ ...errors, message: "" });
-                                }}
-                                hint={errors.message}
-                                textAreaClassName="!bg-slate-50 !text-gray-900"
-                            />
+                            <div>
+                                <label className="mb-1.5 block text-sm font-medium text-gray-800">
+                                    Message <span className="text-[#ff5a5f]">*</span>
+                                </label>
+                                <textarea
+                                    rows={4}
+                                    placeholder="Tell us how we can help you..."
+                                    value={formData.message}
+                                    onChange={(e) => {
+                                        setFormData({ ...formData, message: e.target.value });
+                                        if (errors.message) setErrors({ ...errors, message: "" });
+                                    }}
+                                    className={`w-full resize-none rounded-lg border bg-white px-3.5 py-2.5 text-gray-900 placeholder-gray-500 outline-none transition-all focus:ring-2 focus:ring-[#ff5a5f]/20 ${
+                                        errors.message
+                                            ? "border-red-500 focus:border-red-500"
+                                            : "border-gray-300 focus:border-[#ff5a5f]"
+                                    }`}
+                                />
+                                {errors.message && <p className="mt-1 text-sm text-red-500">{errors.message}</p>}
+                            </div>
 
                             {/* Privacy Policy Checkbox */}
                             <div>
@@ -201,7 +231,7 @@ export default function ContactPage() {
                                     onChange={setAgreed}
                                     isInvalid={!!errors.agreed}
                                     label={
-                                        <span className="text-gray-600">
+                                        <span className="text-gray-700">
                                             You agree to our friendly{" "}
                                             <a href="#" className="text-[#ff5a5f] underline hover:text-[#e04850]">
                                                 privacy policy
@@ -250,7 +280,7 @@ export default function ContactPage() {
                             </div>
                             <div className="flex gap-1">
                                 {[...Array(5)].map((_, i) => (
-                                    <Star01 key={i} className="size-5 fill-white text-white" />
+                                    <Star01 key={i} className="size-5 fill-[#ff5a5f] text-[#ff5a5f]" />
                                 ))}
                             </div>
                         </div>
