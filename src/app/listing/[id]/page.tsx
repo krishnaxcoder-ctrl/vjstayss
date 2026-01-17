@@ -4,6 +4,8 @@ import { useParams } from "next/navigation";
 import Link from "next/link";
 import { SiteHeader } from "@/components/layout/site-header";
 import { ProductCard } from "@/components/booking/product-card";
+import { Input } from "@/components/base/input/input";
+import { Select } from "@/components/base/select/select";
 import {
     Star01,
     Heart,
@@ -328,18 +330,18 @@ export default function ListingPage() {
             <SiteHeader variant="light" />
 
             <main className="mx-auto max-w-8xl px-4 py-8 sm:px-6 lg:px-8">
-                {/* Back Button */}
-                <Link
-                    href="/"
-                    className="mb-6 inline-flex items-center gap-2 text-sm font-medium text-gray-600 transition-colors hover:text-[#ff5a5f]"
-                >
-                    <ArrowLeft className="size-4" />
-                    Back to listings
-                </Link>
-
                 {/* Header */}
                 <div className="mb-6">
-                    <h1 className="text-3xl font-bold text-gray-900 md:text-4xl">{listing.name}</h1>
+                    <div className="flex items-center justify-between">
+                        <h1 className="text-3xl font-bold text-gray-900 md:text-4xl">{listing.name}</h1>
+                        <Link
+                            href="/"
+                            className="inline-flex items-center gap-2 text-sm font-medium text-gray-600 transition-colors hover:text-[#ff5a5f]"
+                        >
+                            <ArrowLeft className="size-4" />
+                            Back to listings
+                        </Link>
+                    </div>
                     <div className="mt-3 flex flex-wrap items-center gap-4">
                         <div className="flex items-center gap-1">
                             <Star01 className="size-5 fill-[#ff5a5f] text-[#ff5a5f]" />
@@ -427,7 +429,7 @@ export default function ListingPage() {
                         {/* Amenities */}
                         <div className="border-b border-gray-200 py-8">
                             <h3 className="mb-6 text-xl font-semibold text-gray-900">What this place offers</h3>
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
                                 {listing.amenities.map((amenity, index) => {
                                     const Icon = amenityIcons[amenity] || Home02;
                                     return (
@@ -545,32 +547,34 @@ export default function ListingPage() {
                             </div>
 
                             {/* Date Inputs */}
-                            <div className="mb-4 rounded-xl border border-gray-300">
-                                <div className="grid grid-cols-2 divide-x divide-gray-300">
-                                    <div className="p-3">
-                                        <label className="block text-xs font-semibold uppercase text-gray-700">Check-in</label>
-                                        <input
-                                            type="date"
-                                            className="mt-1 w-full border-none p-0 text-sm text-gray-900 focus:ring-0"
-                                        />
-                                    </div>
-                                    <div className="p-3">
-                                        <label className="block text-xs font-semibold uppercase text-gray-700">Checkout</label>
-                                        <input
-                                            type="date"
-                                            className="mt-1 w-full border-none p-0 text-sm text-gray-900 focus:ring-0"
-                                        />
-                                    </div>
+                            <div className="mb-4 space-y-4">
+                                <div className="grid grid-cols-2 gap-4">
+                                    <Input
+                                        label="Check-in"
+                                        type="date"
+                                        placeholder="mm/dd/yyyy"
+                                        icon={Calendar}
+                                    />
+                                    <Input
+                                        label="Checkout"
+                                        type="date"
+                                        placeholder="mm/dd/yyyy"
+                                        icon={Calendar}
+                                    />
                                 </div>
-                                <div className="border-t border-gray-300 p-3">
-                                    <label className="block text-xs font-semibold uppercase text-gray-700">Guests</label>
-                                    <select className="mt-1 w-full border-none p-0 text-sm text-gray-900 focus:ring-0">
-                                        <option>1 guest</option>
-                                        <option>2 guests</option>
-                                        <option>3 guests</option>
-                                        <option>4 guests</option>
-                                    </select>
-                                </div>
+                                <Select
+                                    label="Guests"
+                                    placeholder="Select guests"
+                                    selectedKey="2"
+                                    items={[
+                                        { id: "1", label: "1 guest" },
+                                        { id: "2", label: "2 guests" },
+                                        { id: "3", label: "3 guests" },
+                                        { id: "4", label: "4 guests" },
+                                    ]}
+                                >
+                                    {(item) => <Select.Item key={item.id}>{item.label}</Select.Item>}
+                                </Select>
                             </div>
 
                             {/* Book Button */}
@@ -602,88 +606,6 @@ export default function ListingPage() {
                         </div>
                     </div>
                 </div>
-
-                {/* Map Section */}
-                <section className="mt-16 border-t border-gray-200 pt-12">
-                    <div className="mb-6 flex items-center gap-2">
-                        <Map01 className="size-6 text-[#ff5a5f]" />
-                        <h2 className="text-2xl font-bold text-gray-900">Where you'll be</h2>
-                    </div>
-                    <p className="mb-6 text-gray-600">{listing.location}</p>
-
-                    {/* Map Container */}
-                    <div className="relative h-[400px] overflow-hidden rounded-2xl bg-gray-200">
-                        {/* OpenStreetMap Embed */}
-                        <iframe
-                            src={`https://www.openstreetmap.org/export/embed.html?bbox=${encodeURIComponent("-0.1,-0.1,0.1,0.1")}&layer=mapnik`}
-                            width="100%"
-                            height="100%"
-                            style={{ border: 0 }}
-                            className="absolute inset-0 grayscale-[20%]"
-                        />
-
-                        {/* Map Overlay with Location */}
-                        <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-b from-black/5 via-transparent to-black/20">
-                            {/* Decorative Map Pattern */}
-                            <div className="absolute inset-0 opacity-30" style={{
-                                backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-                            }} />
-
-                            {/* Location Pin */}
-                            <div className="relative z-10 flex flex-col items-center">
-                                <div className="rounded-full bg-[#ff5a5f] p-4 shadow-2xl ring-4 ring-white/50">
-                                    <MarkerPin01 className="size-8 text-white" />
-                                </div>
-                                <div className="mt-2 h-6 w-1 rounded-full bg-[#ff5a5f]/60" />
-                                <div className="mt-3 rounded-full bg-white px-4 py-2 shadow-lg">
-                                    <p className="text-sm font-semibold text-gray-900">{listing.location}</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* View on Map Button */}
-                        <a
-                            href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(listing.location)}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="absolute bottom-4 right-4 z-20 flex items-center gap-2 rounded-lg bg-white px-4 py-2 font-medium text-gray-900 shadow-lg transition-all hover:bg-[#ff5a5f] hover:text-white"
-                        >
-                            <Map01 className="size-4" />
-                            View on Google Maps
-                        </a>
-                    </div>
-
-                    {/* Location Details */}
-                    <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-3">
-                        <div className="flex items-start gap-4">
-                            <div className="flex size-12 items-center justify-center rounded-xl bg-[#ff5a5f]/10">
-                                <NavigationPointer01 className="size-6 text-[#ff5a5f]" />
-                            </div>
-                            <div>
-                                <h4 className="font-semibold text-gray-900">Getting around</h4>
-                                <p className="mt-1 text-sm text-gray-600">Easy access to public transportation and main attractions</p>
-                            </div>
-                        </div>
-                        <div className="flex items-start gap-4">
-                            <div className="flex size-12 items-center justify-center rounded-xl bg-[#ff5a5f]/10">
-                                <Home02 className="size-6 text-[#ff5a5f]" />
-                            </div>
-                            <div>
-                                <h4 className="font-semibold text-gray-900">Neighborhood</h4>
-                                <p className="mt-1 text-sm text-gray-600">Safe, vibrant area with restaurants and shops nearby</p>
-                            </div>
-                        </div>
-                        <div className="flex items-start gap-4">
-                            <div className="flex size-12 items-center justify-center rounded-xl bg-[#ff5a5f]/10">
-                                <MarkerPin01 className="size-6 text-[#ff5a5f]" />
-                            </div>
-                            <div>
-                                <h4 className="font-semibold text-gray-900">Exact location</h4>
-                                <p className="mt-1 text-sm text-gray-600">Provided after booking is confirmed</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
 
                 {/* Related Listings Section */}
                 <section className="mt-16 border-t border-gray-200 pt-12">
