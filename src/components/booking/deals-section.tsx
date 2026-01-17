@@ -1,18 +1,19 @@
 "use client";
 
 import { useRef } from "react";
-import Link from "next/link";
-import { ArrowRight, ArrowLeft, Heart, MarkerPin01, Star01, Clock, Calendar, Users01 } from "@untitledui/icons";
+import { ArrowRight, ArrowLeft, Clock } from "@untitledui/icons";
+import { ProductCard } from "./product-card";
 
 const deals = [
     {
+        id: "1",
         name: "The Ritz-Carlton",
         location: "Paris, France",
         image: "https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=800&auto=format&fit=crop",
         rating: 4.9,
         reviews: 2456,
         originalPrice: 450,
-        discountedPrice: 320,
+        price: 320,
         discount: "29% OFF",
         tag: "Breakfast included",
         nights: 3,
@@ -20,13 +21,14 @@ const deals = [
         validUntil: "Dec 25",
     },
     {
+        id: "2",
         name: "Aman Tokyo",
         location: "Tokyo, Japan",
         image: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=800&auto=format&fit=crop",
         rating: 4.8,
         reviews: 1892,
         originalPrice: 380,
-        discountedPrice: 285,
+        price: 285,
         discount: "25% OFF",
         tag: "Free cancellation",
         nights: 2,
@@ -34,13 +36,14 @@ const deals = [
         validUntil: "Dec 31",
     },
     {
+        id: "3",
         name: "Four Seasons Resort",
         location: "Bali, Indonesia",
         image: "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=800&auto=format&fit=crop",
         rating: 4.9,
         reviews: 3124,
         originalPrice: 520,
-        discountedPrice: 390,
+        price: 390,
         discount: "25% OFF",
         tag: "Spa access",
         nights: 4,
@@ -48,13 +51,14 @@ const deals = [
         validUntil: "Jan 15",
     },
     {
+        id: "4",
         name: "Burj Al Arab",
         location: "Dubai, UAE",
         image: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=800&auto=format&fit=crop",
         rating: 5.0,
         reviews: 4567,
         originalPrice: 890,
-        discountedPrice: 712,
+        price: 712,
         discount: "20% OFF",
         tag: "Airport transfer",
         nights: 3,
@@ -62,13 +66,14 @@ const deals = [
         validUntil: "Dec 28",
     },
     {
+        id: "5",
         name: "Marina Bay Sands",
         location: "Singapore",
         image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=800&auto=format&fit=crop",
         rating: 4.8,
         reviews: 3891,
         originalPrice: 420,
-        discountedPrice: 336,
+        price: 336,
         discount: "20% OFF",
         tag: "Pool access",
         nights: 2,
@@ -76,13 +81,14 @@ const deals = [
         validUntil: "Jan 5",
     },
     {
+        id: "6",
         name: "Atlantis The Palm",
         location: "Dubai, UAE",
         image: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?q=80&w=800&auto=format&fit=crop",
         rating: 4.7,
         reviews: 5234,
         originalPrice: 550,
-        discountedPrice: 385,
+        price: 385,
         discount: "30% OFF",
         tag: "Waterpark included",
         nights: 3,
@@ -151,100 +157,27 @@ export const DealsSection = () => {
                     className="scrollbar-hide -mx-4 flex snap-x snap-mandatory gap-5 overflow-x-auto px-1 pb-4"
                     style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
                 >
-                    {deals.map((deal, index) => (
-                        <Link
-                            key={deal.name}
-                            href={`/listing/${index + 1}`}
-                            className="group w-full flex-shrink-0 snap-start overflow-hidden rounded-2xl bg-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl sm:w-[calc(50%-10px)] lg:w-[calc(25%-15px)]"
-                        >
-                            {/* Image */}
-                            <div className="relative aspect-[4/3] overflow-hidden">
-                                <img
-                                    src={deal.image}
-                                    alt={deal.name}
-                                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                                />
-
-                                {/* Gradient Overlay */}
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-
-                                {/* Discount Badge */}
-                                <div className="absolute left-4 top-4 rounded-full bg-[#ff5a5f] px-3 py-1 text-xs font-bold text-white shadow-lg">
-                                    {deal.discount}
-                                </div>
-
-                                {/* Wishlist Button */}
-                                <button
-                                    type="button"
-                                    className="absolute right-4 top-4 flex size-9 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-md transition-all hover:bg-white hover:text-[#ff5a5f]"
-                                    onClick={(e) => e.preventDefault()}
-                                >
-                                    <Heart className="size-4" />
-                                </button>
-
-                                {/* Tag & Valid Until */}
-                                <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
-                                    <span className="rounded-full border border-white/50 bg-white/20 px-3 py-1 text-xs font-medium text-white backdrop-blur-md">
-                                        {deal.tag}
-                                    </span>
-                                    <span className="flex items-center gap-1 rounded-full bg-black/30 px-2 py-1 text-xs text-white backdrop-blur-md">
-                                        <Calendar className="size-3" />
-                                        Until {deal.validUntil}
-                                    </span>
-                                </div>
-                            </div>
-
-                            {/* Content */}
-                            <div className="p-5">
-                                {/* Rating & Reviews */}
-                                <div className="mb-3 flex items-center justify-between">
-                                    <div className="flex items-center gap-1.5">
-                                        <div className="flex items-center gap-1 rounded-md bg-[#ff5a5f]/10 px-2 py-0.5">
-                                            <Star01 className="size-3.5 fill-[#ff5a5f] text-[#ff5a5f]" />
-                                            <span className="text-sm font-bold text-[#ff5a5f]">{deal.rating}</span>
-                                        </div>
-                                        <span className="text-sm text-gray-500">({deal.reviews.toLocaleString()})</span>
-                                    </div>
-                                    <div className="flex items-center gap-3 text-xs text-gray-500">
-                                        <span className="flex items-center gap-1">
-                                            <Clock className="size-3.5" />
-                                            {deal.nights} nights
-                                        </span>
-                                        <span className="flex items-center gap-1">
-                                            <Users01 className="size-3.5" />
-                                            {deal.guests} guests
-                                        </span>
-                                    </div>
-                                </div>
-
-                                {/* Hotel Name */}
-                                <h3 className="text-lg font-bold text-gray-900 transition-colors group-hover:text-[#ff5a5f]">
-                                    {deal.name}
-                                </h3>
-
-                                {/* Location */}
-                                <div className="mt-1 flex items-center gap-1 text-sm text-gray-500">
-                                    <MarkerPin01 className="size-4 text-gray-400" />
-                                    {deal.location}
-                                </div>
-
-                                {/* Price & CTA */}
-                                <div className="mt-4 flex items-end justify-between border-t border-gray-100 pt-4">
-                                    <div>
-                                        <span className="text-xs text-gray-500">From</span>
-                                        <div className="flex items-baseline gap-2">
-                                            <span className="text-2xl font-bold text-gray-900">${deal.discountedPrice}</span>
-                                            <span className="text-sm text-gray-400 line-through">${deal.originalPrice}</span>
-                                        </div>
-                                        <span className="text-xs text-gray-500">per night</span>
-                                    </div>
-                                    <button className="flex items-center gap-1 rounded-full bg-[#ff5a5f] px-4 py-2 text-sm font-semibold text-white transition-all hover:bg-[#e04850]">
-                                        Book Now
-                                        <ArrowRight className="size-4" />
-                                    </button>
-                                </div>
-                            </div>
-                        </Link>
+                    {deals.map((deal) => (
+                        <ProductCard
+                            key={deal.id}
+                            id={deal.id}
+                            name={deal.name}
+                            location={deal.location}
+                            image={deal.image}
+                            rating={deal.rating}
+                            reviews={deal.reviews}
+                            price={deal.price}
+                            originalPrice={deal.originalPrice}
+                            discount={deal.discount}
+                            tag={deal.tag}
+                            validUntil={deal.validUntil}
+                            nights={deal.nights}
+                            guests={deal.guests}
+                            variant="default"
+                            showWishlist={true}
+                            showBookButton={true}
+                            className="w-full flex-shrink-0 snap-start sm:w-[calc(50%-10px)] lg:w-[calc(25%-15px)]"
+                        />
                     ))}
                 </div>
 

@@ -3,6 +3,7 @@
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { SiteHeader } from "@/components/layout/site-header";
+import { ProductCard } from "@/components/booking/product-card";
 import {
     Star01,
     Heart,
@@ -326,7 +327,7 @@ export default function ListingPage() {
         <div className="min-h-screen bg-white">
             <SiteHeader variant="light" />
 
-            <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+            <main className="mx-auto max-w-8xl px-4 py-8 sm:px-6 lg:px-8">
                 {/* Back Button */}
                 <Link
                     href="/"
@@ -689,42 +690,19 @@ export default function ListingPage() {
                     <h2 className="mb-8 text-2xl font-bold text-gray-900">You might also like</h2>
                     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
                         {relatedListings.map((item) => (
-                            <Link
+                            <ProductCard
                                 key={item.id}
-                                href={`/listing/${item.id}`}
-                                className="group overflow-hidden rounded-2xl bg-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-                            >
-                                {/* Image */}
-                                <div className="relative aspect-[4/3] overflow-hidden">
-                                    <img
-                                        src={item.image}
-                                        alt={item.name}
-                                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                                    />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
-                                </div>
-
-                                {/* Content */}
-                                <div className="p-4">
-                                    <div className="mb-2 flex items-center justify-between">
-                                        <h3 className="font-semibold text-gray-900 transition-colors group-hover:text-[#ff5a5f]">
-                                            {item.name}
-                                        </h3>
-                                        <div className="flex items-center gap-1">
-                                            <Star01 className="size-4 fill-[#ff5a5f] text-[#ff5a5f]" />
-                                            <span className="text-sm font-medium text-gray-900">{item.rating}</span>
-                                        </div>
-                                    </div>
-                                    <div className="flex items-center gap-1 text-sm text-gray-500">
-                                        <MarkerPin01 className="size-4" />
-                                        {item.location}
-                                    </div>
-                                    <div className="mt-3 flex items-baseline gap-1">
-                                        <span className="text-lg font-bold text-gray-900">${item.price}</span>
-                                        <span className="text-sm text-gray-500">/ night</span>
-                                    </div>
-                                </div>
-                            </Link>
+                                id={item.id}
+                                name={item.name}
+                                location={item.location}
+                                image={item.image}
+                                rating={item.rating}
+                                reviews={item.reviews}
+                                price={item.price}
+                                variant="compact"
+                                showWishlist={true}
+                                showBookButton={false}
+                            />
                         ))}
                     </div>
                 </section>

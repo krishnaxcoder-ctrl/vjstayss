@@ -49,7 +49,7 @@ export const SiteHeader = ({ variant = "dark", className }: SiteHeaderProps) => 
                         <img
                             src={isDark ? "/VJ STAYS HOTELS & LODGES-Photoroom.png" : "/logolight.webp"}
                             alt="VJStays"
-                            className="h-10 w-auto"
+                            className="h-14 w-auto"
                         />
                     </Link>
 
@@ -139,7 +139,7 @@ export const SiteHeader = ({ variant = "dark", className }: SiteHeaderProps) => 
             {/* Mobile Menu Overlay */}
             <div
                 className={cx(
-                    "fixed inset-0 z-20 bg-black/60 backdrop-blur-sm transition-opacity duration-300 lg:hidden",
+                    "fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm transition-opacity duration-300 lg:hidden",
                     mobileMenuOpen ? "opacity-100" : "pointer-events-none opacity-0"
                 )}
                 onClick={() => setMobileMenuOpen(false)}
@@ -148,7 +148,7 @@ export const SiteHeader = ({ variant = "dark", className }: SiteHeaderProps) => 
             {/* Mobile Menu Panel */}
             <div
                 className={cx(
-                    "fixed inset-y-0 right-0 z-30 w-full max-w-sm bg-gray-900 shadow-xl transition-transform duration-300 ease-in-out lg:hidden",
+                    "fixed inset-0 z-[70] h-full w-full bg-gray-900 shadow-xl transition-transform duration-300 ease-in-out lg:hidden",
                     mobileMenuOpen ? "translate-x-0" : "translate-x-full"
                 )}
             >
@@ -158,7 +158,7 @@ export const SiteHeader = ({ variant = "dark", className }: SiteHeaderProps) => 
                         <img
                             src="/VJ STAYS HOTELS & LODGES-Photoroom.png"
                             alt="VJStays"
-                            className="h-8 w-auto"
+                            className="h-12 w-auto"
                         />
                     </Link>
                     <button
