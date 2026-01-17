@@ -47,7 +47,7 @@ export const SiteHeader = ({ variant = "dark", className }: SiteHeaderProps) => 
                     {/* Logo */}
                     <Link href="/" className="flex cursor-pointer items-center">
                         <img
-                            src="/logolight.webp"
+                            src={isDark ? "/VJ STAYS HOTELS & LODGES-Photoroom.png" : "/logolight.webp"}
                             alt="VJStays"
                             className="h-10 w-auto"
                         />
