@@ -51,6 +51,7 @@ const PresetButton = ({ value, children, ...props }: HTMLAttributes<HTMLButtonEl
             size="md"
             color="secondary"
             onClick={handleClick}
+            className="bg-amber-50 text-amber-700 ring-amber-200 hover:bg-amber-100"
         >
             {children}
         </Button>
@@ -71,9 +72,9 @@ export const Calendar = ({ highlightedDates, className, ...props }: CalendarProp
         <ContextWrapper>
             <AriaCalendar {...props} className={(state) => cx("flex flex-col gap-3", typeof className === "function" ? className(state) : className)}>
                 <header className="flex items-center justify-between">
-                    <Button slot="previous" iconLeading={ChevronLeft} size="sm" color="tertiary" className="size-8" />
-                    <AriaHeading className="text-sm font-semibold text-fg-secondary" />
-                    <Button slot="next" iconLeading={ChevronRight} size="sm" color="tertiary" className="size-8" />
+                    <Button slot="previous" iconLeading={ChevronLeft} size="sm" color="tertiary" className="size-8 text-gray-600 hover:text-gray-900 hover:bg-gray-100" />
+                    <AriaHeading className="text-sm font-semibold text-gray-900" />
+                    <Button slot="next" iconLeading={ChevronRight} size="sm" color="tertiary" className="size-8 text-gray-600 hover:text-gray-900 hover:bg-gray-100" />
                 </header>
 
                 <div className="flex gap-3">
@@ -85,7 +86,7 @@ export const Calendar = ({ highlightedDates, className, ...props }: CalendarProp
                     <AriaCalendarGridHeader className="border-b-4 border-transparent">
                         {(day) => (
                             <AriaCalendarHeaderCell className="p-0">
-                                <div className="flex size-10 items-center justify-center text-sm font-medium text-secondary">{day.slice(0, 2)}</div>
+                                <div className="flex size-10 items-center justify-center text-sm font-medium text-gray-500">{day.slice(0, 2)}</div>
                             </AriaCalendarHeaderCell>
                         )}
                     </AriaCalendarGridHeader>

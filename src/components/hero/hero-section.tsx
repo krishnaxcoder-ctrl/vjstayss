@@ -36,14 +36,13 @@ export const HeroSection = () => {
             {/* Navigation */}
             <header className="relative z-10 flex items-center justify-between px-6 py-4 lg:px-12 lg:py-6">
                 {/* Logo */}
-                <div className="flex items-center gap-2">
-                    <div className="flex size-8 items-center justify-center rounded-lg bg-white/90">
-                        <svg viewBox="0 0 24 24" className="size-5 text-amber-600" fill="currentColor">
-                            <path d="M12 2L2 7v10c0 5.55 3.84 10.74 10 12 6.16-1.26 10-6.45 10-12V7l-10-5zm0 4a3 3 0 110 6 3 3 0 010-6zm0 14c-2.67 0-8-1.34-8-4v-.8c0-1.33 5.33-2.4 8-2.4s8 1.07 8 2.4v.8c0 2.66-5.33 4-8 4z"/>
-                        </svg>
-                    </div>
-                    <span className="text-xl font-semibold text-white">Stayza</span>
-                </div>
+                <a href="/" className="flex items-center">
+                    <img
+                        src="/VJ STAYS HOTELS & LODGES-Photoroom.png"
+                        alt="Stayza"
+                        className="h-10 w-auto"
+                    />
+                </a>
 
                 {/* Desktop Navigation */}
                 <nav className="hidden items-center gap-1 lg:flex">
@@ -76,7 +75,7 @@ export const HeroSection = () => {
                     {/* CTA Button - Hidden on mobile when menu is open */}
                     <Button
                         size="sm"
-                        className={cx("bg-amber-600 hover:bg-amber-700 border-none shadow-none", mobileMenuOpen && "hidden lg:inline-flex")}
+                        className={cx("bg-[#ff5a5f] hover:bg-[#e04850] border-none shadow-none", mobileMenuOpen && "hidden lg:inline-flex")}
                     >
                         Sign In
                     </Button>
@@ -111,14 +110,13 @@ export const HeroSection = () => {
             >
                 {/* Mobile Menu Header */}
                 <div className="flex items-center justify-between border-b border-white/10 px-6 py-4">
-                    <div className="flex items-center gap-2">
-                        <div className="flex size-8 items-center justify-center rounded-lg bg-white/90">
-                            <svg viewBox="0 0 24 24" className="size-5 text-amber-600" fill="currentColor">
-                                <path d="M12 2L2 7v10c0 5.55 3.84 10.74 10 12 6.16-1.26 10-6.45 10-12V7l-10-5zm0 4a3 3 0 110 6 3 3 0 010-6zm0 14c-2.67 0-8-1.34-8-4v-.8c0-1.33 5.33-2.4 8-2.4s8 1.07 8 2.4v.8c0 2.66-5.33 4-8 4z"/>
-                            </svg>
-                        </div>
-                        <span className="text-xl font-semibold text-white">Stayza</span>
-                    </div>
+                    <a href="/" className="flex items-center gap-2">
+                        <img
+                            src="/VJ STAYS HOTELS & LODGES-Photoroom.png"
+                            alt="Stayza"
+                            className="h-8 w-auto"
+                        />
+                    </a>
                     <button
                         type="button"
                         className="flex size-10 items-center justify-center rounded-lg text-white transition-colors hover:bg-white/10"
@@ -159,7 +157,7 @@ export const HeroSection = () => {
                     {/* CTA Button - Mobile */}
                     <Button
                         size="lg"
-                        className="w-full bg-amber-600 hover:bg-amber-700 border-none shadow-none"
+                        className="w-full bg-[#ff5a5f] hover:bg-[#e04850] border-none shadow-none"
                     >
                         Sign In
                     </Button>
@@ -173,7 +171,7 @@ export const HeroSection = () => {
                     <h1 className="text-4xl font-bold leading-tight tracking-tight text-white md:text-5xl lg:text-7xl">
                         Find your perfect
                         <span className="relative mx-3 inline-block">
-                            <span className="relative z-10 bg-gradient-to-r from-amber-300 to-amber-400 bg-clip-text text-transparent">stay</span>
+                            <span className="relative z-10 text-[#ff5a5f]">stay</span>
                             {/* Squiggly underline */}
                             <svg
                                 className="absolute -bottom-2 left-0 w-full"
@@ -184,17 +182,11 @@ export const HeroSection = () => {
                             >
                                 <path
                                     d="M0 6 Q 12.5 0, 25 6 T 50 6 T 75 6 T 100 6"
-                                    stroke="url(#gradient)"
+                                    stroke="#ff5a5f"
                                     strokeWidth="3"
                                     strokeLinecap="round"
                                     fill="none"
                                 />
-                                <defs>
-                                    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                                        <stop offset="0%" stopColor="#fcd34d" />
-                                        <stop offset="100%" stopColor="#f59e0b" />
-                                    </linearGradient>
-                                </defs>
                             </svg>
                         </span>
                     </h1>

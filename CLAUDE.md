@@ -81,6 +81,14 @@ Two providers wrap the app in `layout.tsx`:
 
 Uses `@untitledui/icons` package with optimized imports configured in `next.config.mjs`.
 
+## Brand Colors
+
+**Primary Accent Color:** `#ff5a5f` (coral red)
+- Use this as the main brand/accent color throughout the project
+- Hover state: `#e04850` (darker shade)
+- Light background: `#ff5a5f/10` or `#fff5f5`
+- Shadow: `shadow-[#ff5a5f]/25`
+
 ## Code Style
 
 - Prettier with `printWidth: 160`, `tabWidth: 4`

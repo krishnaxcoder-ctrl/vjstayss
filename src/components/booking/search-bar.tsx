@@ -232,15 +232,14 @@ export const SearchBar = ({ variant = "hero" }: { variant?: "hero" | "inline" })
                 </div>
 
                 {/* Search Button */}
-                <div className="border-t border-gray-100 p-2 lg:border-t-0 lg:pl-2">
-                    <Button
-                        size="lg"
-                        color="primary"
-                        iconLeading={SearchLg}
-                        className="w-full bg-amber-500 hover:bg-amber-600 lg:w-auto"
+                <div className="border-t border-gray-100 p-2 lg:border-t-0 lg:pl-3">
+                    <button
+                        type="button"
+                        className="group flex w-full items-center justify-center gap-2 rounded-xl bg-[#ff5a5f] px-6 py-3.5 font-semibold text-white transition-all duration-200 hover:bg-[#e04850] active:scale-[0.98] lg:w-auto"
                     >
-                        Search
-                    </Button>
+                        <SearchLg className="size-5 transition-transform duration-200 group-hover:scale-110" />
+                        <span>Search</span>
+                    </button>
                 </div>
             </div>
         </div>
