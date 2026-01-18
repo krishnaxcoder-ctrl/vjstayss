@@ -1,10 +1,64 @@
 "use client";
 
 import { useState } from "react";
-import { Send01, Star01, AlertCircle } from "@untitledui/icons";
+import { Send01, Star01, AlertCircle, Mail01, Phone, MarkerPin01, Clock, MessageChatCircle, HelpCircle, ChevronDown, ChevronUp } from "@untitledui/icons";
 import { Button } from "@/components/base/buttons/button";
 import { Checkbox } from "@/components/base/checkbox/checkbox";
 import { SiteHeader } from "@/components/layout/site-header";
+
+const contactInfo = [
+    {
+        icon: Mail01,
+        title: "Email us",
+        description: "Our friendly team is here to help.",
+        value: "hello@vjstays.com",
+        href: "mailto:hello@vjstays.com",
+    },
+    {
+        icon: MessageChatCircle,
+        title: "Live chat",
+        description: "Available Mon-Fri, 9am-6pm IST.",
+        value: "Start a conversation",
+        href: "#",
+    },
+    {
+        icon: MarkerPin01,
+        title: "Visit us",
+        description: "Come say hello at our office.",
+        value: "Mumbai, Maharashtra, India",
+        href: "#",
+    },
+    {
+        icon: Phone,
+        title: "Call us",
+        description: "Mon-Fri from 9am to 6pm.",
+        value: "+91 98765 43210",
+        href: "tel:+919876543210",
+    },
+];
+
+const faqs = [
+    {
+        question: "What is the typical response time?",
+        answer: "We aim to respond to all inquiries within 24 hours during business days. For urgent matters, please call our support line directly.",
+    },
+    {
+        question: "Do you offer 24/7 customer support?",
+        answer: "Our live chat and phone support are available Monday to Friday, 9am to 6pm IST. However, you can submit inquiries anytime through our contact form, and we'll get back to you during business hours.",
+    },
+    {
+        question: "Can I schedule a property viewing?",
+        answer: "Absolutely! You can request a property viewing through our contact form or by calling us directly. We'll coordinate with the property owner to find a suitable time.",
+    },
+    {
+        question: "What areas do you cover?",
+        answer: "VJStays currently operates across major cities in India including Mumbai, Delhi, Bangalore, Pune, and Goa. We're constantly expanding to new locations.",
+    },
+    {
+        question: "How can I list my property with VJStays?",
+        answer: "Property owners can list their properties by contacting us through this form or emailing us at partners@vjstays.com. Our team will guide you through the onboarding process.",
+    },
+];
 
 export default function ContactPage() {
     const [formData, setFormData] = useState({
@@ -19,6 +73,7 @@ export default function ContactPage() {
     const [errorMessage, setErrorMessage] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitted, setSubmitted] = useState(false);
+    const [openFaq, setOpenFaq] = useState<number | null>(null);
 
     const validate = () => {
         const newErrors: Record<string, boolean> = {};
@@ -110,11 +165,42 @@ export default function ContactPage() {
     return (
         <div className="min-h-screen bg-white">
             <SiteHeader variant="light" />
-            <div className="flex h-[calc(100vh-73px)] flex-col overflow-hidden lg:h-[calc(100vh-89px)] lg:flex-row">
+
+            {/* Hero Section */}
+            <section className="bg-gradient-to-b from-[#fff5f5] to-white px-6 py-16 lg:py-20">
+                <div className="mx-auto max-w-4xl text-center">
+                    <span className="inline-block rounded-full bg-[#ff5a5f]/10 px-4 py-1.5 text-sm font-medium text-[#ff5a5f]">Contact Us</span>
+                    <h1 className="mt-4 text-4xl font-bold tracking-tight text-gray-900 md:text-5xl">We'd love to hear from you</h1>
+                    <p className="mt-4 text-lg text-gray-600">Have questions about our properties or services? Our team is ready to help you find your perfect stay.</p>
+                </div>
+            </section>
+
+            {/* Contact Info Cards */}
+            <section className="border-b border-gray-100 bg-white px-6 py-12">
+                <div className="mx-auto grid max-w-6xl gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                    {contactInfo.map((item, index) => (
+                        <a
+                            key={index}
+                            href={item.href}
+                            className="group rounded-2xl border border-gray-200 bg-white p-6 transition-all hover:border-[#ff5a5f]/30 hover:shadow-lg hover:shadow-[#ff5a5f]/5"
+                        >
+                            <div className="flex size-12 items-center justify-center rounded-xl bg-[#ff5a5f]/10 transition-colors group-hover:bg-[#ff5a5f]/20">
+                                <item.icon className="size-6 text-[#ff5a5f]" />
+                            </div>
+                            <h3 className="mt-4 font-semibold text-gray-900">{item.title}</h3>
+                            <p className="mt-1 text-sm text-gray-500">{item.description}</p>
+                            <p className="mt-3 font-medium text-[#ff5a5f]">{item.value}</p>
+                        </a>
+                    ))}
+                </div>
+            </section>
+
+            {/* Main Contact Form Section */}
+            <div className="flex h-[900px] flex-col border-y-2 border-[#ff5a5f] lg:flex-row">
                 {/* Left Side - Form (40%) */}
-                <div className="flex w-full flex-col justify-center overflow-y-auto bg-white px-6 py-8 lg:w-[40%] lg:px-12 xl:px-16">
-                    <div className="w-full max-w-md">
-                        <h1 className="text-3xl font-bold text-gray-900 md:text-4xl">Get in touch</h1>
+                <div className="flex w-full flex-col justify-center bg-white px-6 py-12 lg:w-[40%] lg:px-12 xl:px-16">
+                    <div className="mx-auto w-full max-w-md">
+                        <h2 className="text-3xl font-bold text-gray-900 md:text-4xl">Get in touch</h2>
                         <p className="mt-3 text-gray-700">Our friendly team would love to hear from you.</p>
 
                         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
@@ -314,6 +400,114 @@ export default function ContactPage() {
                     </div>
                 </div>
             </div>
+
+            {/* FAQ Section */}
+            <section className="bg-gray-50 px-6 py-16 lg:py-20">
+                <div className="mx-auto max-w-3xl">
+                    <div className="text-center">
+                        <span className="inline-flex items-center gap-2 rounded-full bg-[#ff5a5f]/10 px-4 py-1.5 text-sm font-medium text-[#ff5a5f]">
+                            <HelpCircle className="size-4" />
+                            FAQs
+                        </span>
+                        <h2 className="mt-4 text-3xl font-bold text-gray-900 md:text-4xl">Frequently asked questions</h2>
+                        <p className="mt-3 text-gray-600">Can't find the answer you're looking for? Reach out to our customer support team.</p>
+                    </div>
+
+                    <div className="mt-10 space-y-3">
+                        {faqs.map((faq, index) => (
+                            <div
+                                key={index}
+                                className="overflow-hidden rounded-xl border border-gray-200 bg-white transition-all hover:border-gray-300"
+                            >
+                                <button
+                                    onClick={() => setOpenFaq(openFaq === index ? null : index)}
+                                    className="flex w-full items-center justify-between px-6 py-4 text-left"
+                                >
+                                    <span className="font-medium text-gray-900">{faq.question}</span>
+                                    {openFaq === index ? (
+                                        <ChevronUp className="size-5 shrink-0 text-[#ff5a5f]" />
+                                    ) : (
+                                        <ChevronDown className="size-5 shrink-0 text-gray-400" />
+                                    )}
+                                </button>
+                                {openFaq === index && (
+                                    <div className="border-t border-gray-100 bg-gray-50/50 px-6 py-4">
+                                        <p className="text-gray-600">{faq.answer}</p>
+                                    </div>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* Office Hours & Map Section */}
+            <section className="border-t border-gray-100 bg-white px-6 py-16 lg:py-20">
+                <div className="mx-auto max-w-6xl">
+                    <div className="grid gap-12 lg:grid-cols-2">
+                        {/* Office Info */}
+                        <div>
+                            <h2 className="text-2xl font-bold text-gray-900 md:text-3xl">Our Office</h2>
+                            <p className="mt-3 text-gray-600">Visit us at our headquarters or connect with us remotely. We're here to help!</p>
+
+                            <div className="mt-8 space-y-6">
+                                <div className="flex gap-4">
+                                    <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-[#ff5a5f]/10">
+                                        <MarkerPin01 className="size-6 text-[#ff5a5f]" />
+                                    </div>
+                                    <div>
+                                        <h3 className="font-semibold text-gray-900">Headquarters</h3>
+                                        <p className="mt-1 text-gray-600">123 Business Hub, Andheri West</p>
+                                        <p className="text-gray-600">Mumbai, Maharashtra 400053</p>
+                                    </div>
+                                </div>
+
+                                <div className="flex gap-4">
+                                    <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-[#ff5a5f]/10">
+                                        <Clock className="size-6 text-[#ff5a5f]" />
+                                    </div>
+                                    <div>
+                                        <h3 className="font-semibold text-gray-900">Business Hours</h3>
+                                        <p className="mt-1 text-gray-600">Monday - Friday: 9:00 AM - 6:00 PM IST</p>
+                                        <p className="text-gray-600">Saturday: 10:00 AM - 4:00 PM IST</p>
+                                        <p className="text-gray-600">Sunday: Closed</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Map Placeholder */}
+                        <div className="relative overflow-hidden rounded-2xl bg-gray-100">
+                            <div className="absolute inset-0 flex items-center justify-center">
+                                <div className="text-center">
+                                    <MarkerPin01 className="mx-auto size-12 text-[#ff5a5f]" />
+                                    <p className="mt-2 font-medium text-gray-900">Mumbai, India</p>
+                                    <p className="text-sm text-gray-500">View on Google Maps</p>
+                                </div>
+                            </div>
+                            <div className="aspect-[4/3] bg-gradient-to-br from-gray-100 to-gray-200" />
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* CTA Section */}
+            <section className="bg-[#ff5a5f] px-6 py-16">
+                <div className="mx-auto max-w-4xl text-center">
+                    <h2 className="text-3xl font-bold text-white md:text-4xl">Still have questions?</h2>
+                    <p className="mt-3 text-lg text-white/90">Can't find the answer you're looking for? Please chat with our friendly team.</p>
+                    <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+                        <Button size="lg" className="bg-white text-[#ff5a5f] hover:bg-gray-100">
+                            <MessageChatCircle className="mr-2 size-5" />
+                            Start a conversation
+                        </Button>
+                        <Button size="lg" className="border-2 border-white bg-transparent text-white hover:bg-white/10">
+                            <Phone className="mr-2 size-5" />
+                            Call us now
+                        </Button>
+                    </div>
+                </div>
+            </section>
         </div>
     );
 }

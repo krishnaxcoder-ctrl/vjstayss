@@ -4,7 +4,10 @@
       "Bash(npm run build:*)",
       "Bash(find:*)",
       "mcp__ide__getDiagnostics",
-      "Bash(wc:*)"
+      "Bash(wc:*)",
+      "Bash(timeout /t 8 /nobreak)",
+      "Bash(findstr:*)",
+      "WebFetch(domain:21st.dev)"
     ]
   }
 }
