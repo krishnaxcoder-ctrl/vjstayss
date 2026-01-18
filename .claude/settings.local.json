@@ -7,7 +7,8 @@
       "Bash(wc:*)",
       "Bash(timeout /t 8 /nobreak)",
       "Bash(findstr:*)",
-      "WebFetch(domain:21st.dev)"
+      "WebFetch(domain:21st.dev)",
+      "Bash(ls:*)"
     ]
   }
 }

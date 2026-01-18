@@ -1,7 +1,7 @@
 "use client";
 
 import { Suspense, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import {
     Heart,
@@ -22,6 +22,15 @@ import {
     Calendar,
     Minus,
     Plus,
+    ArrowLeft,
+    ChevronRight,
+    Gift01,
+    Building07,
+    Snowflake01,
+    Tv01,
+    BarChart01,
+    SwitchVertical01,
+    List,
 } from "@untitledui/icons";
 import { Toggle } from "@/components/base/toggle/toggle";
 import { AuthModal } from "@/components/auth/auth-modal";
@@ -250,34 +259,158 @@ const categories = [
 ];
 
 const sortOptions = [
-    { id: "popularity", label: "Popularity" },
-    { id: "price-low", label: "Price: Low to High" },
-    { id: "price-high", label: "Price: High to Low" },
-    { id: "rating", label: "Guest Rating" },
-    { id: "distance", label: "Distance" },
+    { id: "popularity", label: "Popularity", icon: BarChart01 },
+    { id: "rating", label: "Guest Ratings", icon: Star01 },
+    { id: "price-low", label: "Price Low to High", icon: SwitchVertical01 },
+    { id: "price-high", label: "Price High to Low", icon: SwitchVertical01 },
+    { id: "distance", label: "Show Closest OYO", icon: NavigationPointer01 },
+];
+
+// Hotel facilities for mobile filter
+const hotelFacilities = [
+    { id: "refrigerator", label: "Refrigerator", icon: Snowflake01 },
+    { id: "king-bed", label: "King Sized Bed", icon: Building07 },
+    { id: "mini-fridge", label: "Mini Fridge", icon: Snowflake01 },
+    { id: "hair-dryer", label: "Hair Dryer", icon: Zap },
+    { id: "dth", label: "DTH", icon: Tv01 },
 ];
 
 function SearchPageContent() {
     const searchParams = useSearchParams();
-    const searchLocation = searchParams.get("location") || "Mumbai";
+    const router = useRouter();
+    const searchLocation = searchParams.get("location") || "OYOsnearme";
 
     const [mapView, setMapView] = useState(false);
+    const [mobileMapView, setMobileMapView] = useState(false);
     const [sortBy, setSortBy] = useState("popularity");
     const [showSortDropdown, setShowSortDropdown] = useState(false);
+    const [showMobileSortSheet, setShowMobileSortSheet] = useState(false);
     const [showMobileFilters, setShowMobileFilters] = useState(false);
-    const [priceRange, setPriceRange] = useState<number[]>([869, 3101]);
+    const [priceRange, setPriceRange] = useState<number[]>([903, 3101]);
     const [selectedCollections, setSelectedCollections] = useState<string[]>([]);
     const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+    const [selectedFacilities, setSelectedFacilities] = useState<string[]>([]);
     const [wishlist, setWishlist] = useState<number[]>([]);
     const [searchAsMove, setSearchAsMove] = useState(false);
+    const [payAtHotel, setPayAtHotel] = useState(false);
+    const [memberOnly, setMemberOnly] = useState(false);
+    const [searchQuery, setSearchQuery] = useState(searchLocation);
+    const [selectedMapHotel, setSelectedMapHotel] = useState<typeof hotels[0] | null>(null);
 
     // Date & Room dropdown states
     const [showDateDropdown, setShowDateDropdown] = useState(false);
     const [showRoomDropdown, setShowRoomDropdown] = useState(false);
-    const [checkInDate, setCheckInDate] = useState("Sun, 18 Jan");
-    const [checkOutDate, setCheckOutDate] = useState("Mon, 19 Jan");
+    const [showMobileDatePicker, setShowMobileDatePicker] = useState(false);
+    const [selectedCheckIn, setSelectedCheckIn] = useState<Date>(new Date(2026, 0, 18)); // Jan 18, 2026
+    const [selectedCheckOut, setSelectedCheckOut] = useState<Date>(new Date(2026, 0, 19)); // Jan 19, 2026
+    const [selectingCheckOut, setSelectingCheckOut] = useState(false);
+    const [checkInTime, setCheckInTime] = useState("12:00 PM");
+    const [checkOutTime, setCheckOutTime] = useState("11:00 AM");
     const [rooms, setRooms] = useState(1);
     const [guests, setGuests] = useState(1);
+
+    // Format date for display
+    const formatDate = (date: Date) => {
+        const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        return `${days[date.getDay()]}, ${date.getDate()} ${months[date.getMonth()]}`;
+    };
+
+    const checkInDate = formatDate(selectedCheckIn);
+    const checkOutDate = formatDate(selectedCheckOut);
+
+    // Calculate nights between dates
+    const nightsBetween = Math.ceil((selectedCheckOut.getTime() - selectedCheckIn.getTime()) / (1000 * 60 * 60 * 24));
+
+    // Generate calendar data for a month
+    const generateCalendarDays = (year: number, month: number) => {
+        const firstDay = new Date(year, month, 1);
+        const lastDay = new Date(year, month + 1, 0);
+        const daysInMonth = lastDay.getDate();
+        const startingDay = firstDay.getDay() === 0 ? 6 : firstDay.getDay() - 1; // Monday = 0
+
+        const days: (number | null)[] = [];
+
+        // Add empty slots for days before the 1st
+        for (let i = 0; i < startingDay; i++) {
+            days.push(null);
+        }
+
+        // Add days of the month
+        for (let i = 1; i <= daysInMonth; i++) {
+            days.push(i);
+        }
+
+        return days;
+    };
+
+    // Handle date selection
+    const handleDateSelect = (year: number, month: number, day: number) => {
+        const selectedDate = new Date(year, month, day, 0, 0, 0, 0);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        if (selectedDate < today) return; // Don't allow past dates
+
+        if (!selectingCheckOut) {
+            // Selecting check-in date
+            setSelectedCheckIn(selectedDate);
+            // Auto-set checkout to next day
+            const nextDay = new Date(year, month, day + 1, 0, 0, 0, 0);
+            setSelectedCheckOut(nextDay);
+            setSelectingCheckOut(true);
+        } else {
+            // Selecting check-out date
+            if (selectedDate > selectedCheckIn) {
+                setSelectedCheckOut(selectedDate);
+                setSelectingCheckOut(false);
+            } else {
+                // If selected date is before or same as check-in, make it the new check-in
+                setSelectedCheckIn(selectedDate);
+                const nextDay = new Date(year, month, day + 1, 0, 0, 0, 0);
+                setSelectedCheckOut(nextDay);
+            }
+        }
+    };
+
+    // Helper to compare dates (ignoring time)
+    const isSameDay = (date1: Date, date2: Date) => {
+        return (
+            date1.getFullYear() === date2.getFullYear() &&
+            date1.getMonth() === date2.getMonth() &&
+            date1.getDate() === date2.getDate()
+        );
+    };
+
+    // Check if a date is selected
+    const isDateSelected = (year: number, month: number, day: number) => {
+        const date = new Date(year, month, day);
+        return isSameDay(date, selectedCheckIn) || isSameDay(date, selectedCheckOut);
+    };
+
+    const isCheckInDate = (year: number, month: number, day: number) => {
+        const date = new Date(year, month, day);
+        return isSameDay(date, selectedCheckIn);
+    };
+
+    const isCheckOutDate = (year: number, month: number, day: number) => {
+        const date = new Date(year, month, day);
+        return isSameDay(date, selectedCheckOut);
+    };
+
+    const isDateInRange = (year: number, month: number, day: number) => {
+        const date = new Date(year, month, day, 0, 0, 0, 0);
+        const checkIn = new Date(selectedCheckIn.getFullYear(), selectedCheckIn.getMonth(), selectedCheckIn.getDate());
+        const checkOut = new Date(selectedCheckOut.getFullYear(), selectedCheckOut.getMonth(), selectedCheckOut.getDate());
+        return date > checkIn && date < checkOut;
+    };
+
+    const isPastDate = (year: number, month: number, day: number) => {
+        const date = new Date(year, month, day);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        return date < today;
+    };
 
     const toggleCollection = (id: string) => {
         setSelectedCollections((prev) => (prev.includes(id) ? prev.filter((c) => c !== id) : [...prev, id]));
@@ -287,17 +420,24 @@ function SearchPageContent() {
         setSelectedCategories((prev) => (prev.includes(id) ? prev.filter((c) => c !== id) : [...prev, id]));
     };
 
+    const toggleFacility = (id: string) => {
+        setSelectedFacilities((prev) => (prev.includes(id) ? prev.filter((f) => f !== id) : [...prev, id]));
+    };
+
     const toggleWishlist = (id: number) => {
         setWishlist((prev) => (prev.includes(id) ? prev.filter((w) => w !== id) : [...prev, id]));
     };
 
     const clearAllFilters = () => {
-        setPriceRange([869, 3101]);
+        setPriceRange([903, 3101]);
         setSelectedCollections([]);
         setSelectedCategories([]);
+        setSelectedFacilities([]);
+        setPayAtHotel(false);
+        setMemberOnly(false);
     };
 
-    const hasActiveFilters = selectedCollections.length > 0 || selectedCategories.length > 0 || priceRange[0] !== 869 || priceRange[1] !== 3101;
+    const hasActiveFilters = selectedCollections.length > 0 || selectedCategories.length > 0 || selectedFacilities.length > 0 || priceRange[0] !== 903 || priceRange[1] !== 3101 || payAtHotel || memberOnly;
 
     // Filter hotels
     const filteredHotels = hotels.filter((hotel) => {
@@ -442,9 +582,84 @@ function SearchPageContent() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50">
-            {/* Header */}
-            <header className="sticky top-0 z-40 border-b border-gray-200 bg-white">
+        <div className="min-h-screen bg-gray-50 pb-16 lg:pb-0">
+            {/* Mobile Header */}
+            <header className="sticky top-0 z-40 bg-white lg:hidden">
+                {/* Mobile Search Bar */}
+                <div className="flex items-center gap-3 border-b border-gray-100 px-4 py-3">
+                    <button
+                        type="button"
+                        onClick={() => router.back()}
+                        className="flex shrink-0 items-center justify-center text-gray-700"
+                    >
+                        <ArrowLeft className="size-5" />
+                    </button>
+                    <div className="relative flex-1">
+                        <input
+                            type="text"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            placeholder="Search location..."
+                            className="w-full bg-transparent text-base text-gray-900 placeholder-gray-500 outline-none"
+                        />
+                    </div>
+                    {searchQuery && (
+                        <button
+                            type="button"
+                            onClick={() => setSearchQuery("")}
+                            className="flex shrink-0 items-center justify-center text-gray-400"
+                        >
+                            <XClose className="size-5" />
+                        </button>
+                    )}
+                </div>
+
+                {/* Mobile Date/Room Selector Row */}
+                <div className="grid grid-cols-[1fr_auto_1fr_auto_1fr] items-center gap-1 border-b border-gray-200 bg-white px-3 py-3">
+                    {/* Check-in */}
+                    <button
+                        type="button"
+                        onClick={() => {
+                            setSelectingCheckOut(false);
+                            setShowMobileDatePicker(true);
+                        }}
+                        className="flex flex-col items-center rounded-lg px-2 py-2 active:bg-gray-50"
+                    >
+                        <span className="text-sm font-semibold text-[#ff5a5f]">{checkInDate}</span>
+                        <span className="text-[11px] text-gray-500">{checkInTime}</span>
+                    </button>
+
+                    {/* Night Badge */}
+                    <div className="flex size-7 items-center justify-center rounded-full border border-gray-300 bg-gray-50 text-xs font-medium text-gray-600">
+                        {nightsBetween}N
+                    </div>
+
+                    {/* Check-out */}
+                    <button
+                        type="button"
+                        onClick={() => {
+                            setSelectingCheckOut(true);
+                            setShowMobileDatePicker(true);
+                        }}
+                        className="flex flex-col items-center rounded-lg px-2 py-2 active:bg-gray-50"
+                    >
+                        <span className="text-sm font-semibold text-gray-900">{checkOutDate}</span>
+                        <span className="text-[11px] text-gray-500">{checkOutTime}</span>
+                    </button>
+
+                    {/* Divider */}
+                    <div className="h-8 w-px bg-gray-200" />
+
+                    {/* Room & Guests */}
+                    <button type="button" className="flex flex-col items-center rounded-lg px-2 py-2 active:bg-gray-50">
+                        <span className="text-sm font-semibold text-gray-900">{rooms} Room</span>
+                        <span className="text-[11px] text-gray-500">{guests} Guest</span>
+                    </button>
+                </div>
+            </header>
+
+            {/* Desktop Header */}
+            <header className="sticky top-0 z-40 hidden border-b border-gray-200 bg-white lg:block">
                 <div className="mx-auto flex h-16 max-w-8xl items-center gap-4 px-4 lg:gap-6 lg:px-6">
                     {/* Logo */}
                     <Link href="/" className="flex shrink-0 items-center">
@@ -452,7 +667,7 @@ function SearchPageContent() {
                     </Link>
 
                     {/* Inline Search Bar */}
-                    <div className="hidden flex-1 lg:flex">
+                    <div className="flex flex-1">
                         <div className="flex w-full items-center rounded-lg border border-gray-300 bg-white">
                             {/* Location */}
                             <div className="flex flex-1 items-center gap-2 border-r border-gray-300 px-4 py-2">
@@ -643,16 +858,35 @@ function SearchPageContent() {
                     </aside>
 
                     {/* Results Section */}
-                    <div className={cx("flex-1", mapView ? "lg:max-w-[480px]" : "")}>
-                        {/* Results Header */}
-                        <div className="sticky top-16 z-30 flex items-center justify-between border-b border-gray-200 bg-white px-4 py-3 lg:px-6">
+                    <div className={cx("flex-1", mapView ? "lg:max-w-[480px]" : "", mobileMapView ? "hidden lg:block" : "")}>
+                        {/* Mobile Promotional Banner */}
+                        <div className="flex items-center gap-3 border-b border-green-200 bg-green-50 px-4 py-3 lg:hidden">
+                            <div className="flex size-8 shrink-0 items-center justify-center rounded-md bg-green-100">
+                                <Gift01 className="size-5 text-green-600" />
+                            </div>
+                            <div className="min-w-0 flex-1">
+                                <p className="text-sm text-green-800">
+                                    <span className="font-semibold">upto 80% off.</span> Get upto 80% off using code{" "}
+                                    <span className="font-bold">WELCOME80</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Mobile Results Count */}
+                        <div className="flex items-center justify-between bg-white px-4 py-3 lg:hidden">
+                            <h1 className="text-lg font-bold text-gray-900">{sortedHotels.length} OYOs found</h1>
+                            <span className="text-xs text-gray-500">Price per room per night</span>
+                        </div>
+
+                        {/* Desktop Results Header */}
+                        <div className="sticky top-16 z-30 hidden items-center justify-between border-b border-gray-200 bg-white px-4 py-3 lg:flex lg:px-6">
                             <h1 className="text-base font-semibold text-gray-900">
                                 {sortedHotels.length} Hotels in {searchLocation}
                             </h1>
 
                             <div className="flex items-center gap-4">
                                 {/* Map View Toggle */}
-                                <div className="hidden items-center gap-2 lg:flex">
+                                <div className="flex items-center gap-2">
                                     <span className="text-sm text-gray-600">Map View</span>
                                     <Toggle isSelected={mapView} onChange={setMapView} size="sm" />
                                 </div>
@@ -693,16 +927,6 @@ function SearchPageContent() {
                                         </>
                                     )}
                                 </div>
-
-                                {/* Mobile Filter Button */}
-                                <button
-                                    type="button"
-                                    onClick={() => setShowMobileFilters(true)}
-                                    className="flex items-center gap-1 rounded-lg border border-gray-200 px-3 py-1.5 text-sm text-gray-700 lg:hidden"
-                                >
-                                    <Sliders01 className="size-4" />
-                                    <span>Filters</span>
-                                </button>
                             </div>
                         </div>
 
@@ -733,10 +957,76 @@ function SearchPageContent() {
                                         </div>
                                     )}
 
-                                    {/* Hotel Card */}
-                                    <Link href={`/listing/${hotel.id}`} className="flex gap-4 p-4 transition-colors hover:bg-gray-50 lg:px-6">
+                                    {/* Hotel Card - Mobile */}
+                                    <Link href={`/listing/${hotel.id}`} className="block p-4 transition-colors hover:bg-gray-50 lg:hidden">
+                                        {/* Mobile: Two images side by side */}
+                                        <div className="flex gap-2">
+                                            <div className="relative h-28 flex-1 overflow-hidden rounded-lg">
+                                                <img src={hotel.image} alt={hotel.name} className="h-full w-full object-cover" />
+                                                {/* Type Badge */}
+                                                <div className="absolute left-2 top-2 flex items-center gap-1 rounded bg-gray-900/80 px-2 py-1">
+                                                    <Building07 className="size-3 text-white" />
+                                                    <span className="text-[10px] font-medium text-white">
+                                                        {hotel.category === "super-collection" ? "Company-Serviced" : hotel.category === "townhouse" ? "Super OYO" : hotel.type}
+                                                    </span>
+                                                </div>
+                                                {/* Rating badge on image */}
+                                                <div className="absolute bottom-2 left-2 flex items-center gap-1 rounded-full bg-white px-2 py-1 shadow-sm">
+                                                    <Star01 className="size-3 fill-gray-900 text-gray-900" />
+                                                    <span className="text-xs font-bold text-gray-900">{hotel.rating}</span>
+                                                    <span className="text-xs text-gray-500">({hotel.reviews})</span>
+                                                </div>
+                                            </div>
+                                            <div className="relative h-28 flex-1 overflow-hidden rounded-lg">
+                                                <img
+                                                    src={hotel.image.replace("q=80", "q=70")}
+                                                    alt={hotel.name}
+                                                    className="h-full w-full object-cover"
+                                                />
+                                                {/* Wishlist button */}
+                                                <button
+                                                    type="button"
+                                                    onClick={(e) => {
+                                                        e.preventDefault();
+                                                        toggleWishlist(hotel.id);
+                                                    }}
+                                                    className={cx(
+                                                        "absolute right-2 top-2 flex size-8 items-center justify-center rounded-full transition-all",
+                                                        wishlist.includes(hotel.id) ? "bg-[#ff5a5f] text-white" : "bg-white text-gray-500"
+                                                    )}
+                                                >
+                                                    <Heart className={cx("size-4", wishlist.includes(hotel.id) && "fill-current")} />
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        {/* Mobile content below images */}
+                                        <div className="mt-3">
+                                            <h3 className="truncate text-base font-semibold text-gray-900">{hotel.name}</h3>
+                                            <p className="mt-0.5 text-xs text-gray-500">
+                                                {hotel.distance} · {hotel.location}
+                                            </p>
+                                            {/* Booking popularity */}
+                                            <p className="mt-1.5 flex items-center gap-1 text-xs text-green-600">
+                                                <Zap className="size-3" />
+                                                <span>{Math.floor(Math.random() * 20) + 5} people booked this hotel today</span>
+                                            </p>
+                                            {/* Price */}
+                                            <div className="mt-2">
+                                                <div className="flex items-baseline gap-2">
+                                                    <span className="text-xl font-bold text-gray-900">₹{hotel.price}</span>
+                                                    <span className="text-sm text-gray-400 line-through">₹{hotel.originalPrice}</span>
+                                                    <span className="text-sm font-medium text-orange-500">{hotel.discount}% off</span>
+                                                </div>
+                                                <p className="text-xs text-gray-500">+ ₹{Math.round(hotel.price * 0.18)} taxes & fees</p>
+                                            </div>
+                                        </div>
+                                    </Link>
+
+                                    {/* Hotel Card - Desktop */}
+                                    <Link href={`/listing/${hotel.id}`} className="hidden gap-4 p-4 transition-colors hover:bg-gray-50 lg:flex lg:px-6">
                                         {/* Image */}
-                                        <div className="relative h-28 w-36 shrink-0 overflow-hidden rounded-lg lg:h-32 lg:w-44">
+                                        <div className="relative h-32 w-44 shrink-0 overflow-hidden rounded-lg">
                                             <img src={hotel.image} alt={hotel.name} className="h-full w-full object-cover" />
                                             {/* Type Badge */}
                                             <div className="absolute left-2 top-2 rounded bg-gray-900/80 px-1.5 py-0.5 text-[10px] font-medium text-white">{hotel.type}</div>
@@ -761,14 +1051,13 @@ function SearchPageContent() {
                                             {/* Header */}
                                             <div className="flex items-start justify-between gap-2">
                                                 <div className="min-w-0 flex-1">
-                                                    <h3 className="truncate text-sm font-semibold text-gray-900 lg:text-base">{hotel.name}</h3>
+                                                    <h3 className="truncate text-base font-semibold text-gray-900">{hotel.name}</h3>
                                                     <div className="mt-0.5 flex items-center gap-1 text-xs text-gray-500">
                                                         <MarkerPin01 className="size-3 shrink-0" />
                                                         <span className="truncate">{hotel.location}</span>
                                                         <span className="shrink-0">· {hotel.distance}</span>
                                                     </div>
                                                 </div>
-
                                             </div>
 
                                             {/* Rating */}
@@ -813,7 +1102,7 @@ function SearchPageContent() {
                                                 </div>
 
                                                 {/* Actions */}
-                                                <div className="hidden shrink-0 gap-2 lg:flex">
+                                                <div className="flex shrink-0 gap-2">
                                                     <button
                                                         type="button"
                                                         onClick={(e) => e.preventDefault()}
@@ -948,47 +1237,541 @@ function SearchPageContent() {
                 </div>
             </div>
 
+            {/* Mobile Fixed Bottom Bar */}
+            {!mobileMapView && (
+                <div className="fixed bottom-0 left-0 right-0 z-30 flex items-center justify-around border-t border-gray-200 bg-[#1a1a2e] lg:hidden">
+                    <button
+                        type="button"
+                        onClick={() => setShowMobileFilters(true)}
+                        className="flex flex-1 flex-col items-center gap-1 py-3 text-white"
+                    >
+                        <Sliders01 className="size-5" />
+                        <span className="text-xs font-medium">Filter</span>
+                    </button>
+                    <div className="h-8 w-px bg-gray-700" />
+                    <button
+                        type="button"
+                        onClick={() => setShowMobileSortSheet(true)}
+                        className="flex flex-1 flex-col items-center gap-1 py-3 text-white"
+                    >
+                        <SwitchVertical01 className="size-5" />
+                        <span className="text-xs font-medium">Sort</span>
+                    </button>
+                    <div className="h-8 w-px bg-gray-700" />
+                    <button
+                        type="button"
+                        onClick={() => setMobileMapView(true)}
+                        className="flex flex-1 flex-col items-center gap-1 py-3 text-white"
+                    >
+                        <Map01 className="size-5" />
+                        <span className="text-xs font-medium">Map</span>
+                    </button>
+                </div>
+            )}
+
+            {/* Mobile Map View */}
+            {mobileMapView && (
+                <div className="fixed inset-0 z-40 bg-white lg:hidden">
+                    {/* Mobile Map Header */}
+                    <div className="absolute left-0 right-0 top-0 z-10 flex items-center gap-3 bg-white px-4 py-3 shadow-sm">
+                        <button
+                            type="button"
+                            onClick={() => setMobileMapView(false)}
+                            className="flex shrink-0 items-center justify-center text-gray-700"
+                        >
+                            <ArrowLeft className="size-5" />
+                        </button>
+                        <div className="relative flex-1">
+                            <input
+                                type="text"
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                placeholder="Search location..."
+                                className="w-full bg-transparent text-base text-gray-900 placeholder-gray-500 outline-none"
+                            />
+                        </div>
+                        {searchQuery && (
+                            <button
+                                type="button"
+                                onClick={() => setSearchQuery("")}
+                                className="flex shrink-0 items-center justify-center text-gray-400"
+                            >
+                                <XClose className="size-5" />
+                            </button>
+                        )}
+                    </div>
+
+                    {/* Map Area */}
+                    <div className="h-full w-full bg-[#e8e4df] pt-14">
+                        {/* Placeholder map background */}
+                        <div className="relative h-full w-full">
+                            <img
+                                src="https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/73.05,19.04,11,0/800x800?access_token=pk.placeholder"
+                                alt="Map"
+                                className="h-full w-full object-cover"
+                                onError={(e) => {
+                                    e.currentTarget.style.display = "none";
+                                }}
+                            />
+                            {/* Fallback map styling */}
+                            <div className="absolute inset-0 flex items-center justify-center bg-gray-200">
+                                <Map01 className="size-16 text-gray-400" />
+                            </div>
+
+                            {/* Price markers */}
+                            {sortedHotels.slice(0, 8).map((hotel, index) => (
+                                <button
+                                    key={hotel.id}
+                                    type="button"
+                                    onClick={() => setSelectedMapHotel(hotel)}
+                                    className="absolute"
+                                    style={{
+                                        left: `${15 + (index % 4) * 18}%`,
+                                        top: `${20 + Math.floor(index / 4) * 25}%`,
+                                    }}
+                                >
+                                    <div
+                                        className={cx(
+                                            "rounded-lg px-2 py-1 text-xs font-bold shadow-lg",
+                                            selectedMapHotel?.id === hotel.id
+                                                ? "bg-[#ff5a5f] text-white"
+                                                : "bg-gray-800 text-white"
+                                        )}
+                                    >
+                                        ₹ {hotel.price}
+                                    </div>
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Selected Hotel Card */}
+                    {selectedMapHotel && (
+                        <div className="absolute bottom-16 left-4 right-4 rounded-xl bg-white p-3 shadow-xl">
+                            <Link href={`/listing/${selectedMapHotel.id}`} className="flex gap-3">
+                                <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-lg">
+                                    <img src={selectedMapHotel.image} alt={selectedMapHotel.name} className="h-full w-full object-cover" />
+                                    <div className="absolute bottom-1 left-1 flex items-center gap-0.5 rounded bg-white px-1 py-0.5">
+                                        <Star01 className="size-2.5 fill-gray-900 text-gray-900" />
+                                        <span className="text-[10px] font-bold">{selectedMapHotel.rating}</span>
+                                        <span className="text-[10px] text-gray-500">({selectedMapHotel.reviews})</span>
+                                    </div>
+                                </div>
+                                <div className="min-w-0 flex-1">
+                                    <h3 className="truncate text-sm font-semibold text-gray-900">{selectedMapHotel.name}</h3>
+                                    <p className="text-xs text-gray-500">{selectedMapHotel.location}</p>
+                                    <div className="mt-1 flex items-baseline gap-2">
+                                        <span className="text-base font-bold text-gray-900">₹{selectedMapHotel.price}</span>
+                                        <span className="text-xs text-gray-400 line-through">₹{selectedMapHotel.originalPrice}</span>
+                                        <span className="text-xs font-medium text-orange-500">{selectedMapHotel.discount}% off</span>
+                                    </div>
+                                    <p className="text-[10px] text-gray-500">+ ₹{Math.round(selectedMapHotel.price * 0.18)} taxes & fees</p>
+                                </div>
+                            </Link>
+                        </div>
+                    )}
+
+                    {/* Mobile Map Bottom Bar */}
+                    <div className="absolute bottom-0 left-0 right-0 z-10 flex items-center justify-around border-t border-gray-200 bg-[#1a1a2e]">
+                        <button
+                            type="button"
+                            onClick={() => setShowMobileFilters(true)}
+                            className="flex flex-1 flex-col items-center gap-1 py-3 text-white"
+                        >
+                            <Sliders01 className="size-5" />
+                            <span className="text-xs font-medium">Filter</span>
+                        </button>
+                        <div className="h-8 w-px bg-gray-700" />
+                        <button
+                            type="button"
+                            onClick={() => {
+                                setMobileMapView(false);
+                                setSelectedMapHotel(null);
+                            }}
+                            className="flex flex-1 flex-col items-center gap-1 py-3 text-white"
+                        >
+                            <List className="size-5" />
+                            <span className="text-xs font-medium">List</span>
+                        </button>
+                    </div>
+                </div>
+            )}
+
+            {/* Mobile Sort Bottom Sheet */}
+            {showMobileSortSheet && (
+                <>
+                    <div className="fixed inset-0 z-40 bg-black/60 lg:hidden" onClick={() => setShowMobileSortSheet(false)} />
+                    <div className="fixed inset-x-0 bottom-0 z-50 rounded-t-2xl bg-white pb-8 lg:hidden">
+                        {/* Header */}
+                        <div className="flex items-center justify-between border-b border-gray-100 px-4 py-4">
+                            <h2 className="text-lg font-semibold text-gray-900">Sort by</h2>
+                            <button
+                                type="button"
+                                onClick={() => setShowMobileSortSheet(false)}
+                                className="flex size-8 items-center justify-center text-gray-500"
+                            >
+                                <XClose className="size-5" />
+                            </button>
+                        </div>
+
+                        {/* Sort Options */}
+                        <div className="px-4 py-2">
+                            {sortOptions.map((option) => {
+                                const Icon = option.icon;
+                                return (
+                                    <button
+                                        key={option.id}
+                                        type="button"
+                                        onClick={() => {
+                                            setSortBy(option.id);
+                                            setShowMobileSortSheet(false);
+                                        }}
+                                        className="flex w-full items-center gap-4 py-4"
+                                    >
+                                        <Icon className={cx("size-5", sortBy === option.id ? "text-[#ff5a5f]" : "text-gray-400")} />
+                                        <span className={cx("flex-1 text-left text-sm", sortBy === option.id ? "font-semibold text-[#ff5a5f]" : "text-gray-700")}>
+                                            {option.label}
+                                        </span>
+                                        <div
+                                            className={cx(
+                                                "flex size-5 items-center justify-center rounded-full border-2",
+                                                sortBy === option.id ? "border-[#ff5a5f] bg-[#ff5a5f]" : "border-gray-300"
+                                            )}
+                                        >
+                                            {sortBy === option.id && <div className="size-2 rounded-full bg-white" />}
+                                        </div>
+                                    </button>
+                                );
+                            })}
+                        </div>
+                    </div>
+                </>
+            )}
+
             {/* Mobile Filters Modal */}
             {showMobileFilters && (
                 <>
-                    <div className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm lg:hidden" onClick={() => setShowMobileFilters(false)} />
-                    <div className="fixed inset-y-0 left-0 z-50 w-full max-w-sm overflow-y-auto bg-white shadow-xl lg:hidden">
+                    <div className="fixed inset-0 z-40 bg-black/60 lg:hidden" onClick={() => setShowMobileFilters(false)} />
+                    <div className="fixed inset-0 z-50 flex flex-col bg-white lg:hidden">
                         {/* Header */}
-                        <div className="sticky top-0 z-10 flex items-center justify-between border-b border-gray-200 bg-white px-4 py-4">
-                            <h2 className="text-lg font-semibold text-gray-900">Filters</h2>
-                            <button
-                                type="button"
-                                onClick={() => setShowMobileFilters(false)}
-                                className="flex size-10 items-center justify-center rounded-lg text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-700"
-                            >
-                                <XClose className="size-6" />
-                            </button>
-                        </div>
-
-                        {/* Filters */}
-                        <div className="p-4">
-                            <FilterSidebar isMobile />
-                        </div>
-
-                        {/* Footer */}
-                        <div className="fixed bottom-0 left-0 right-0 flex gap-3 border-t border-gray-200 bg-white p-4">
+                        <div className="flex items-center justify-between border-b border-gray-200 px-4 py-4">
+                            <div className="flex items-center gap-3">
+                                <button
+                                    type="button"
+                                    onClick={() => setShowMobileFilters(false)}
+                                    className="flex items-center justify-center text-gray-700"
+                                >
+                                    <XClose className="size-5" />
+                                </button>
+                                <h2 className="text-lg font-semibold text-gray-900">Filters</h2>
+                            </div>
                             <button
                                 type="button"
                                 onClick={clearAllFilters}
-                                className="flex-1 rounded-lg border border-gray-200 py-3 text-sm font-semibold text-gray-700 transition-colors hover:bg-gray-50"
+                                className="text-sm font-medium text-[#ff5a5f]"
                             >
-                                Clear All
+                                Clear all
                             </button>
+                        </div>
+
+                        {/* Filters Content */}
+                        <div className="flex-1 overflow-y-auto px-4 py-4">
+                            {/* Pay at Hotel */}
+                            <div className="flex items-center justify-between py-3">
+                                <span className="text-sm font-semibold text-gray-900">Pay at Hotel</span>
+                                <button
+                                    type="button"
+                                    onClick={() => setPayAtHotel(!payAtHotel)}
+                                    className={cx(
+                                        "flex size-5 items-center justify-center rounded border-2",
+                                        payAtHotel ? "border-[#ff5a5f] bg-[#ff5a5f]" : "border-gray-300"
+                                    )}
+                                >
+                                    {payAtHotel && <CheckCircle className="size-3 text-white" />}
+                                </button>
+                            </div>
+
+                            {/* Show Only Member OYOs */}
+                            <div className="flex items-center justify-between border-b border-gray-100 py-3">
+                                <div>
+                                    <p className="text-sm font-semibold text-gray-900">Show Only Wizard Member OYOs</p>
+                                    <p className="text-xs text-gray-500">Get 5% off on member hotels</p>
+                                </div>
+                                <button
+                                    type="button"
+                                    onClick={() => setMemberOnly(!memberOnly)}
+                                    className={cx(
+                                        "flex size-5 items-center justify-center rounded border-2",
+                                        memberOnly ? "border-[#ff5a5f] bg-[#ff5a5f]" : "border-gray-300"
+                                    )}
+                                >
+                                    {memberOnly && <CheckCircle className="size-3 text-white" />}
+                                </button>
+                            </div>
+
+                            {/* Price Range */}
+                            <div className="py-5">
+                                <h3 className="text-sm font-semibold text-gray-900">Price</h3>
+                                <p className="text-xs text-gray-500">Excluding taxes & fee</p>
+                                <div className="mt-4 flex items-center justify-between">
+                                    <span className="rounded-full bg-[#ff5a5f] px-3 py-1 text-xs font-medium text-white">
+                                        ₹ {priceRange[0]}
+                                    </span>
+                                    <span className="rounded-full bg-[#ff5a5f] px-3 py-1 text-xs font-medium text-white">
+                                        ₹ {priceRange[1]}
+                                    </span>
+                                </div>
+                                <div className="mt-4">
+                                    <input
+                                        type="range"
+                                        min={500}
+                                        max={5000}
+                                        value={priceRange[1]}
+                                        onChange={(e) => setPriceRange([priceRange[0], Number(e.target.value)])}
+                                        className="w-full accent-[#ff5a5f]"
+                                    />
+                                </div>
+                            </div>
+
+                            {/* Hotel Facilities */}
+                            <div className="border-t border-gray-100 py-5">
+                                <h3 className="mb-4 text-sm font-semibold text-gray-900">Hotel Facilities</h3>
+                                <div className="space-y-1">
+                                    {hotelFacilities.map((facility) => {
+                                        const Icon = facility.icon;
+                                        return (
+                                            <button
+                                                key={facility.id}
+                                                type="button"
+                                                onClick={() => toggleFacility(facility.id)}
+                                                className="flex w-full items-center justify-between py-3"
+                                            >
+                                                <div className="flex items-center gap-3">
+                                                    <Icon className="size-5 text-gray-400" />
+                                                    <span className="text-sm text-gray-700">{facility.label}</span>
+                                                </div>
+                                                <div
+                                                    className={cx(
+                                                        "flex size-5 items-center justify-center rounded border-2",
+                                                        selectedFacilities.includes(facility.id) ? "border-[#ff5a5f] bg-[#ff5a5f]" : "border-gray-300"
+                                                    )}
+                                                >
+                                                    {selectedFacilities.includes(facility.id) && <CheckCircle className="size-3 text-white" />}
+                                                </div>
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+
+                            {/* Collections */}
+                            <div className="border-t border-gray-100 py-5">
+                                <h3 className="mb-4 text-sm font-semibold text-gray-900">Collections</h3>
+                                <div className="space-y-1">
+                                    {collections.map((collection) => (
+                                        <button
+                                            key={collection.id}
+                                            type="button"
+                                            onClick={() => toggleCollection(collection.id)}
+                                            className="flex w-full items-center justify-between py-3"
+                                        >
+                                            <span className="text-sm text-gray-700">{collection.label}</span>
+                                            <div
+                                                className={cx(
+                                                    "flex size-5 items-center justify-center rounded border-2",
+                                                    selectedCollections.includes(collection.id) ? "border-[#ff5a5f] bg-[#ff5a5f]" : "border-gray-300"
+                                                )}
+                                            >
+                                                {selectedCollections.includes(collection.id) && <CheckCircle className="size-3 text-white" />}
+                                            </div>
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Apply Button */}
+                        <div className="border-t border-gray-200 p-4">
                             <button
                                 type="button"
                                 onClick={() => setShowMobileFilters(false)}
-                                className="flex-1 rounded-lg bg-[#ff5a5f] py-3 text-sm font-semibold text-white transition-colors hover:bg-[#e04850]"
+                                className="w-full rounded-lg bg-[#ff5a5f] py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[#e04850]"
                             >
-                                Show {sortedHotels.length} Hotels
+                                Apply
                             </button>
                         </div>
                     </div>
                 </>
+            )}
+
+            {/* Mobile Date Picker Modal */}
+            {showMobileDatePicker && (
+                <div className="fixed inset-0 z-50 flex flex-col bg-white lg:hidden">
+                    {/* Header */}
+                    <div className="flex items-center border-b border-gray-100 px-4 py-4">
+                        <button
+                            type="button"
+                            onClick={() => setShowMobileDatePicker(false)}
+                            className="flex items-center justify-center text-gray-700"
+                        >
+                            <XClose className="size-5" />
+                        </button>
+                    </div>
+
+                    {/* Check-in / Check-out Header */}
+                    <div className="flex items-center justify-between border-b border-gray-100 px-4 py-4">
+                        <button
+                            type="button"
+                            onClick={() => setSelectingCheckOut(false)}
+                            className="flex flex-col items-start"
+                        >
+                            <span className={cx("text-xs", !selectingCheckOut ? "text-[#ff5a5f]" : "text-gray-500")}>Check-in</span>
+                            <span className={cx("text-base font-semibold", !selectingCheckOut ? "text-gray-900" : "text-gray-700")}>
+                                {checkInDate}
+                            </span>
+                        </button>
+
+                        <div className="rounded border border-gray-300 px-3 py-1">
+                            <span className="text-xs font-medium text-gray-700">{nightsBetween} NIGHT</span>
+                        </div>
+
+                        <button
+                            type="button"
+                            onClick={() => setSelectingCheckOut(true)}
+                            className="flex flex-col items-end"
+                        >
+                            <span className={cx("text-xs", selectingCheckOut ? "text-[#ff5a5f]" : "text-gray-500")}>Check-out</span>
+                            <span className={cx("text-base font-semibold", selectingCheckOut ? "text-gray-900" : "text-gray-700")}>
+                                {checkOutDate}
+                            </span>
+                        </button>
+                    </div>
+
+                    {/* Calendar */}
+                    <div className="flex-1 overflow-y-auto px-4 py-4">
+                        {/* January 2026 */}
+                        <div className="mb-8">
+                            <h3 className="mb-4 text-center text-base font-semibold text-gray-900">January 2026</h3>
+                            {/* Days header */}
+                            <div className="mb-2 grid grid-cols-7 gap-1">
+                                {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((day) => (
+                                    <div key={day} className="py-2 text-center text-xs font-medium text-gray-500">
+                                        {day}
+                                    </div>
+                                ))}
+                            </div>
+                            {/* Days grid */}
+                            <div className="grid grid-cols-7 gap-1">
+                                {generateCalendarDays(2026, 0).map((day, index) => (
+                                    <div key={index} className="flex aspect-square items-center justify-center">
+                                        {day !== null && (
+                                            <button
+                                                type="button"
+                                                onClick={() => handleDateSelect(2026, 0, day)}
+                                                disabled={isPastDate(2026, 0, day)}
+                                                className={cx(
+                                                    "flex size-10 items-center justify-center rounded-full text-sm transition-colors",
+                                                    isPastDate(2026, 0, day) && "text-gray-300",
+                                                    isCheckInDate(2026, 0, day) && "bg-[#ff5a5f]/20 text-[#ff5a5f] font-semibold",
+                                                    isCheckOutDate(2026, 0, day) && "bg-[#ff5a5f] text-white font-semibold",
+                                                    isDateInRange(2026, 0, day) && "bg-[#ff5a5f]/10",
+                                                    !isPastDate(2026, 0, day) && !isDateSelected(2026, 0, day) && "text-gray-700 hover:bg-gray-100"
+                                                )}
+                                            >
+                                                {day}
+                                            </button>
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* February 2026 */}
+                        <div className="mb-8">
+                            <h3 className="mb-4 text-center text-base font-semibold text-gray-900">February 2026</h3>
+                            {/* Days header */}
+                            <div className="mb-2 grid grid-cols-7 gap-1">
+                                {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((day) => (
+                                    <div key={day} className="py-2 text-center text-xs font-medium text-gray-500">
+                                        {day}
+                                    </div>
+                                ))}
+                            </div>
+                            {/* Days grid */}
+                            <div className="grid grid-cols-7 gap-1">
+                                {generateCalendarDays(2026, 1).map((day, index) => (
+                                    <div key={index} className="flex aspect-square items-center justify-center">
+                                        {day !== null && (
+                                            <button
+                                                type="button"
+                                                onClick={() => handleDateSelect(2026, 1, day)}
+                                                disabled={isPastDate(2026, 1, day)}
+                                                className={cx(
+                                                    "flex size-10 items-center justify-center rounded-full text-sm transition-colors",
+                                                    isPastDate(2026, 1, day) && "text-gray-300",
+                                                    isCheckInDate(2026, 1, day) && "bg-[#ff5a5f]/20 text-[#ff5a5f] font-semibold",
+                                                    isCheckOutDate(2026, 1, day) && "bg-[#ff5a5f] text-white font-semibold",
+                                                    isDateInRange(2026, 1, day) && "bg-[#ff5a5f]/10",
+                                                    !isPastDate(2026, 1, day) && !isDateSelected(2026, 1, day) && "text-gray-700 hover:bg-gray-100"
+                                                )}
+                                            >
+                                                {day}
+                                            </button>
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* March 2026 */}
+                        <div className="mb-8">
+                            <h3 className="mb-4 text-center text-base font-semibold text-gray-900">March 2026</h3>
+                            {/* Days header */}
+                            <div className="mb-2 grid grid-cols-7 gap-1">
+                                {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((day) => (
+                                    <div key={day} className="py-2 text-center text-xs font-medium text-gray-500">
+                                        {day}
+                                    </div>
+                                ))}
+                            </div>
+                            {/* Days grid */}
+                            <div className="grid grid-cols-7 gap-1">
+                                {generateCalendarDays(2026, 2).map((day, index) => (
+                                    <div key={index} className="flex aspect-square items-center justify-center">
+                                        {day !== null && (
+                                            <button
+                                                type="button"
+                                                onClick={() => handleDateSelect(2026, 2, day)}
+                                                disabled={isPastDate(2026, 2, day)}
+                                                className={cx(
+                                                    "flex size-10 items-center justify-center rounded-full text-sm transition-colors",
+                                                    isPastDate(2026, 2, day) && "text-gray-300",
+                                                    isCheckInDate(2026, 2, day) && "bg-[#ff5a5f]/20 text-[#ff5a5f] font-semibold",
+                                                    isCheckOutDate(2026, 2, day) && "bg-[#ff5a5f] text-white font-semibold",
+                                                    isDateInRange(2026, 2, day) && "bg-[#ff5a5f]/10",
+                                                    !isPastDate(2026, 2, day) && !isDateSelected(2026, 2, day) && "text-gray-700 hover:bg-gray-100"
+                                                )}
+                                            >
+                                                {day}
+                                            </button>
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Done Button */}
+                    <div className="border-t border-gray-200 p-4">
+                        <button
+                            type="button"
+                            onClick={() => setShowMobileDatePicker(false)}
+                            className="w-full rounded-lg bg-[#ff5a5f] py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[#e04850]"
+                        >
+                            Done · {nightsBetween} Night, {rooms} Room
+                        </button>
+                    </div>
+                </div>
             )}
         </div>
     );
