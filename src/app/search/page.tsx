@@ -232,7 +232,7 @@ const collections = [
 // Categories with descriptions
 const categories = [
     {
-        id: "oyo-rooms",
+        id: "budget-rooms",
         name: "Budget Stays",
         description: "Super affordable stays with essential amenities",
     },
@@ -263,7 +263,7 @@ const sortOptions = [
     { id: "rating", label: "Guest Ratings", icon: Star01 },
     { id: "price-low", label: "Price Low to High", icon: SwitchVertical01 },
     { id: "price-high", label: "Price High to Low", icon: SwitchVertical01 },
-    { id: "distance", label: "Show Closest OYO", icon: NavigationPointer01 },
+    { id: "distance", label: "Show Nearest", icon: NavigationPointer01 },
 ];
 
 // Hotel facilities for mobile filter
@@ -278,7 +278,7 @@ const hotelFacilities = [
 function SearchPageContent() {
     const searchParams = useSearchParams();
     const router = useRouter();
-    const searchLocation = searchParams.get("location") || "OYOsnearme";
+    const searchLocation = searchParams.get("location") || "Search hotels nearby";
 
     const [mapView, setMapView] = useState(false);
     const [mobileMapView, setMobileMapView] = useState(false);
@@ -301,13 +301,15 @@ function SearchPageContent() {
     const [showDateDropdown, setShowDateDropdown] = useState(false);
     const [showRoomDropdown, setShowRoomDropdown] = useState(false);
     const [showMobileDatePicker, setShowMobileDatePicker] = useState(false);
+    const [showMobileRoomPicker, setShowMobileRoomPicker] = useState(false);
     const [selectedCheckIn, setSelectedCheckIn] = useState<Date>(new Date(2026, 0, 18)); // Jan 18, 2026
     const [selectedCheckOut, setSelectedCheckOut] = useState<Date>(new Date(2026, 0, 19)); // Jan 19, 2026
     const [selectingCheckOut, setSelectingCheckOut] = useState(false);
     const [checkInTime, setCheckInTime] = useState("12:00 PM");
     const [checkOutTime, setCheckOutTime] = useState("11:00 AM");
     const [rooms, setRooms] = useState(1);
-    const [guests, setGuests] = useState(1);
+    const [guests, setGuests] = useState(2);
+    const [children, setChildren] = useState(0);
 
     // Format date for display
     const formatDate = (date: Date) => {
@@ -651,9 +653,13 @@ function SearchPageContent() {
                     <div className="h-8 w-px bg-gray-200" />
 
                     {/* Room & Guests */}
-                    <button type="button" className="flex flex-col items-center rounded-lg px-2 py-2 active:bg-gray-50">
+                    <button
+                        type="button"
+                        onClick={() => setShowMobileRoomPicker(true)}
+                        className="flex flex-col items-center rounded-lg px-2 py-2 active:bg-gray-50"
+                    >
                         <span className="text-sm font-semibold text-gray-900">{rooms} Room</span>
-                        <span className="text-[11px] text-gray-500">{guests} Guest</span>
+                        <span className="text-[11px] text-gray-500">{guests + children} Guest{guests + children > 1 ? "s" : ""}</span>
                     </button>
                 </div>
             </header>
@@ -874,7 +880,7 @@ function SearchPageContent() {
 
                         {/* Mobile Results Count */}
                         <div className="flex items-center justify-between bg-white px-4 py-3 lg:hidden">
-                            <h1 className="text-lg font-bold text-gray-900">{sortedHotels.length} OYOs found</h1>
+                            <h1 className="text-lg font-bold text-gray-900">{sortedHotels.length} Hotels found</h1>
                             <span className="text-xs text-gray-500">Price per room per night</span>
                         </div>
 
@@ -967,7 +973,7 @@ function SearchPageContent() {
                                                 <div className="absolute left-2 top-2 flex items-center gap-1 rounded bg-gray-900/80 px-2 py-1">
                                                     <Building07 className="size-3 text-white" />
                                                     <span className="text-[10px] font-medium text-white">
-                                                        {hotel.category === "super-collection" ? "Company-Serviced" : hotel.category === "townhouse" ? "Super OYO" : hotel.type}
+                                                        {hotel.category === "super-collection" ? "Company-Serviced" : hotel.category === "townhouse" ? "Premium Stay" : hotel.type}
                                                     </span>
                                                 </div>
                                                 {/* Rating badge on image */}
@@ -1491,10 +1497,10 @@ function SearchPageContent() {
                                 </button>
                             </div>
 
-                            {/* Show Only Member OYOs */}
+                            {/* Show Only Member Hotels */}
                             <div className="flex items-center justify-between border-b border-gray-100 py-3">
                                 <div>
-                                    <p className="text-sm font-semibold text-gray-900">Show Only Wizard Member OYOs</p>
+                                    <p className="text-sm font-semibold text-gray-900">Show Only Member Hotels</p>
                                     <p className="text-xs text-gray-500">Get 5% off on member hotels</p>
                                 </div>
                                 <button
@@ -1769,6 +1775,160 @@ function SearchPageContent() {
                             className="w-full rounded-lg bg-[#ff5a5f] py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[#e04850]"
                         >
                             Done · {nightsBetween} Night, {rooms} Room
+                        </button>
+                    </div>
+                </div>
+            )}
+
+            {/* Mobile Room & Guest Picker Modal */}
+            {showMobileRoomPicker && (
+                <div className="fixed inset-0 z-50 flex flex-col bg-white lg:hidden">
+                    {/* Header */}
+                    <div className="flex items-center gap-3 border-b border-gray-200 px-4 py-4">
+                        <button
+                            type="button"
+                            onClick={() => setShowMobileRoomPicker(false)}
+                            className="flex items-center justify-center text-gray-700"
+                        >
+                            <XClose className="size-5" />
+                        </button>
+                        <h2 className="text-lg font-semibold text-gray-900">Rooms & Guests</h2>
+                    </div>
+
+                    {/* Content */}
+                    <div className="flex-1 overflow-y-auto px-4 py-6">
+                        {/* Rooms */}
+                        <div className="flex items-center justify-between py-4">
+                            <div>
+                                <p className="text-base font-semibold text-gray-900">Rooms</p>
+                                <p className="text-sm text-gray-500">Number of rooms needed</p>
+                            </div>
+                            <div className="flex items-center gap-4">
+                                <button
+                                    type="button"
+                                    onClick={() => setRooms(Math.max(1, rooms - 1))}
+                                    disabled={rooms <= 1}
+                                    className={cx(
+                                        "flex size-10 items-center justify-center rounded-full border-2 text-lg font-medium transition-colors",
+                                        rooms <= 1
+                                            ? "border-gray-200 text-gray-300"
+                                            : "border-[#ff5a5f] text-[#ff5a5f] active:bg-[#ff5a5f]/10"
+                                    )}
+                                >
+                                    <Minus className="size-5" />
+                                </button>
+                                <span className="w-8 text-center text-xl font-semibold text-gray-900">{rooms}</span>
+                                <button
+                                    type="button"
+                                    onClick={() => setRooms(Math.min(8, rooms + 1))}
+                                    disabled={rooms >= 8}
+                                    className={cx(
+                                        "flex size-10 items-center justify-center rounded-full border-2 text-lg font-medium transition-colors",
+                                        rooms >= 8
+                                            ? "border-gray-200 text-gray-300"
+                                            : "border-[#ff5a5f] text-[#ff5a5f] active:bg-[#ff5a5f]/10"
+                                    )}
+                                >
+                                    <Plus className="size-5" />
+                                </button>
+                            </div>
+                        </div>
+
+                        <div className="h-px bg-gray-100" />
+
+                        {/* Adults */}
+                        <div className="flex items-center justify-between py-4">
+                            <div>
+                                <p className="text-base font-semibold text-gray-900">Adults</p>
+                                <p className="text-sm text-gray-500">Ages 13 or above</p>
+                            </div>
+                            <div className="flex items-center gap-4">
+                                <button
+                                    type="button"
+                                    onClick={() => setGuests(Math.max(1, guests - 1))}
+                                    disabled={guests <= 1}
+                                    className={cx(
+                                        "flex size-10 items-center justify-center rounded-full border-2 text-lg font-medium transition-colors",
+                                        guests <= 1
+                                            ? "border-gray-200 text-gray-300"
+                                            : "border-[#ff5a5f] text-[#ff5a5f] active:bg-[#ff5a5f]/10"
+                                    )}
+                                >
+                                    <Minus className="size-5" />
+                                </button>
+                                <span className="w-8 text-center text-xl font-semibold text-gray-900">{guests}</span>
+                                <button
+                                    type="button"
+                                    onClick={() => setGuests(Math.min(16, guests + 1))}
+                                    disabled={guests >= 16}
+                                    className={cx(
+                                        "flex size-10 items-center justify-center rounded-full border-2 text-lg font-medium transition-colors",
+                                        guests >= 16
+                                            ? "border-gray-200 text-gray-300"
+                                            : "border-[#ff5a5f] text-[#ff5a5f] active:bg-[#ff5a5f]/10"
+                                    )}
+                                >
+                                    <Plus className="size-5" />
+                                </button>
+                            </div>
+                        </div>
+
+                        <div className="h-px bg-gray-100" />
+
+                        {/* Children */}
+                        <div className="flex items-center justify-between py-4">
+                            <div>
+                                <p className="text-base font-semibold text-gray-900">Children</p>
+                                <p className="text-sm text-gray-500">Ages 0-12</p>
+                            </div>
+                            <div className="flex items-center gap-4">
+                                <button
+                                    type="button"
+                                    onClick={() => setChildren(Math.max(0, children - 1))}
+                                    disabled={children <= 0}
+                                    className={cx(
+                                        "flex size-10 items-center justify-center rounded-full border-2 text-lg font-medium transition-colors",
+                                        children <= 0
+                                            ? "border-gray-200 text-gray-300"
+                                            : "border-[#ff5a5f] text-[#ff5a5f] active:bg-[#ff5a5f]/10"
+                                    )}
+                                >
+                                    <Minus className="size-5" />
+                                </button>
+                                <span className="w-8 text-center text-xl font-semibold text-gray-900">{children}</span>
+                                <button
+                                    type="button"
+                                    onClick={() => setChildren(Math.min(8, children + 1))}
+                                    disabled={children >= 8}
+                                    className={cx(
+                                        "flex size-10 items-center justify-center rounded-full border-2 text-lg font-medium transition-colors",
+                                        children >= 8
+                                            ? "border-gray-200 text-gray-300"
+                                            : "border-[#ff5a5f] text-[#ff5a5f] active:bg-[#ff5a5f]/10"
+                                    )}
+                                >
+                                    <Plus className="size-5" />
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Info Note */}
+                        <div className="mt-6 rounded-lg bg-gray-50 p-4">
+                            <p className="text-xs text-gray-600">
+                                Please provide the actual number of guests staying in the room.
+                                Hotels may charge extra for additional guests.
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* Done Button */}
+                    <div className="border-t border-gray-200 p-4">
+                        <button
+                            type="button"
+                            onClick={() => setShowMobileRoomPicker(false)}
+                            className="w-full rounded-lg bg-[#ff5a5f] py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[#e04850]"
+                        >
+                            Done · {rooms} Room{rooms > 1 ? "s" : ""}, {guests + children} Guest{guests + children > 1 ? "s" : ""}
                         </button>
                     </div>
                 </div>
