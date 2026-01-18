@@ -877,7 +877,7 @@ export default function HotelsPage() {
                     {/* Right Side - Map */}
                     {showMap && (
                         <div className="hidden lg:block lg:w-[45%]">
-                            <div className="sticky top-24 h-[calc(100vh-120px)] overflow-hidden rounded-2xl bg-gray-200 shadow-xl ring-1 ring-gray-200">
+                            <div className="sticky top-5 h-[calc(95vh)] overflow-hidden rounded-2xl bg-gray-200 shadow-xl ring-1 ring-gray-200">
                                 {/* Map Container */}
                                 <div className="relative h-full w-full">
                                     {/* Map Background Pattern */}

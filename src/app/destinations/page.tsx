@@ -321,7 +321,7 @@ export default function DestinationsPage() {
                         </p>
                     </div>
 
-                    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                    <div className="grid gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
                         {featuredDestinations.map((destination) => (
                             <Link
                                 key={destination.id}
@@ -329,48 +329,44 @@ export default function DestinationsPage() {
                                 className="group relative overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-gray-100 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
                             >
                                 {/* Image */}
-                                <div className="relative aspect-[4/3] overflow-hidden">
+                                <div className="relative aspect-[3/4] overflow-hidden">
                                     <img
                                         src={destination.image}
                                         alt={destination.name}
                                         className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                                     />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
 
                                     {/* Popular Badge */}
                                     {destination.popular && (
-                                        <div className="absolute left-4 top-4 rounded-full bg-[#ff5a5f] px-3 py-1 text-xs font-bold text-white shadow-lg">
+                                        <div className="absolute left-3 top-3 rounded-full bg-[#ff5a5f] px-2.5 py-1 text-xs font-bold text-white shadow-lg">
                                             Popular
                                         </div>
                                     )}
 
                                     {/* Rating */}
-                                    <div className="absolute right-4 top-4 flex items-center gap-1 rounded-full bg-white/90 px-2 py-1 backdrop-blur-sm">
-                                        <Star01 className="size-3.5 fill-amber-400 text-amber-400" />
+                                    <div className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-white/90 px-2 py-1 backdrop-blur-sm">
+                                        <Star01 className="size-3 fill-amber-400 text-amber-400" />
                                         <span className="text-xs font-bold text-gray-900">{destination.rating}</span>
                                     </div>
 
                                     {/* Destination Info Overlay */}
                                     <div className="absolute bottom-0 left-0 right-0 p-4">
-                                        <h3 className="text-2xl font-bold text-white">{destination.name}</h3>
+                                        <h3 className="text-xl font-bold text-white">{destination.name}</h3>
                                         <div className="flex items-center gap-1 text-white/80">
-                                            <MarkerPin01 className="size-4" />
-                                            <span className="text-sm">{destination.country}</span>
+                                            <MarkerPin01 className="size-3.5" />
+                                            <span className="text-xs">{destination.country}</span>
                                         </div>
-                                    </div>
-                                </div>
-
-                                {/* Content */}
-                                <div className="p-4">
-                                    <p className="text-sm text-gray-600">{destination.description}</p>
-                                    <div className="mt-4 flex items-center justify-between">
-                                        <span className="text-sm text-gray-500">
-                                            <span className="font-semibold text-gray-900">{destination.properties.toLocaleString()}</span> properties
-                                        </span>
-                                        <span className="flex items-center gap-1 text-sm font-semibold text-[#ff5a5f] transition-colors group-hover:text-[#e04850]">
-                                            Explore
-                                            <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
-                                        </span>
+                                        <p className="mt-2 line-clamp-2 text-xs text-white/70">{destination.description}</p>
+                                        <div className="mt-3 flex items-center justify-between">
+                                            <span className="text-xs text-white/80">
+                                                <span className="font-semibold text-white">{destination.properties.toLocaleString()}</span> properties
+                                            </span>
+                                            <span className="flex items-center gap-1 text-xs font-semibold text-white transition-colors">
+                                                Explore
+                                                <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </Link>

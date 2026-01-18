@@ -206,13 +206,13 @@ export default function ExperiencesPage() {
 
                             {/* Heading */}
                             <h1 className="mt-8 text-4xl font-bold tracking-tight text-gray-900 md:text-5xl lg:text-6xl xl:text-7xl">
-                                Create
+                                Discover
                                 <span className="relative mx-3 inline-block">
-                                    <span className="relative z-10 bg-gradient-to-r from-[#ff5a5f] to-[#ff8a8e] bg-clip-text text-transparent">Unforgettable</span>
+                                    <span className="relative z-10 bg-gradient-to-r from-[#ff5a5f] to-[#ff8a8e] bg-clip-text text-transparent">Unique</span>
                                     <span className="absolute -bottom-2 left-0 h-3 w-full bg-[#ff5a5f]/20 blur-sm"></span>
                                 </span>
                                 <br />
-                                Memories
+                                Experiences
                             </h1>
 
                             <p className="mt-6 max-w-lg text-lg leading-relaxed text-gray-600">
@@ -586,37 +586,6 @@ export default function ExperiencesPage() {
                 </div>
             </section>
 
-            {/* Why Book With Us */}
-            <section className="py-16 lg:py-24">
-                <div className="mx-auto max-w-8xl px-6 lg:px-12">
-                    <div className="rounded-3xl bg-gradient-to-br from-[#ff5a5f] to-[#e04850] p-8 md:p-12">
-                        <div className="mx-auto max-w-2xl text-center">
-                            <h2 className="text-3xl font-bold text-white md:text-4xl">
-                                Why Book Experiences With Us?
-                            </h2>
-                            <p className="mt-4 text-white/80">
-                                We ensure every experience is memorable and hassle-free
-                            </p>
-                        </div>
-
-                        <div className="mt-12 grid gap-6 md:grid-cols-3">
-                            {[
-                                { icon: CheckCircle, title: "Verified Hosts", description: "All experience providers are verified for quality and safety" },
-                                { icon: Calendar, title: "Free Cancellation", description: "Cancel up to 24 hours before for a full refund on most experiences" },
-                                { icon: Users01, title: "Small Groups", description: "Intimate group sizes for personalized attention and better experiences" },
-                            ].map((feature, index) => (
-                                <div key={index} className="rounded-2xl bg-white/10 p-6 backdrop-blur-sm">
-                                    <div className="flex size-12 items-center justify-center rounded-xl bg-white/20">
-                                        <feature.icon className="size-6 text-white" />
-                                    </div>
-                                    <h3 className="mt-4 text-lg font-semibold text-white">{feature.title}</h3>
-                                    <p className="mt-2 text-sm text-white/80">{feature.description}</p>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            </section>
         </div>
     );
 }
