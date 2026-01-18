@@ -21,9 +21,9 @@ export const AuthModal = ({ children }: AuthModalProps) => {
         <DialogTrigger isOpen={isOpen} onOpenChange={setIsOpen}>
             {children}
             <ModalOverlay>
-                <Modal className="max-w-md [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                <Modal className="max-w-md overflow-visible">
                     <Dialog>
-                        <div className="relative w-full max-h-[90vh] overflow-y-auto rounded-2xl bg-white shadow-xl [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                        <div className="relative w-full rounded-2xl bg-white shadow-xl overflow-hidden">
                             {/* Close Button */}
                             <CloseButton
                                 onPress={() => setIsOpen(false)}
