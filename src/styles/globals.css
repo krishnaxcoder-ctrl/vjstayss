@@ -75,7 +75,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #e04850;
+    background: #ff5a5f;
 }
 
 /* Hide the default expand arrow on Safari.  */

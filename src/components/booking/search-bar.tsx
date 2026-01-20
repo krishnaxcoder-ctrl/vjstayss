@@ -263,7 +263,7 @@ export const SearchBar = ({ variant = "hero" }: { variant?: "hero" | "inline" })
                     <button
                         type="button"
                         onClick={handleSearch}
-                        className="group flex w-full items-center justify-center gap-2 rounded-xl bg-[#ff5a5f] px-6 py-3.5 font-semibold text-white transition-all duration-200 hover:bg-[#e04850] active:scale-[0.98] lg:w-auto"
+                        className="group flex w-full items-center justify-center gap-2 rounded-xl bg-[#ff5a5f] px-6 py-3.5 font-semibold text-white transition-all duration-200 hover:bg-[#ff5a5f] active:scale-[0.98] lg:w-auto"
                     >
                         <SearchLg className="size-5 transition-transform duration-200 group-hover:scale-110" />
                         <span>Search</span>

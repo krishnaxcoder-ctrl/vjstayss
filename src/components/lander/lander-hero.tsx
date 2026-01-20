@@ -13,7 +13,7 @@ export const LanderHero = () => {
                     className="h-full w-full object-cover"
                 />
                 {/* Brand color overlay */}
-                <div className="absolute inset-0 bg-gradient-to-br from-[#ff5a5f]/70 via-[#ff5a5f]/50 to-[#e04850]/60" />
+                <div className="absolute inset-0 bg-gradient-to-br from-[#ff5a5f]/70 via-[#ff5a5f]/50 to-[#ff5a5f]/60" />
             </div>
 
             {/* Content */}

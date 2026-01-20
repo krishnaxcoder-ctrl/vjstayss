@@ -1,4 +1,7 @@
+"use client";
+
 import { ArrowRight, Building07, CheckCircle, Globe01, Heart, Mail01, MarkerPin06, Phone01, Play, Shield01, Star01, Users01 } from "@untitledui/icons";
+import { Button } from "@/components/base/buttons/button";
 import { SiteHeader } from "@/components/layout/site-header";
 import { LanderHero } from "@/components/lander/lander-hero";
 import { TestimonialsSection } from "@/components/testimonials/testimonials-section";
@@ -53,20 +56,22 @@ export default function AboutPage() {
                             </div>
 
                             <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-                                <Link
+                                <Button
                                     href="/"
-                                    className="group inline-flex items-center justify-center gap-2 rounded-full bg-[#ff5a5f] px-8 py-4 text-base font-semibold text-white shadow-lg shadow-[#ff5a5f]/25 transition-all hover:bg-[#e04850] hover:shadow-xl"
+                                    size="xl"
+                                    iconTrailing={ArrowRight}
+                                    className="bg-[#ff5a5f] hover:bg-[#ff5a5f] border-none"
                                 >
                                     Explore Properties
-                                    <ArrowRight className="size-5 transition-transform group-hover:translate-x-1" />
-                                </Link>
-                                <Link
+                                </Button>
+                                <Button
                                     href="#our-story"
-                                    className="group inline-flex items-center justify-center gap-2 rounded-full border-2 border-gray-200 bg-white px-8 py-4 text-base font-semibold text-gray-700 transition-all hover:border-gray-300 hover:bg-gray-50"
+                                    size="xl"
+                                    color="secondary"
+                                    iconLeading={Play}
                                 >
-                                    <Play className="size-5 text-[#ff5a5f]" />
                                     Watch Our Story
-                                </Link>
+                                </Button>
                             </div>
                         </div>
 

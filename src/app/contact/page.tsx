@@ -147,7 +147,7 @@ export default function ContactPage() {
                         <p className="mt-2 text-gray-700">Thank you for reaching out. We'll get back to you soon.</p>
                         <Button
                             size="lg"
-                            className="mt-8 bg-[#ff5a5f] hover:bg-[#e04850]"
+                            className="mt-8 bg-[#ff5a5f] hover:bg-[#ff5a5f]"
                             onClick={() => {
                                 setSubmitted(false);
                                 setFormData({ firstName: "", lastName: "", email: "", phone: "", message: "" });
@@ -347,7 +347,7 @@ export default function ContactPage() {
                                     label={
                                         <span className="text-gray-700">
                                             You agree to our friendly{" "}
-                                            <a href="#" className="text-[#ff5a5f] underline hover:text-[#e04850]">
+                                            <a href="#" className="text-[#ff5a5f] underline hover:text-[#ff5a5f]">
                                                 privacy policy
                                             </a>
                                             .
@@ -363,7 +363,7 @@ export default function ContactPage() {
                                 isLoading={isSubmitting}
                                 isDisabled={isSubmitting}
                                 iconLeading={Send01}
-                                className="w-full bg-[#ff5a5f] hover:bg-[#e04850]"
+                                className="w-full bg-[#ff5a5f] hover:bg-[#ff5a5f]"
                             >
                                 Get in touch
                             </Button>

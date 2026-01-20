@@ -107,7 +107,7 @@ export const SiteHeader = ({ variant = "dark", className }: SiteHeaderProps) => 
                             <Button
                                 size="sm"
                                 className={cx(
-                                    "bg-[#ff5a5f] hover:bg-[#e04850] border-none shadow-none",
+                                    "bg-[#ff5a5f] hover:bg-[#ff5a5f] border-none shadow-none",
                                     mobileMenuOpen && "hidden lg:inline-flex"
                                 )}
                             >
@@ -221,7 +221,7 @@ export const SiteHeader = ({ variant = "dark", className }: SiteHeaderProps) => 
                 <div className="absolute bottom-0 left-0 right-0 border-t border-white/10 px-6 py-6">
                     {/* CTA Button - Mobile */}
                     <AuthModal>
-                        <Button size="lg" className="w-full bg-[#ff5a5f] hover:bg-[#e04850] border-none shadow-none">
+                        <Button size="lg" className="w-full bg-[#ff5a5f] hover:bg-[#ff5a5f] border-none shadow-none">
                             Login / Signup
                         </Button>
                     </AuthModal>

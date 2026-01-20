@@ -252,7 +252,7 @@ export default function CartPage() {
                                     </div>
                                 </div>
 
-                                <button className="mt-6 w-full rounded-xl bg-[#ff5a5f] py-4 text-center font-semibold text-white transition-colors hover:bg-[#e04850]">
+                                <button className="mt-6 w-full rounded-xl bg-[#ff5a5f] py-4 text-center font-semibold text-white transition-colors hover:bg-[#ff5a5f]">
                                     Proceed to Checkout
                                 </button>
 
@@ -271,7 +271,7 @@ export default function CartPage() {
                                 {/* Continue Shopping */}
                                 <Link
                                     href="/hotels"
-                                    className="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-[#ff5a5f] transition-colors hover:text-[#e04850]"
+                                    className="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-[#ff5a5f] transition-colors hover:text-[#ff5a5f]"
                                 >
                                     Continue Shopping
                                     <ArrowRight className="size-4" />
@@ -291,7 +291,7 @@ export default function CartPage() {
                         </p>
                         <Link
                             href="/hotels"
-                            className="mt-8 inline-flex items-center gap-2 rounded-xl bg-[#ff5a5f] px-8 py-4 font-semibold text-white transition-colors hover:bg-[#e04850]"
+                            className="mt-8 inline-flex items-center gap-2 rounded-xl bg-[#ff5a5f] px-8 py-4 font-semibold text-white transition-colors hover:bg-[#ff5a5f]"
                         >
                             Browse Hotels
                             <ArrowRight className="size-5" />

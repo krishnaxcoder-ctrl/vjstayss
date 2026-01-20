@@ -217,7 +217,7 @@ export default function DealsPage() {
 
                 {/* Another Floating Card */}
                 <div className="absolute bottom-32 right-32 hidden rotate-[-4deg] xl:block">
-                    <div className="rounded-2xl bg-gradient-to-br from-[#ff5a5f] to-[#e04850] p-4 shadow-2xl shadow-[#ff5a5f]/30">
+                    <div className="rounded-2xl bg-gradient-to-br from-[#ff5a5f] to-[#ff5a5f] p-4 shadow-2xl shadow-[#ff5a5f]/30">
                         <div className="flex items-center gap-3">
                             <div className="flex size-12 items-center justify-center rounded-xl bg-white/20">
                                 <Zap className="size-6 text-white" />
@@ -234,7 +234,7 @@ export default function DealsPage() {
                 <div className="relative mx-auto flex w-full max-w-8xl flex-col items-center justify-center px-6 py-16 lg:px-12 lg:py-20">
                     {/* Animated Badge */}
                     <div className="group mb-8 inline-flex cursor-pointer items-center gap-3 rounded-full border border-gray-200 bg-white px-2 py-2 pr-6 shadow-lg shadow-gray-100 transition-all hover:border-[#ff5a5f]/30 hover:shadow-xl">
-                        <span className="flex items-center gap-1.5 rounded-full bg-gradient-to-r from-[#ff5a5f] to-[#e04850] px-3 py-1.5 text-xs font-bold text-white">
+                        <span className="flex items-center gap-1.5 rounded-full bg-gradient-to-r from-[#ff5a5f] to-[#ff5a5f] px-3 py-1.5 text-xs font-bold text-white">
                             <Zap className="size-3.5" />
                             NEW
                         </span>
@@ -273,9 +273,9 @@ export default function DealsPage() {
                     <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row">
                         <Link
                             href="#flash-deals"
-                            className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-gradient-to-r from-[#ff5a5f] to-[#e04850] px-8 py-4 text-base font-semibold text-white shadow-2xl shadow-[#ff5a5f]/25 transition-all hover:shadow-[#ff5a5f]/40"
+                            className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-gradient-to-r from-[#ff5a5f] to-[#ff5a5f] px-8 py-4 text-base font-semibold text-white shadow-2xl shadow-[#ff5a5f]/25 transition-all hover:shadow-[#ff5a5f]/40"
                         >
-                            <span className="absolute inset-0 bg-gradient-to-r from-[#e04850] to-[#ff5a5f] opacity-0 transition-opacity group-hover:opacity-100" />
+                            <span className="absolute inset-0 bg-gradient-to-r from-[#ff5a5f] to-[#ff5a5f] opacity-0 transition-opacity group-hover:opacity-100" />
                             <Zap className="relative size-5" />
                             <span className="relative">Explore Flash Deals</span>
                         </Link>
@@ -345,7 +345,7 @@ export default function DealsPage() {
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
 
                                     {/* Discount Badge */}
-                                    <div className="absolute left-2 top-2 overflow-hidden rounded-lg bg-gradient-to-r from-[#ff5a5f] to-[#e04850] px-2 py-1 shadow-lg">
+                                    <div className="absolute left-2 top-2 overflow-hidden rounded-lg bg-gradient-to-r from-[#ff5a5f] to-[#ff5a5f] px-2 py-1 shadow-lg">
                                         <span className="text-xs font-bold text-white">{deal.discount}% OFF</span>
                                     </div>
 
@@ -402,7 +402,7 @@ export default function DealsPage() {
                                                 <span className="text-xs text-gray-500">/night</span>
                                             </div>
                                         </div>
-                                        <span className="flex items-center gap-1 rounded-lg bg-[#ff5a5f] px-3 py-1.5 text-xs font-bold text-white transition-all group-hover:bg-[#e04850]">
+                                        <span className="flex items-center gap-1 rounded-lg bg-[#ff5a5f] px-3 py-1.5 text-xs font-bold text-white transition-all group-hover:bg-[#ff5a5f]">
                                             Book
                                             <ArrowRight className="size-3" />
                                         </span>
@@ -482,7 +482,7 @@ export default function DealsPage() {
                                                 <span className="text-xs text-gray-500">/night</span>
                                             </div>
                                         </div>
-                                        <span className="flex items-center gap-1 rounded-lg bg-[#ff5a5f] px-3 py-1.5 text-xs font-bold text-white transition-all group-hover:bg-[#e04850]">
+                                        <span className="flex items-center gap-1 rounded-lg bg-[#ff5a5f] px-3 py-1.5 text-xs font-bold text-white transition-all group-hover:bg-[#ff5a5f]">
                                             Book
                                             <ArrowRight className="size-3" />
                                         </span>

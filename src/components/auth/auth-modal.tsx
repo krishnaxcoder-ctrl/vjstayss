@@ -32,7 +32,7 @@ export const AuthModal = ({ children }: AuthModalProps) => {
                             />
 
                             {/* Header */}
-                            <div className="bg-gradient-to-br from-[#ff5a5f] to-[#e04850] px-6 pb-10 pt-6 text-center text-white">
+                            <div className="bg-gradient-to-br from-[#ff5a5f] to-[#ff5a5f] px-6 pb-10 pt-6 text-center text-white">
                                 <div className="mx-auto mb-3 flex size-16 items-center justify-center rounded-xl p-1.5">
                                     <img
                                         src="/loginpopuplogo.png"
@@ -194,7 +194,7 @@ const LoginForm = ({ showPassword, setShowPassword, onClose }: FormProps) => {
             {/* Submit */}
             <Button
                 type="submit"
-                className="w-full bg-[#ff5a5f] hover:bg-[#e04850] border-none shadow-none"
+                className="w-full bg-[#ff5a5f] hover:bg-[#ff5a5f] border-none shadow-none"
                 size="md"
             >
                 Login
@@ -275,7 +275,7 @@ const SignupForm = ({ showPassword, setShowPassword, onClose }: FormProps) => {
             {/* Submit */}
             <Button
                 type="submit"
-                className="w-full bg-[#ff5a5f] hover:bg-[#e04850] border-none shadow-none"
+                className="w-full bg-[#ff5a5f] hover:bg-[#ff5a5f] border-none shadow-none"
                 size="md"
             >
                 Create Account

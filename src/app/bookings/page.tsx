@@ -461,7 +461,7 @@ export default function BookingsPage() {
                 <div className="mb-8 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
                     <div>
                         <div className="flex items-center gap-3">
-                            <div className="flex size-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#ff5a5f] to-[#e04850] shadow-lg shadow-[#ff5a5f]/25">
+                            <div className="flex size-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#ff5a5f] to-[#ff5a5f] shadow-lg shadow-[#ff5a5f]/25">
                                 <Calendar className="size-7 text-white" />
                             </div>
                             <div>
@@ -472,7 +472,7 @@ export default function BookingsPage() {
                     </div>
                     <Link
                         href="/hotels"
-                        className="inline-flex items-center gap-2 rounded-xl bg-[#ff5a5f] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-[#ff5a5f]/25 transition-all hover:bg-[#e04850] hover:shadow-xl"
+                        className="inline-flex items-center gap-2 rounded-xl bg-[#ff5a5f] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-[#ff5a5f]/25 transition-all hover:bg-[#ff5a5f] hover:shadow-xl"
                     >
                         <ArrowUpRight className="size-4" />
                         Book New Trip
@@ -511,7 +511,7 @@ export default function BookingsPage() {
                             <p className="mt-1 text-sm text-gray-500">Total Spent</p>
                         </div>
                     </div>
-                    <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#ff5a5f] to-[#e04850] p-6 shadow-lg shadow-[#ff5a5f]/20 transition-all hover:shadow-xl">
+                    <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#ff5a5f] to-[#ff5a5f] p-6 shadow-lg shadow-[#ff5a5f]/20 transition-all hover:shadow-xl">
                         <div className="absolute -right-4 -top-4 size-24 rounded-full bg-white/10 transition-transform group-hover:scale-110" />
                         <div className="relative">
                             <div className="flex size-12 items-center justify-center rounded-xl bg-white/20">
@@ -796,13 +796,13 @@ export default function BookingsPage() {
                                                     {booking.status === "upcoming" && (
                                                         <Link
                                                             href={`/listing/${booking.id}`}
-                                                            className="flex items-center gap-2 rounded-xl bg-[#ff5a5f] px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-[#ff5a5f]/25 transition-all hover:bg-[#e04850]"
+                                                            className="flex items-center gap-2 rounded-xl bg-[#ff5a5f] px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-[#ff5a5f]/25 transition-all hover:bg-[#ff5a5f]"
                                                         >
                                                             Manage Booking
                                                         </Link>
                                                     )}
                                                     {booking.status === "completed" && (
-                                                        <button className="flex items-center gap-2 rounded-xl bg-[#ff5a5f] px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-[#ff5a5f]/25 transition-all hover:bg-[#e04850]">
+                                                        <button className="flex items-center gap-2 rounded-xl bg-[#ff5a5f] px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-[#ff5a5f]/25 transition-all hover:bg-[#ff5a5f]">
                                                             <RefreshCw01 className="size-4" />
                                                             Book Again
                                                         </button>
@@ -841,7 +841,7 @@ export default function BookingsPage() {
                             )}
                             <Link
                                 href="/hotels"
-                                className="inline-flex items-center gap-2 rounded-xl bg-[#ff5a5f] px-8 py-4 font-semibold text-white shadow-lg shadow-[#ff5a5f]/25 transition-all hover:bg-[#e04850]"
+                                className="inline-flex items-center gap-2 rounded-xl bg-[#ff5a5f] px-8 py-4 font-semibold text-white shadow-lg shadow-[#ff5a5f]/25 transition-all hover:bg-[#ff5a5f]"
                             >
                                 Explore Hotels
                                 <ArrowRight className="size-5" />
@@ -1317,7 +1317,7 @@ export default function BookingsPage() {
                                                 </a>
                                                 <a
                                                     href="mailto:support@vjstays.com"
-                                                    className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-[#ff5a5f] px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#e04850]"
+                                                    className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-[#ff5a5f] px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#ff5a5f]"
                                                 >
                                                     <MessageSquare01 className="size-4" />
                                                     Live Chat
@@ -1351,7 +1351,7 @@ export default function BookingsPage() {
                                         </button>
                                         <Link
                                             href={`/listing/${selectedBooking.id}`}
-                                            className="rounded-xl bg-[#ff5a5f] px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#e04850]"
+                                            className="rounded-xl bg-[#ff5a5f] px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#ff5a5f]"
                                         >
                                             Modify Booking
                                         </Link>

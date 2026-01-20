@@ -113,11 +113,11 @@ export const CookieConsent = () => {
 
                         <p className="mt-4 text-xs text-gray-500">
                             Read our{" "}
-                            <Link href="/privacy" className="text-[#ff5a5f] underline hover:text-[#e04850]">
+                            <Link href="/privacy" className="text-[#ff5a5f] underline hover:text-[#ff5a5f]">
                                 Privacy Policy
                             </Link>{" "}
                             and{" "}
-                            <Link href="/cookies" className="text-[#ff5a5f] underline hover:text-[#e04850]">
+                            <Link href="/cookies" className="text-[#ff5a5f] underline hover:text-[#ff5a5f]">
                                 Cookie Policy
                             </Link>{" "}
                             for more information.
@@ -137,7 +137,7 @@ export const CookieConsent = () => {
                         <Button
                             color="primary"
                             size="md"
-                            className="flex-1 bg-[#ff5a5f] hover:bg-[#e04850]"
+                            className="flex-1 bg-[#ff5a5f] hover:bg-[#ff5a5f]"
                             onClick={handleAcceptAll}
                         >
                             Accept All

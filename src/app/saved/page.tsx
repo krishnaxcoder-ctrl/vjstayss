@@ -212,7 +212,7 @@ export default function SavedPage() {
                                         </div>
                                         <Link
                                             href={`/listing/${item.id}`}
-                                            className="flex items-center gap-1 rounded-full bg-[#ff5a5f] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#e04850]"
+                                            className="flex items-center gap-1 rounded-full bg-[#ff5a5f] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#ff5a5f]"
                                         >
                                             Book
                                             <ArrowRight className="size-4" />
@@ -234,7 +234,7 @@ export default function SavedPage() {
                         </p>
                         <Link
                             href="/hotels"
-                            className="mt-8 inline-flex items-center gap-2 rounded-xl bg-[#ff5a5f] px-8 py-4 font-semibold text-white transition-colors hover:bg-[#e04850]"
+                            className="mt-8 inline-flex items-center gap-2 rounded-xl bg-[#ff5a5f] px-8 py-4 font-semibold text-white transition-colors hover:bg-[#ff5a5f]"
                         >
                             Explore Hotels
                             <ArrowRight className="size-5" />

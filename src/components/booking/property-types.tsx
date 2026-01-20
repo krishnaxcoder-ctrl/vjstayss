@@ -75,7 +75,7 @@ export const PropertyTypes = () => {
                             Browse by Property Type
                         </h2>
                     </div>
-                    <a href="#" className="group inline-flex items-center gap-2 text-sm font-semibold text-[#ff5a5f] transition-colors hover:text-[#e04850]">
+                    <a href="#" className="group inline-flex items-center gap-2 text-sm font-semibold text-[#ff5a5f] transition-colors hover:text-[#ff5a5f]">
                         View all
                         <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
                     </a>

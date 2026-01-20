@@ -147,7 +147,7 @@ export default function SitemapPage() {
                             </div>
                             <Link
                                 href="/contact"
-                                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#ff5a5f] px-6 py-3 font-semibold text-white shadow-lg shadow-[#ff5a5f]/25 transition-all hover:bg-[#e04850] hover:shadow-xl"
+                                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#ff5a5f] px-6 py-3 font-semibold text-white shadow-lg shadow-[#ff5a5f]/25 transition-all hover:bg-[#ff5a5f] hover:shadow-xl"
                             >
                                 <Phone01 className="size-5" />
                                 Contact Us

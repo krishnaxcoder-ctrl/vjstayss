@@ -648,7 +648,7 @@ export default function ListingPage() {
                             </div>
 
                             {/* Book Button */}
-                            <button className="w-full rounded-xl bg-[#ff5a5f] py-4 text-lg font-semibold text-white transition-colors hover:bg-[#e04850]">
+                            <button className="w-full rounded-xl bg-[#ff5a5f] py-4 text-lg font-semibold text-white transition-colors hover:bg-[#ff5a5f]">
                                 Reserve Now
                             </button>
 

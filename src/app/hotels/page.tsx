@@ -390,7 +390,7 @@ export default function HotelsPage() {
                             </div>
 
                             {/* Search Button */}
-                            <Button size="xl" color="primary" iconLeading={SearchMd}>
+                            <Button size="xl" color="primary" iconLeading={SearchMd} className="bg-[#ff5a5f] hover:bg-[#ff5a5f] border-none">
                                 Search
                             </Button>
                         </div>
@@ -832,7 +832,7 @@ export default function HotelsPage() {
                                                     </div>
                                                     <span className="text-xs text-gray-500">per night</span>
                                                 </div>
-                                                <span className="flex items-center gap-1 rounded-full bg-[#ff5a5f] px-4 py-2 text-sm font-semibold text-white transition-all group-hover:bg-[#e04850]">
+                                                <span className="flex items-center gap-1 rounded-full bg-[#ff5a5f] px-4 py-2 text-sm font-semibold text-white transition-all group-hover:bg-[#ff5a5f]">
                                                     View
                                                     <ArrowRight className="size-4" />
                                                 </span>

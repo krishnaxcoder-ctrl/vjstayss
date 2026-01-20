@@ -1,6 +1,7 @@
 "use client";
 
-import { ArrowRight, Globe01, MarkerPin01, Star01, Users01, Plane, Sun, Compass, Heart, Calendar } from "@untitledui/icons";
+import { ArrowRight, Globe01, MarkerPin01, Star01, Users01, Plane, Sun, Compass, Heart, Calendar, Map01, Building07, Waves, Camera01, Flag01, Briefcase01, Snowflake01 } from "@untitledui/icons";
+import { Button } from "@/components/base/buttons/button";
 import { SiteHeader } from "@/components/layout/site-header";
 import Link from "next/link";
 
@@ -80,6 +81,14 @@ const travelStyles = [
     { icon: Compass, name: "Adventure", count: 89 },
     { icon: Heart, name: "Romantic", count: 124 },
     { icon: Users01, name: "Family", count: 203 },
+    { icon: Map01, name: "Mountain Escapes", count: 78 },
+    { icon: Building07, name: "City Breaks", count: 245 },
+    { icon: Waves, name: "Water Sports", count: 67 },
+    { icon: Camera01, name: "Photography Tours", count: 42 },
+    { icon: Flag01, name: "Culinary & Food", count: 95 },
+    { icon: Briefcase01, name: "Business Travel", count: 180 },
+    { icon: Snowflake01, name: "Winter Holidays", count: 54 },
+    { icon: Globe01, name: "Cultural Heritage", count: 112 },
 ];
 
 export default function DestinationsPage() {
@@ -136,23 +145,22 @@ export default function DestinationsPage() {
 
                             {/* CTA Buttons */}
                             <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-                                <Link
+                                <Button
                                     href="/search"
-                                    className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-[#ff5a5f] px-8 py-4 text-base font-semibold text-white shadow-lg shadow-[#ff5a5f]/25 transition-all hover:shadow-xl hover:shadow-[#ff5a5f]/30"
+                                    size="xl"
+                                    iconTrailing={ArrowRight}
+                                    className="bg-[#ff5a5f] hover:bg-[#ff5a5f] border-none"
                                 >
-                                    <span className="absolute inset-0 bg-gradient-to-r from-[#ff5a5f] to-[#e04850] opacity-0 transition-opacity group-hover:opacity-100"></span>
-                                    <span className="relative flex items-center gap-2">
-                                        Start Exploring
-                                        <ArrowRight className="size-5 transition-transform group-hover:translate-x-1" />
-                                    </span>
-                                </Link>
-                                <Link
+                                    Start Exploring
+                                </Button>
+                                <Button
                                     href="#featured"
-                                    className="group inline-flex items-center justify-center gap-2 rounded-full border border-gray-200 bg-white px-8 py-4 text-base font-semibold text-gray-700 shadow-sm transition-all hover:border-gray-300 hover:bg-gray-50"
+                                    size="xl"
+                                    color="secondary"
+                                    iconLeading={Plane}
                                 >
-                                    <Plane className="size-5 text-[#ff5a5f]" />
                                     View Featured
-                                </Link>
+                                </Button>
                             </div>
 
                             {/* Stats Row */}
@@ -283,8 +291,8 @@ export default function DestinationsPage() {
             </section>
 
             {/* Travel Styles */}
-            <section className="py-16">
-                <div className="mx-auto max-w-8xl px-6 lg:px-12">
+            <section className="py-6">
+                <div className="mx-auto max-w-8xl px-6 lg:px-0">
                     <div className="flex flex-wrap justify-center gap-4">
                         {travelStyles.map((style, index) => (
                             <Link

@@ -82,7 +82,7 @@ export const CalendarCell = ({ date, isHighlighted, ...props }: CalendarCellProp
                             isFocusVisible ? "outline-2 outline-offset-2 outline-[#ff5a5f]" : "",
                             // Hover state for cells in the middle of the range.
                             isSelected && !isDisabled && isRangeCalendar ? "font-medium" : "",
-                            markedAsSelected && "bg-[#ff5a5f] font-medium text-white hover:bg-[#e04850] hover:text-white",
+                            markedAsSelected && "bg-[#ff5a5f] font-medium text-white hover:bg-[#ff5a5f] hover:text-white",
                             // Hover state for non-selected cells.
                             !isSelected && !isDisabled ? "hover:bg-gray-100 hover:font-medium!" : "",
                             !isSelected && isTodayDate ? "bg-[#ff5a5f]/10 font-medium hover:bg-[#ff5a5f]/20" : "",

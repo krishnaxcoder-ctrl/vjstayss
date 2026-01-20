@@ -164,7 +164,7 @@ export const ProductCard = ({
 
                     {/* Book Now Button - Default variant only */}
                     {showBookButton && !isCompact && (
-                        <span className="flex items-center gap-1 rounded-full bg-[#ff5a5f] px-4 py-2 text-sm font-semibold text-white transition-all hover:bg-[#e04850]">
+                        <span className="flex items-center gap-1 rounded-full bg-[#ff5a5f] px-4 py-2 text-sm font-semibold text-white transition-all hover:bg-[#ff5a5f]">
                             Book Now
                             <ArrowRight className="size-4" />
                         </span>

@@ -526,7 +526,7 @@ function SearchPageContent() {
                         </label>
                     ))}
                 </div>
-                <button type="button" className="mt-4 text-sm font-semibold text-[#ff5a5f] hover:text-[#e04850] hover:underline">
+                <button type="button" className="mt-4 text-sm font-semibold text-[#ff5a5f] hover:text-[#ff5a5f] hover:underline">
                     + View More
                 </button>
             </div>
@@ -730,7 +730,7 @@ function SearchPageContent() {
                                             <button
                                                 type="button"
                                                 onClick={() => setShowDateDropdown(false)}
-                                                className="mt-4 w-full rounded-lg bg-[#ff5a5f] py-2 text-sm font-semibold text-white hover:bg-[#e04850]"
+                                                className="mt-4 w-full rounded-lg bg-[#ff5a5f] py-2 text-sm font-semibold text-white hover:bg-[#ff5a5f]"
                                             >
                                                 Apply
                                             </button>
@@ -809,7 +809,7 @@ function SearchPageContent() {
                                             <button
                                                 type="button"
                                                 onClick={() => setShowRoomDropdown(false)}
-                                                className="mt-4 w-full rounded-lg bg-[#ff5a5f] py-2 text-sm font-semibold text-white hover:bg-[#e04850]"
+                                                className="mt-4 w-full rounded-lg bg-[#ff5a5f] py-2 text-sm font-semibold text-white hover:bg-[#ff5a5f]"
                                             >
                                                 Apply
                                             </button>
@@ -1154,7 +1154,7 @@ function SearchPageContent() {
                                 <button
                                     type="button"
                                     onClick={clearAllFilters}
-                                    className="mt-6 rounded-lg bg-[#ff5a5f] px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#e04850]"
+                                    className="mt-6 rounded-lg bg-[#ff5a5f] px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#ff5a5f]"
                                 >
                                     Clear All Filters
                                 </button>
@@ -1601,7 +1601,7 @@ function SearchPageContent() {
                             <button
                                 type="button"
                                 onClick={() => setShowMobileFilters(false)}
-                                className="w-full rounded-lg bg-[#ff5a5f] py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[#e04850]"
+                                className="w-full rounded-lg bg-[#ff5a5f] py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[#ff5a5f]"
                             >
                                 Apply
                             </button>
@@ -1772,7 +1772,7 @@ function SearchPageContent() {
                         <button
                             type="button"
                             onClick={() => setShowMobileDatePicker(false)}
-                            className="w-full rounded-lg bg-[#ff5a5f] py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[#e04850]"
+                            className="w-full rounded-lg bg-[#ff5a5f] py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[#ff5a5f]"
                         >
                             Done · {nightsBetween} Night, {rooms} Room
                         </button>
@@ -1926,7 +1926,7 @@ function SearchPageContent() {
                         <button
                             type="button"
                             onClick={() => setShowMobileRoomPicker(false)}
-                            className="w-full rounded-lg bg-[#ff5a5f] py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[#e04850]"
+                            className="w-full rounded-lg bg-[#ff5a5f] py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[#ff5a5f]"
                         >
                             Done · {rooms} Room{rooms > 1 ? "s" : ""}, {guests + children} Guest{guests + children > 1 ? "s" : ""}
                         </button>

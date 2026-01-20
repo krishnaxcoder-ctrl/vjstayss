@@ -143,7 +143,7 @@ export const DealsSection = () => {
                         </div>
                         <a
                             href="#"
-                            className="flex items-center gap-2 text-sm font-semibold text-[#ff5a5f] transition-colors hover:text-[#e04850]"
+                            className="flex items-center gap-2 text-sm font-semibold text-[#ff5a5f] transition-colors hover:text-[#ff5a5f]"
                         >
                             View all deals
                             <ArrowRight className="size-4" />
@@ -199,7 +199,7 @@ export const DealsSection = () => {
                     </div>
                     <a
                         href="#"
-                        className="flex items-center gap-2 text-sm font-semibold text-[#ff5a5f] transition-colors hover:text-[#e04850]"
+                        className="flex items-center gap-2 text-sm font-semibold text-[#ff5a5f] transition-colors hover:text-[#ff5a5f]"
                     >
                         View all deals
                         <ArrowRight className="size-4" />

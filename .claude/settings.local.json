@@ -8,7 +8,8 @@
       "Bash(timeout /t 8 /nobreak)",
       "Bash(findstr:*)",
       "WebFetch(domain:21st.dev)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(powershell:*)"
     ]
   }
 }

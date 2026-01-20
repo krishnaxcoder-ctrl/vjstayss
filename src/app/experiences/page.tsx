@@ -227,6 +227,7 @@ export default function ExperiencesPage() {
                                     size="xl"
                                     color="primary"
                                     iconTrailing={ArrowRight}
+                                    className="bg-[#ff5a5f] hover:bg-[#ff5a5f] border-none"
                                 >
                                     Explore Experiences
                                 </Button>
@@ -415,7 +416,7 @@ export default function ExperiencesPage() {
                         </div>
                         <Link
                             href="#all"
-                            className="hidden items-center gap-2 text-sm font-semibold text-[#ff5a5f] transition-colors hover:text-[#e04850] sm:flex"
+                            className="hidden items-center gap-2 text-sm font-semibold text-[#ff5a5f] transition-colors hover:text-[#ff5a5f] sm:flex"
                         >
                             View All
                             <ArrowRight className="size-4" />

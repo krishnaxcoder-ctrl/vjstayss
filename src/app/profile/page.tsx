@@ -53,7 +53,7 @@ const userData = {
 const stats = [
     { label: "Total Bookings", value: "12", change: "+3 this month", icon: Ticket01, gradient: "from-blue-500 to-blue-600" },
     { label: "Amount Spent", value: "$4,580", change: "+$850 this month", icon: CreditCard01, gradient: "from-emerald-500 to-emerald-600" },
-    { label: "Reward Points", value: "2,450", change: "+320 earned", icon: Gift01, gradient: "from-[#ff5a5f] to-[#e04850]" },
+    { label: "Reward Points", value: "2,450", change: "+320 earned", icon: Gift01, gradient: "from-[#ff5a5f] to-[#ff5a5f]" },
     { label: "Wishlist", value: "8", change: "2 price drops", icon: Heart, gradient: "from-pink-500 to-rose-600" },
 ];
 
@@ -121,7 +121,7 @@ export default function ProfilePage() {
                             <div className="flex flex-col items-center gap-5 sm:flex-row sm:items-start lg:w-1/3">
                                 {/* Avatar */}
                                 <div className="relative">
-                                    <div className="rounded-2xl bg-gradient-to-br from-[#ff5a5f] to-[#e04850] p-1">
+                                    <div className="rounded-2xl bg-gradient-to-br from-[#ff5a5f] to-[#ff5a5f] p-1">
                                         <img
                                             src={userData.avatar}
                                             alt={userData.name}
@@ -214,7 +214,7 @@ export default function ProfilePage() {
                             <div className="flex flex-col gap-3 lg:w-auto">
                                 <Link
                                     href="/bookings"
-                                    className="flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#ff5a5f] to-[#e04850] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-[#ff5a5f]/25 transition-all hover:shadow-xl hover:shadow-[#ff5a5f]/30"
+                                    className="flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#ff5a5f] to-[#ff5a5f] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-[#ff5a5f]/25 transition-all hover:shadow-xl hover:shadow-[#ff5a5f]/30"
                                 >
                                     View My Bookings
                                     <ChevronRight className="size-4" />
@@ -322,7 +322,7 @@ export default function ProfilePage() {
                         </div>
 
                         {/* Referral Card */}
-                        <div className="mt-6 overflow-hidden rounded-2xl bg-gradient-to-br from-[#ff5a5f] to-[#e04850] p-5 text-white">
+                        <div className="mt-6 overflow-hidden rounded-2xl bg-gradient-to-br from-[#ff5a5f] to-[#ff5a5f] p-5 text-white">
                             <div className="mb-3">
                                 <Gift01 className="size-8" />
                             </div>
@@ -438,7 +438,7 @@ export default function ProfilePage() {
                                             <button className="rounded-xl border border-gray-200 px-6 py-3 text-sm font-semibold text-gray-700 transition-all hover:bg-gray-50">
                                                 Cancel
                                             </button>
-                                            <button className="rounded-xl bg-gradient-to-r from-[#ff5a5f] to-[#e04850] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-[#ff5a5f]/25 transition-all hover:shadow-xl">
+                                            <button className="rounded-xl bg-gradient-to-r from-[#ff5a5f] to-[#ff5a5f] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-[#ff5a5f]/25 transition-all hover:shadow-xl">
                                                 Save Changes
                                             </button>
                                         </div>
@@ -507,7 +507,7 @@ export default function ProfilePage() {
                                                     />
                                                 </div>
                                             </div>
-                                            <button className="rounded-xl bg-gradient-to-r from-[#ff5a5f] to-[#e04850] px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-[#ff5a5f]/25 transition-all hover:shadow-xl">
+                                            <button className="rounded-xl bg-gradient-to-r from-[#ff5a5f] to-[#ff5a5f] px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-[#ff5a5f]/25 transition-all hover:shadow-xl">
                                                 Update Password
                                             </button>
                                         </div>
@@ -576,7 +576,7 @@ export default function ProfilePage() {
                                             <h2 className="text-xl font-bold text-gray-900">Payment Methods</h2>
                                             <p className="mt-1 text-sm text-gray-500">Manage your cards and billing</p>
                                         </div>
-                                        <button className="flex items-center gap-2 rounded-xl bg-gradient-to-r from-[#ff5a5f] to-[#e04850] px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-[#ff5a5f]/25 transition-all hover:shadow-xl">
+                                        <button className="flex items-center gap-2 rounded-xl bg-gradient-to-r from-[#ff5a5f] to-[#ff5a5f] px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-[#ff5a5f]/25 transition-all hover:shadow-xl">
                                             <Plus className="size-4" />
                                             Add New Card
                                         </button>
@@ -743,7 +743,7 @@ export default function ProfilePage() {
                                     </div>
 
                                     <div className="mt-8 flex justify-end">
-                                        <button className="rounded-xl bg-gradient-to-r from-[#ff5a5f] to-[#e04850] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-[#ff5a5f]/25 transition-all hover:shadow-xl">
+                                        <button className="rounded-xl bg-gradient-to-r from-[#ff5a5f] to-[#ff5a5f] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-[#ff5a5f]/25 transition-all hover:shadow-xl">
                                             Save Preferences
                                         </button>
                                     </div>
@@ -813,7 +813,7 @@ export default function ProfilePage() {
                                             <button className="rounded-xl border border-gray-200 px-6 py-3 text-sm font-semibold text-gray-700 transition-all hover:bg-gray-50">
                                                 Reset to Defaults
                                             </button>
-                                            <button className="rounded-xl bg-gradient-to-r from-[#ff5a5f] to-[#e04850] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-[#ff5a5f]/25 transition-all hover:shadow-xl">
+                                            <button className="rounded-xl bg-gradient-to-r from-[#ff5a5f] to-[#ff5a5f] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-[#ff5a5f]/25 transition-all hover:shadow-xl">
                                                 Save Preferences
                                             </button>
                                         </div>

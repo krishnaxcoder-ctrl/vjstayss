@@ -177,7 +177,7 @@ export const TrendingDestinations = () => {
                         </button>
                         <button
                             onClick={() => scroll("right")}
-                            className="flex size-12 items-center justify-center rounded-full bg-[#ff5a5f] text-white shadow-sm transition-all hover:bg-[#e04850]"
+                            className="flex size-12 items-center justify-center rounded-full bg-[#ff5a5f] text-white shadow-sm transition-all hover:bg-[#ff5a5f]"
                         >
                             <ArrowRight className="size-5" />
                         </button>
@@ -186,7 +186,7 @@ export const TrendingDestinations = () => {
                     {/* Explore More Button */}
                     <a
                         href="#"
-                        className="inline-flex items-center gap-2 rounded-full bg-[#ff5a5f] px-6 py-3 text-sm font-semibold text-white shadow-lg transition-all hover:bg-[#e04850] hover:shadow-xl"
+                        className="inline-flex items-center gap-2 rounded-full bg-[#ff5a5f] px-6 py-3 text-sm font-semibold text-white shadow-lg transition-all hover:bg-[#ff5a5f] hover:shadow-xl"
                     >
                         Explore More
                         <ArrowUpRight className="size-4" />
