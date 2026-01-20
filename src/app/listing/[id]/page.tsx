@@ -337,6 +337,58 @@ export default function ListingPage() {
 
     const [lightboxOpen, setLightboxOpen] = useState(false);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const [isSaved, setIsSaved] = useState(false);
+    const [showNotification, setShowNotification] = useState(false);
+    const [notificationMessage, setNotificationMessage] = useState("");
+    const [showAllReviews, setShowAllReviews] = useState(false);
+    const [isReserving, setIsReserving] = useState(false);
+
+    // Show notification helper
+    const showToast = (message: string) => {
+        setNotificationMessage(message);
+        setShowNotification(true);
+        setTimeout(() => setShowNotification(false), 3000);
+    };
+
+    // Handle save/unsave
+    const handleSave = () => {
+        setIsSaved(!isSaved);
+        showToast(isSaved ? "Removed from saved" : "Added to saved!");
+    };
+
+    // Handle share
+    const handleShare = async () => {
+        const url = window.location.href;
+        if (navigator.share) {
+            try {
+                await navigator.share({
+                    title: listing.name,
+                    text: `Check out ${listing.name} in ${listing.location}`,
+                    url: url,
+                });
+            } catch (err) {
+                // User cancelled or error
+            }
+        } else {
+            // Fallback: copy to clipboard
+            await navigator.clipboard.writeText(url);
+            showToast("Link copied to clipboard!");
+        }
+    };
+
+    // Handle reserve
+    const handleReserve = () => {
+        setIsReserving(true);
+        setTimeout(() => {
+            setIsReserving(false);
+            showToast("Reservation request sent! We'll contact you shortly.");
+        }, 1500);
+    };
+
+    // Handle contact host
+    const handleContactHost = () => {
+        showToast("Opening chat with host...");
+    };
 
     // Hide scrollbar when lightbox is open
     useEffect(() => {
@@ -399,13 +451,23 @@ export default function ListingPage() {
                             <span>{listing.location}</span>
                         </div>
                         <div className="ml-auto flex items-center gap-3">
-                            <button className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100">
+                            <button
+                                onClick={handleShare}
+                                className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100"
+                            >
                                 <Share07 className="size-4" />
                                 Share
                             </button>
-                            <button className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100">
-                                <Heart className="size-4" />
-                                Save
+                            <button
+                                onClick={handleSave}
+                                className={`flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+                                    isSaved
+                                        ? "bg-[#ff5a5f]/10 text-[#ff5a5f]"
+                                        : "text-gray-700 hover:bg-gray-100"
+                                }`}
+                            >
+                                <Heart className={`size-4 ${isSaved ? "fill-[#ff5a5f]" : ""}`} />
+                                {isSaved ? "Saved" : "Save"}
                             </button>
                         </div>
                     </div>
@@ -524,7 +586,10 @@ export default function ListingPage() {
                                 <div>
                                     <p className="text-gray-600">Joined in {listing.host.joined}</p>
                                     <p className="mt-1 text-gray-600">Response rate: {listing.host.responseRate}</p>
-                                    <button className="mt-4 rounded-lg border border-gray-900 px-6 py-2 font-medium text-gray-900 transition-colors hover:bg-gray-900 hover:text-white">
+                                    <button
+                                        onClick={handleContactHost}
+                                        className="mt-4 rounded-lg border border-gray-900 px-6 py-2 font-medium text-gray-900 transition-colors hover:bg-gray-900 hover:text-white"
+                                    >
                                         Contact Host
                                     </button>
                                 </div>
@@ -591,8 +656,14 @@ export default function ListingPage() {
                             </div>
 
                             {/* Show All Reviews Button */}
-                            <button className="mt-8 rounded-lg border border-gray-900 px-6 py-3 font-medium text-gray-900 transition-colors hover:bg-gray-900 hover:text-white">
-                                Show all {listing.reviews.toLocaleString()} reviews
+                            <button
+                                onClick={() => {
+                                    setShowAllReviews(!showAllReviews);
+                                    showToast(showAllReviews ? "Showing fewer reviews" : "Showing all reviews");
+                                }}
+                                className="mt-8 rounded-lg border border-gray-900 px-6 py-3 font-medium text-gray-900 transition-colors hover:bg-gray-900 hover:text-white"
+                            >
+                                {showAllReviews ? "Show fewer reviews" : `Show all ${listing.reviews.toLocaleString()} reviews`}
                             </button>
                         </div>
                     </div>
@@ -678,8 +749,12 @@ export default function ListingPage() {
                                                             </div>
 
                             {/* Book Button */}
-                            <button className="w-full rounded-xl bg-[#ff5a5f] py-4 text-lg font-semibold text-white transition-colors hover:bg-[#ff5a5f]">
-                                Reserve Now
+                            <button
+                                onClick={handleReserve}
+                                disabled={isReserving}
+                                className="w-full rounded-xl bg-[#ff5a5f] py-4 text-lg font-semibold text-white transition-colors hover:bg-[#ff5a5f] disabled:opacity-70 disabled:cursor-not-allowed"
+                            >
+                                {isReserving ? "Processing..." : "Reserve Now"}
                             </button>
 
                             <p className="mt-4 text-center text-sm text-gray-500">You won't be charged yet</p>
@@ -799,6 +874,20 @@ export default function ListingPage() {
                     />
                 </div>
             )}
+
+            {/* Toast Notification */}
+            <div
+                className={`fixed bottom-6 left-1/2 z-[100] -translate-x-1/2 transform transition-all duration-300 ${
+                    showNotification
+                        ? "translate-y-0 opacity-100"
+                        : "translate-y-4 opacity-0 pointer-events-none"
+                }`}
+            >
+                <div className="flex items-center gap-3 rounded-xl bg-gray-900 px-6 py-4 text-white shadow-lg">
+                    <CheckCircle className="size-5 text-green-400" />
+                    <span className="font-medium">{notificationMessage}</span>
+                </div>
+            </div>
         </div>
     );
 }
