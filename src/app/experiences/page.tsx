@@ -2,6 +2,7 @@
 
 import { ArrowRight, Star01, Clock, Users01, MarkerPin01, Heart, Camera03, Compass, Sun, Waves, Globe01, MusicNote02, Building07, Palette, Calendar, CheckCircle } from "@untitledui/icons";
 import { SiteHeader } from "@/components/layout/site-header";
+import { Button } from "@/components/base/buttons/button";
 import Link from "next/link";
 
 const featuredExperiences = [
@@ -221,23 +222,22 @@ export default function ExperiencesPage() {
 
                             {/* CTA Buttons */}
                             <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-                                <Link
+                                <Button
                                     href="#featured"
-                                    className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-[#ff5a5f] px-8 py-4 text-base font-semibold text-white shadow-lg shadow-[#ff5a5f]/25 transition-all hover:shadow-xl hover:shadow-[#ff5a5f]/30"
+                                    size="xl"
+                                    color="primary"
+                                    iconTrailing={ArrowRight}
                                 >
-                                    <span className="absolute inset-0 bg-gradient-to-r from-[#ff5a5f] to-[#e04850] opacity-0 transition-opacity group-hover:opacity-100"></span>
-                                    <span className="relative flex items-center gap-2">
-                                        Explore Experiences
-                                        <ArrowRight className="size-5 transition-transform group-hover:translate-x-1" />
-                                    </span>
-                                </Link>
-                                <Link
+                                    Explore Experiences
+                                </Button>
+                                <Button
                                     href="#categories"
-                                    className="group inline-flex items-center justify-center gap-2 rounded-full border border-gray-200 bg-white px-8 py-4 text-base font-semibold text-gray-700 shadow-sm transition-all hover:border-gray-300 hover:bg-gray-50"
+                                    size="xl"
+                                    color="secondary"
+                                    iconLeading={Compass}
                                 >
-                                    <Compass className="size-5 text-[#ff5a5f]" />
                                     Browse Categories
-                                </Link>
+                                </Button>
                             </div>
 
                             {/* Stats Row */}

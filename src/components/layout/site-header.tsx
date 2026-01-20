@@ -36,7 +36,7 @@ export const SiteHeader = ({ variant = "dark", className }: SiteHeaderProps) => 
                 )}
             >
                 <div className="mx-auto max-w-8xl">
-                <div className="flex items-center justify-between">
+                <div className="relative flex items-center justify-between">
                     {/* Logo */}
                     <Link href="/" className="flex cursor-pointer items-center">
                         <img
@@ -46,8 +46,8 @@ export const SiteHeader = ({ variant = "dark", className }: SiteHeaderProps) => 
                         />
                     </Link>
 
-                    {/* Desktop Navigation */}
-                    <nav className="hidden items-center gap-1 lg:flex">
+                    {/* Desktop Navigation - Centered */}
+                    <nav className="hidden items-center gap-1 lg:flex absolute left-1/2 -translate-x-1/2">
                         {navLinks.map((link) => (
                             <Link
                                 key={link.label}

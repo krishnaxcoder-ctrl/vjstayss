@@ -390,8 +390,7 @@ export default function HotelsPage() {
                             </div>
 
                             {/* Search Button */}
-                            <Button size="lg" className="bg-[#ff5a5f] hover:bg-[#e04850] px-8 py-4 h-auto">
-                                <SearchMd className="mr-2 size-5" />
+                            <Button size="xl" color="primary" iconLeading={SearchMd}>
                                 Search
                             </Button>
                         </div>
@@ -854,7 +853,9 @@ export default function HotelsPage() {
                                 </p>
                                 <Button
                                     onClick={clearAllFilters}
-                                    className="mt-6 bg-[#ff5a5f] hover:bg-[#e04850]"
+                                    size="lg"
+                                    color="primary"
+                                    className="mt-6"
                                 >
                                     Clear All Filters
                                 </Button>
@@ -865,8 +866,8 @@ export default function HotelsPage() {
                         {sortedHotels.length > 0 && (
                             <div className="mt-8 flex justify-center">
                                 <Button
-                                    size="lg"
-                                    className="border-2 border-gray-200 bg-white text-gray-700 hover:border-[#ff5a5f] hover:bg-[#ff5a5f]/5 hover:text-[#ff5a5f]"
+                                    size="xl"
+                                    color="secondary"
                                 >
                                     Load More Hotels
                                 </Button>
@@ -1113,13 +1114,17 @@ export default function HotelsPage() {
                         <div className="fixed bottom-0 left-0 right-0 flex gap-3 border-t border-gray-200 bg-white p-4">
                             <Button
                                 onClick={clearAllFilters}
-                                className="flex-1 border-2 border-gray-200 bg-white text-gray-700"
+                                size="lg"
+                                color="secondary"
+                                className="flex-1"
                             >
                                 Clear All
                             </Button>
                             <Button
                                 onClick={() => setShowMobileFilters(false)}
-                                className="flex-1 bg-[#ff5a5f] hover:bg-[#e04850]"
+                                size="lg"
+                                color="primary"
+                                className="flex-1"
                             >
                                 Show {sortedHotels.length} Hotels
                             </Button>

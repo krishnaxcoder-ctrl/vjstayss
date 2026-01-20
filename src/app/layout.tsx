@@ -31,7 +31,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" suppressHydrationWarning>
-            <body className={cx(plusJakarta.variable, "font-sans bg-white antialiased")}>
+            <body className={cx(plusJakarta.variable, "font-sans bg-white antialiased")} suppressHydrationWarning>
                 <RouteProvider>
                     <Theme>
                         {children}
