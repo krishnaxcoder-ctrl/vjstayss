@@ -33,6 +33,7 @@ import {
     List,
 } from "@untitledui/icons";
 import { Toggle } from "@/components/base/toggle/toggle";
+import { Button } from "@/components/base/buttons/button";
 import { AuthModal } from "@/components/auth/auth-modal";
 import { cx } from "@/utils/cx";
 
@@ -278,7 +279,7 @@ const hotelFacilities = [
 function SearchPageContent() {
     const searchParams = useSearchParams();
     const router = useRouter();
-    const searchLocation = searchParams.get("location") || "Search hotels nearby";
+    const searchLocation = searchParams.get("location") || "";
 
     const [mapView, setMapView] = useState(false);
     const [mobileMapView, setMobileMapView] = useState(false);
@@ -836,10 +837,14 @@ function SearchPageContent() {
                         </a>
                         <div className="hidden h-5 w-px bg-gray-300 xl:block" />
                         <AuthModal>
-                            <button type="button" className="flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-gray-900">
-                                <User01 className="size-5" />
+                            <Button
+                                color="tertiary"
+                                size="sm"
+                                iconLeading={User01}
+                                className="text-gray-700 hover:text-gray-900"
+                            >
                                 <span className="hidden lg:inline">Login / Signup</span>
-                            </button>
+                            </Button>
                         </AuthModal>
                     </div>
                 </div>
@@ -953,12 +958,15 @@ function SearchPageContent() {
                                                         <p className="text-xs text-gray-400">Enjoy up to 15% extra discount on your bookings</p>
                                                     </div>
                                                 </div>
-                                                <button
-                                                    type="button"
-                                                    className="hidden rounded-md bg-white px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 lg:block"
-                                                >
-                                                    Login
-                                                </button>
+                                                <AuthModal>
+                                                    <Button
+                                                        color="secondary"
+                                                        size="sm"
+                                                        className="hidden lg:inline-flex"
+                                                    >
+                                                        Login
+                                                    </Button>
+                                                </AuthModal>
                                             </div>
                                         </div>
                                     )}
