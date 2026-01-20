@@ -3,6 +3,7 @@
 import { DealsSection } from "@/components/booking/deals-section";
 import { PropertyTypes } from "@/components/booking/property-types";
 import { TrendingDestinations } from "@/components/booking/trending-destinations";
+import { FAQSection } from "@/components/faq/faq-section";
 import { HeroSection } from "@/components/hero/hero-section";
 import { LanderHero } from "@/components/lander/lander-hero";
 import { SiteHeader } from "@/components/layout/site-header";
@@ -17,6 +18,7 @@ export const HomeScreen = () => {
             <PropertyTypes />
             <DealsSection />
             <TestimonialsSection />
+            <FAQSection />
             <LanderHero />
         </div>
     );
