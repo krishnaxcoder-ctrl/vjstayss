@@ -632,20 +632,50 @@ export default function ListingPage() {
                                         icon={Calendar}
                                     />
                                 </div>
+                                <div className="grid grid-cols-2 gap-4">
+                                    <Select
+                                        label="Guests"
+                                        placeholder="Select guests"
+                                        selectedKey="2"
+                                        items={[
+                                            { id: "1", label: "1 guest" },
+                                            { id: "2", label: "2 guests" },
+                                            { id: "3", label: "3 guests" },
+                                            { id: "4", label: "4 guests" },
+                                            { id: "5", label: "5 guests" },
+                                            { id: "6", label: "6+ guests" },
+                                        ]}
+                                    >
+                                        {(item) => <Select.Item id={item.id} key={item.id}>{item.label}</Select.Item>}
+                                    </Select>
+                                    <Select
+                                        label="Rooms"
+                                        placeholder="Select rooms"
+                                        selectedKey="1"
+                                        items={[
+                                            { id: "1", label: "1 room" },
+                                            { id: "2", label: "2 rooms" },
+                                            { id: "3", label: "3 rooms" },
+                                            { id: "4", label: "4 rooms" },
+                                        ]}
+                                    >
+                                        {(item) => <Select.Item id={item.id} key={item.id}>{item.label}</Select.Item>}
+                                    </Select>
+                                </div>
                                 <Select
-                                    label="Guests"
-                                    placeholder="Select guests"
-                                    selectedKey="2"
+                                    label="Room Type"
+                                    placeholder="Select room type"
+                                    selectedKey="standard"
                                     items={[
-                                        { id: "1", label: "1 guest" },
-                                        { id: "2", label: "2 guests" },
-                                        { id: "3", label: "3 guests" },
-                                        { id: "4", label: "4 guests" },
+                                        { id: "standard", label: "Standard Room" },
+                                        { id: "deluxe", label: "Deluxe Room" },
+                                        { id: "suite", label: "Suite" },
+                                        { id: "premium", label: "Premium Suite" },
                                     ]}
                                 >
                                     {(item) => <Select.Item id={item.id} key={item.id}>{item.label}</Select.Item>}
                                 </Select>
-                            </div>
+                                                            </div>
 
                             {/* Book Button */}
                             <button className="w-full rounded-xl bg-[#ff5a5f] py-4 text-lg font-semibold text-white transition-colors hover:bg-[#ff5a5f]">
